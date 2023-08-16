@@ -1,0 +1,70 @@
+body{
+    overflow-x: hidden;
+    position: relative;
+}
+
+.dashboard-body{
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.projects-and-boards{
+    margin-top: 2rem;
+}
+
+.project{
+    padding: 1rem 4rem;
+    background-color: inherit;
+}
+
+.project-name{
+    width: 100%;
+}
+
+.project-boards{
+    width: 100%;
+}
+
+.board{
+    border-radius: 1rem;
+    color: white;
+    width: 25%;
+    height:15rem;
+    
+}
+
+.board:hover .board-buttons{
+    display: block;
+}
+
+.board-insight{
+    background-color: skyblue;
+    border: 2px solid grey;
+    border-radius: 1rem;
+    height: inherit;
+    position: relative;
+}
+
+.board-details{
+    margin-top: 1.5rem;
+    text-align: center;
+    justify-content: center;
+    overflow-wrap:break-word;
+    
+}
+
+.board-button-div{
+    background-color: rgb(218, 233, 240);
+    border-top: 2px solid grey;
+    border-left: 2px solid grey;
+    border-right: 2px solid grey;
+    border-bottom: 0;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.board-buttons{
+    display: none;
+    position: absolute;
+    left: 15%;
+    bottom: 1rem;
+}

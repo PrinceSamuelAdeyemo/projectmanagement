@@ -1,0 +1,86 @@
+
+/*
+#personallogin{
+    display: block;
+}
+
+#businesslogin{
+    display: none;
+}
+*/
+.navbar-topics{
+    margin: auto;
+}
+
+.all{
+    background-color: white;
+    width: 100%;
+    
+    position:relative;
+    height: 100%;
+}
+
+.all-login{
+    width: 30%;
+    background-color: black;
+    
+    position: absolute;
+}
+
+.text-login{
+    position: relative;
+    background-color: inherit;
+    height: 100vh;
+}
+
+.text-login-subdiv{
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    background-color: inherit;
+}
+
+.input-login{
+    position: relative;
+}
+
+.input-login-subdiv{
+    
+    position: absolute;
+    width: 60%;
+    top: 30%;
+    right: 30%;
+    border: 2px solid #4b43435f;
+    border-radius: 1rem;
+}
+
+.input-signup{
+    position: relative;
+}
+
+.input-signup-subdiv{
+    
+    position: absolute;
+    width: 60%;
+    top: 10%;
+    right: 30%;
+    border: 2px solid #4b43435f;
+    border-radius: 1rem;
+}
+
+#personalSignupForm{
+    display: block;
+}
+
+#businessSignupForm{
+    display: none;
+}
+
+#personalLoginForm{
+    display: block;
+}
+
+#businessLoginForm{
+    display: none;
+}
+
