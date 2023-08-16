@@ -1,0 +1,19 @@
+.footerBlack{
+    display: flex;
+    float: none;
+    color: white;
+    background-color: black;
+}
+
+.logofooter{
+    float: left;
+}
+
+.centerfooter{
+    justify-content: center;
+    align-items: center;
+}
+
+.contactfooter{
+    float: right;
+}
