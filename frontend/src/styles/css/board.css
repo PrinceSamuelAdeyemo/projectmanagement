@@ -1,8 +1,6 @@
 .projectContainer{
     padding: 0;
-    margin: 0;
-    color: white;
-    background-color: black;
+    margin-bottom: 4rem;
 }
 
 .projectName{
@@ -13,14 +11,70 @@
 
 }
 
+.boardParent{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 2rem;
+}
+
+.eachboard{
+    
+    border: 0.05rem solid black;
+    border-radius: .5rem;
+}
+
+.eachboardsubdiv{
+   display: flex;
+   flex-direction: row;
+}
+
+.boardNameInput{
+    margin: 1rem auto;
+    border: none;
+    height: 2rem;
+    padding: 0;
+    width: 75%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.boardNameinput:focus{
+    border: 0.01rem solid black;
+    border-radius: 0.5rem;
+}
+
+.boardNameText{
+    font-size: medium;
+    font-weight: bold;
+}
+
+.deleteBoard{
+    float: right;
+    margin-right: .5rem;
+    border: none;
+    border-radius: 2rem;
+    background-color: transparent;
+}
+
 .boardTasks{
-
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
 }
 
-.boardTaskName{
-
+.eachboardTask{
+    align-self: center;
+    width: 90%;
+    margin: .3rem;
+    background-color: aliceblue;
+    padding: 0 1rem;
+    border-radius: .5rem;
 }
 
-.subTasks{
-
+.eachboard_addTask{
+    align-self: center;
+    width: 90%;
+    background-color:rgb(197, 221, 243);
+    border-radius: .5rem;
+    
 }
