@@ -27,7 +27,9 @@ const Boards = () => {
 
             <div class="p-2">
                 <div class="project-n-search w-100">
-                    <a href="">Back</a>
+                    <button>
+                        <span><i className='fa fa-arrow-left'></i></span>
+                    </button>
                     <div class="row px-5 w-100">
                         <div class="col-6">
                             <h3 class="d-md-inline fw-bold" id="totalproject-count">Projects (5)</h3>

@@ -546,18 +546,7 @@ const CreateBoard = () => {
                     </div>
                 </div>
             </div>
-
-
-            <div>
-                <div className='my-dropdiv' id='my-dropdiv'>
-                    <button type='button' id='dropdownbutton' onClick= {(event) => (dropdownfunc(event))}>Button drop</button>
-                    <div className='lildropdiv' id='lildropdiv'>
-                        <button>First drop</button>
-                        <button>Second drop</button>
-                    </div>
-                </div>
-            </div>
-
+            
 
         </div>
 

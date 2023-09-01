@@ -42,7 +42,7 @@ const Board = () => {
                 <div className='col-md-3'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' />
+                      <input className='boardNameInput' type='text' placeholder='Board Name' />
                       <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
                     <div className='boardTasks'>
