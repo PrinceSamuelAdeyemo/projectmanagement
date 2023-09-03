@@ -27,9 +27,7 @@ const Boards = () => {
 
             <div class="p-2">
                 <div class="project-n-search w-100">
-                    <button>
-                        <span><i className='fa fa-arrow-left'></i></span>
-                    </button>
+                    
                     <div class="row px-5 w-100">
                         <div class="col-6">
                             <h3 class="d-md-inline fw-bold" id="totalproject-count">Projects (5)</h3>
@@ -37,19 +35,13 @@ const Boards = () => {
                         <div class=" col-6">
                             <input type="search" class="mt-2 float-end" placeholder='Search Board...' />
                         </div>
-                        <h3 class="d-md-inline fw-bold" id="totalboard-count">Total Boards (17)</h3>
+                        
                     </div>
                     
                     
                 </div>
                 <div class="projects-and-boards">
                     <div class="project">
-                        <div class="project-name">
-                            <h3 class="d-inline">Project 1</h3>
-                            <button class="btn d-inline ms-auto float-end">See More...</button>
-                            
-                        </div>
-
                         <div class="project-boards row row-cols-4 g-1 w-100">
                             <div class="board p-1">
                                 <div class="board-insight">
@@ -147,93 +139,6 @@ const Boards = () => {
 
 
 
-                    <div class="project">
-                        <div class="project-name">
-                            <h3 class="d-inline">Project 2</h3>
-                            <button class="btn d-inline ms-auto float-end">See More...</button>
-                            
-                        </div>
-
-                        <div class="project-boards row row-cols-4 g-1 w-100">
-                            <div class="board p-1">
-                                <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
-                                    </div>
-                                    
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description</p>
-                                    </div>
-                                    <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="board p-1">
-                                <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
-                                    </div>
-                                    
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description</p>
-                                    </div>
-                                    <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="board p-1">
-                                <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
-                                    </div>
-                                    
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description</p>
-                                    </div>
-                                    <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="board p-1">
-                                <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
-                                    </div>
-                                    
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description</p>
-                                    </div>
-                                    <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="board p-1">
-                                <div class="board-button-div text-center p-5">             
-                                    <button class="btn btn-primary" id="create-board">Create a board</button>
-                                </div>
-                            </div>
-                            
-                        </div>  
-                        {/*<!--  
-                        <div class="d-inline">
-                            <button class="btn btn-primary" id="create-board">Create a board</button>
-                        </div>
-                    -->*/}
-                    </div>
-                    
                 </div>
 
                 
