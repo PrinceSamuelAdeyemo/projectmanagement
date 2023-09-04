@@ -196,7 +196,6 @@ const Login = () => {
             <title></title>
             
         </Helmet>
-        <NavbarAnonymous />
 
         <div>
             <div className="container-fluid p-0">

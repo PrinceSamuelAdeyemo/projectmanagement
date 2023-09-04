@@ -97,277 +97,16 @@ const Board = () => {
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p className='eachboardTaskInput'>Proof Of Concept</p>
                       </div>
-                      <div className='eachboardTask'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p>Regression Test</p>
                       </div>
-                      <div className='eachboardTask'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p>Setup monitoring and controlling process</p>
                       </div>
-                      <div className='eachboardTask'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      
-                      <div className='eachboardTask'>
-                        <p>Requirement analysis completed</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1'>
-                    <div className='eachboard'>
-                      <div className='eachboardsubdiv'>
-                        
-                        <input className='boardNameInput' type='text' placeholder='+ Add a card'/>
-                        <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                      </div>
-                      <div className='boardTasks'>
-                        <div className='eachboardTask'>
-                          <p>Proof Of Concept</p>
-                        </div>
-                        <div className='eachboardTask'>
-                          <p>Regression Test</p>
-                        </div>
-                        <div className='eachboardTask'>
-                          <p>Setup monitoring and controlling process</p>
-                        </div>
-                        
-                        <div className='eachboard_addTask p-1'>
-                          <button>+ Add Task</button>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1'>
-                    <div className='eachboard'>
-                      <div className='eachboardsubdiv'>
-                        
-                        <input className='boardNameInput' type='text'placeholder='+ Add a card' />
-                        <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                      </div>
-                      <div className='boardTasks'>
-                        <div className='eachboardTask'>
-                          <p>Proof Of Concept</p>
-                        </div>
-                        <div className='eachboardTask'>
-                          <p>Regression Test</p>
-                        </div>
-                        <div className='eachboardTask'>
-                          <p>Setup monitoring and controlling process</p>
-                        </div>
-                        <div className='eachboardTask'>
-                          <p>Requirement analysis completed</p>
-                        </div>
-                        <div className='eachboard_addTask p-1'>
-                          <button>+ Add Task</button>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Setup monitoring and controlling process</p>
-                      </div>
-                      
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-                
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Setup monitoring and controlling process</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Requirement analysis completed</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Setup monitoring and controlling process</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Requirement analysis completed</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask'>
-                        <p>Proof Of Concept</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask'>
-                        <p>Setup monitoring and controlling process</p>
-                      </div>
-                      <div className='eachboardTask'>
                         <p>Requirement analysis completed</p>
                       </div>
                       <div className='eachboard_addTask p-1'>
@@ -389,15 +128,15 @@ const Board = () => {
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p className='eachboardTaskInput'>Proof Of Concept</p>
                       </div>
-                      <div className='eachboardTask'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p>Regression Test</p>
                       </div>
-                      <div className='eachboardTask'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p>Setup monitoring and controlling process</p>
                       </div>
-                      <div className='eachboardTask'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
                         <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
                         <p>Requirement analysis completed</p>
                       </div>
@@ -405,6 +144,312 @@ const Board = () => {
                         <button>+ Add Task</button>
                       </div>
                     </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    <div className='boardTasks'>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Regression Test</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Setup monitoring and controlling process</p>
+                      </div>
+                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
+                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
+                        <p>Requirement analysis completed</p>
+                      </div>
+                      <div className='eachboard_addTask p-1'>
+                        <button>+ Add Task</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv'>
+                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
+                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    
                     
                   </div>
                 </div>
