@@ -50,17 +50,18 @@
    flex-direction: row;
 }
 
-.boardNameInput{
+.cardNameInput{
     margin: 1rem auto;
     border: none;
     height: 2rem;
     padding: 0;
-    width: 75%;
+    width: 100%;
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
 }
 
-.boardNameinput:focus{
+.cardNameinput:focus{
     border: 0.01rem solid black;
     border-radius: 0.5rem;
 }
@@ -70,7 +71,7 @@
     font-weight: bold;
 }
 
-.deleteBoard{
+.deleteCard{
     float: right;
     margin-right: .5rem;
     border: none;
@@ -82,40 +83,72 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 1rem;
-    max-height: 19rem;
+    max-height: 20rem;
     overflow-y:auto;
 }
 
-.eachboardTask{
+.eachCardTask{
     align-self: center;
     width: 90%;
     margin: .3rem;
     background-color: aliceblue;
     padding: 0 1rem;
     border-radius: .5rem;
+    display: flex;
+    max-height: 3rem;
     
 }
 
-.eachboardTask:hover{
+.eachCardTask:hover{
     border: 1px solid gray;
+    height: inherit;
+
 }
 
-.eachboardTaskCancel{
+.eachCardTaskName{
+    border: none;
+    width: 100%;
+    /*background-color: transparent;*/
+    text-align: left;
+    height: inherit;
+    overflow-wrap:break-word;
+}
+
+.nn{
+    height:5rem;
+    width: 10rem;
+    text-overflow:ellipsis;
+    overflow: auto;
+}
+
+.eachCardTaskCancel{
     float: right;
+    
     border: none;
     border-radius: 2rem;
+    
     background-color: transparent;
     display: none;
+
+    margin: auto;
 }
 
-.eachboardTask:hover .eachboardTaskCancel{
+.eachCardTask:hover .eachCardTaskCancel{
     display: flex;
 }
 
-.eachboard_addTask{
+.eachCard_addTask{
     align-self: center;
     width: 90%;
     background-color:rgb(197, 221, 243);
     border-radius: .5rem;
-    
+    margin: 0.5rem 0;
+}
+
+
+
+.addTask{
+    width: 100%;
+    background: transparent;
+    border: none;
 }
