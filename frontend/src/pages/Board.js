@@ -125,9 +125,7 @@ const Board = () => {
               <div className='projectDescription'>
                 <p>This is a safe space for the project description</p>
               </div>
-              <button><input type='text' className='nn'/></button>
-              <br/>
-              <input type='text' className='nn'/>
+              
               <div className='row gx-4 boardParent'>
 
                 <div className='col-md-3 p-1'>
@@ -139,17 +137,17 @@ const Board = () => {
                     <div className='boardTasks' id='boardTasks'>
 
                       <div className='eachCardTask'>
-                        <input type='button' value='Proof of Concept' className='eachCardTaskName' onClick={(event) => editBoardTask(event)} />
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
                         <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
 
                       <div className='eachCardTask'>
-                        <input type='button' value='Regression Test' className='eachCardTaskName' onClick={(event) => editBoardTask(event)} />
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
                         <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
 
                       <div className='eachCardTask'>
-                        <input type='button' value='Setup monitoring and controlling process' className='eachCardTaskName' onClick={(event) => editBoardTask(event)} />
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
                         <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
                       
@@ -167,29 +165,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -198,29 +200,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -229,29 +235,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -260,45 +270,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
-                      </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -307,29 +305,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -338,29 +340,33 @@ const Board = () => {
                 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -369,29 +375,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -400,29 +410,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -431,29 +445,33 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
                     
@@ -462,31 +480,46 @@ const Board = () => {
 
                 <div className='col-md-3 p-1'>
                   <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
-                    <div className='boardTasks'>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p className='eachboardTaskInput'>Proof Of Concept</p>
+                    <div className='boardTasks' id='boardTasks'>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Regression Test</p>
+                      
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Setup monitoring and controlling process</p>
+
+                      <div className='eachCardTask'>
+                        <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboardTask' onClick={editBoardTask} onContextMenu={editBoardTask}>
-                        <button className='eachboardTaskCancel'><span><i className='fa fa-xmark'></i></span></button>
-                        <p>Requirement analysis completed</p>
+                      
+                      <div className='eachCardTask'>
+                        <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
+                        <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
                       </div>
-                      <div className='eachboard_addTask p-1'>
-                        <button>+ Add Task</button>
+                      <div className='eachCard_addTask p-1'>
+                        <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
                       </div>
                     </div>
+                    
+                  </div>
+                </div>
+
+                <div className='col-md-3 p-1'>
+                  <div className='p-1 eachboard'>
+                    <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
+                    </div>
+                    
                     
                   </div>
                 </div>

@@ -206,16 +206,18 @@ const Dashboard = () => {
         //getBoard('get');
         
 
+        /*
         const socket = socketIOClient('http://localhost:8000');
         socket.on('boards-data', (data) => {
             console.log('Socket is on')
             //setTotalCount(data.total_count);
         });
+        */
 
     return () => {
-      socket.disconnect();
+      //socket.disconnect();
     };
-    }, [board])
+    }, [])
 
   return (
 

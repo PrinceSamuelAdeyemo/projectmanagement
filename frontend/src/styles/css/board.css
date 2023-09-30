@@ -108,7 +108,7 @@
 .eachCardTaskName{
     border: none;
     width: 100%;
-    /*background-color: transparent;*/
+    background-color: transparent;
     text-align: left;
     height: inherit;
     overflow-wrap:break-word;
