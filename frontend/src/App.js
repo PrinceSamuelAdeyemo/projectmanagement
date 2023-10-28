@@ -81,8 +81,9 @@ function App() {
         </Routes>
       </div>
     </Router>
-    </div>
     <Footer/>
+    </div>
+    
     </HelmetProvider>
     
 

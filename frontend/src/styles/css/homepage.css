@@ -6,6 +6,8 @@
     width: 100%;
     /*background: radiant-gradient(to right, white 90%, blue);*/
     background: radial-gradient(circle farthest-corner at bottom right, lightblue, white 35%);
+    
+    
 }
 
 .headline-child{

@@ -209,7 +209,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="input-login col-12 col-md-6">
-                        <div className="input-login-subdiv">
+                        <div className="input-login-subdiv pb-4">
                             
                             <form method="POST" onSubmit={PersonalorBusiness}>
                                 {/* {% csrf_token %} */}
@@ -223,10 +223,7 @@ const Login = () => {
                                     </div>
                                 </div>
                             </form>
-            
-                            
-                                
-            
+                        
                             <form id="personalLoginForm" name="personalLoginForm" className="form" method="POST" onSubmit={(event) => submitLoginDetails(event, 'personalLoginForm')}>
                                 {/* {% csrf_token %} */}
                                 <div>
@@ -244,7 +241,7 @@ const Login = () => {
                                         <input id="password" name="password" type="password" className="form-control" onChange={updatePersonalDetails} />
                                     </div>
                 
-                                    <button type="submit" name="personalSignin" id="personalSignin" className="btn btn-primary">Sign in</button>
+                                    <button type="submit" name="personalSignin" id="personalSignin" className="btn btn-primary mt-2">Sign in</button>
                 
                                     <div className="form-group text-center mt-2">
                                         <p className="form-control-plaintext">Don't have an account? <span><Link className="signup-link" to="/signup">Sign Up</Link></span></p>
@@ -252,7 +249,7 @@ const Login = () => {
                                 </div>
                             </form>
                             
-                            {/* <!-- For business login --> */}
+                            {/* For business login  */}
                             <form id="businessLoginForm" name="businessLoginForm" className="form" method="POST" >   
                                 {/* {% csrf_token %} */}
                                 <div className="businesslogin" id="businesslogin">
@@ -265,16 +262,13 @@ const Login = () => {
                                         <input id="businesspassword" name="businesspassword" type="password" className="form-control" onChange={updateBusinessDetails} />
                                     </div>
                 
-                                    <button type="submit" name="businessSignin" id="businessSignin" className="btn btn-primary">Sign in</button>
+                                    <button type="submit" name="businessSignin" id="businessSignin" className="btn btn-primary mt-2">Sign in</button>
                 
                                     <div className="form-group text-center mt-2">
                                         <p className="form-control-plaintext">Haven't Registered? <span><Link className="signup-link" to="/signup">Sign Up</Link></span></p>
                                     </div>
                                 </div>
                             </form>
-                            
-                            
-                            <br />
                         </div>
                     </div>
                     
