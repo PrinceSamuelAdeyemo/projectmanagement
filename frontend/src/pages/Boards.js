@@ -33,7 +33,7 @@ const Boards = () => {
                             <h3 class="d-md-inline fw-bold" id="totalproject-count">Projects (5)</h3>
                         </div>
                         <div class=" col-6">
-                            <input type="search" class="mt-2 float-end" placeholder='Search Board...' />
+                            <input type="search" class="search_board mt-2 float-end" placeholder='Search Board...' />
                         </div>
                         
                     </div>
@@ -113,9 +113,9 @@ const Boards = () => {
                                         <button class="btn float-end">X</button>
                                     </div>
                                     
-                                    <div class="board-details p-1">
+                                    <div class="board-details p-3 pt-1">
                                         <p>Board title</p>
-                                        <p>Board Description  n  fvn vno vvrn ovn fvnfvrp pfv vvfijvfv invvnf vfvpn rfhfihr irhrf rifrf rirf rirr rirjfr rirjr riff rirr rfrjfrr firferf frfjri.</p>
+                                        <p>Board Description  n  fvn vno vvrn ovn fvnfvrp pfv vvfijvfv invvnf vfvpn rfhfihr irhrf rifrf rirf rirr rirjfr rirjr riff rirr rfrjfrr</p>
                                     </div>
                                     <div class="p-1 text-center px-2 board-buttons">
                                         <button class="btn btn-info me-2">Open board</button>

@@ -23,26 +23,53 @@ body{
 
 .project-boards{
     width: 100%;
+    padding: 2rem;
+
+    
+}
+
+.search_board{
+    width: 60%;
+    border-radius: 0.4rem;
 }
 
 .board{
-    border-radius: 1rem;
+    /*border-radius: 1rem;*/
     color: white;
+    background-color: yellow;
     width: 25%;
     height:15rem;
     
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.board-insight{
+    background: linear-gradient(to bottom, skyblue, white);
+    /*color: linear-gradient(to bottom, skyblue, white);*/
+    /*
+    border: 2px solid grey;
+    border-radius: 1rem;
+    
+    height: inherit;
+    */
+    height: 100%;
+    width: 90%;
+    position: relative;
+/*
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-top: 2px solid gray;
+    border-left: 20px solid currentColor;
+    border-right: 2px solid initial;
+    border-bottom: inherit;
+    
+*/
 }
 
 .board:hover .board-buttons{
     display: block;
-}
-
-.board-insight{
-    background-color: skyblue;
-    border: 2px solid grey;
-    border-radius: 1rem;
-    height: inherit;
-    position: relative;
 }
 
 .board-details{
@@ -50,17 +77,22 @@ body{
     text-align: center;
     justify-content: center;
     overflow-wrap:break-word;
-    
+    font-weight: 400;
+}
+
+.board-details p:first-of-type{
+    font-weight: bold;
 }
 
 .board-button-div{
-    background-color: rgb(218, 233, 240);
+    background-color: inherit;
     border-top: 2px solid grey;
     border-left: 2px solid grey;
     border-right: 2px solid grey;
-    border-bottom: 0;
+    border-bottom: inherit;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    height: inherit;
 }
 .board-buttons{
     display: none;

@@ -4,8 +4,7 @@
     align-items: center;
     height: 60vh;
     width: 100%;
-    /*background: radiant-gradient(to right, white 90%, blue);*/
-    background: radial-gradient(circle farthest-corner at bottom right, lightblue, white 35%);
+    background: radial-gradient(circle farthest-corner at top left, lightblue, white 50%, lightblue);
     
     
 }

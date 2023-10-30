@@ -1,17 +1,26 @@
 .footerBlack{
     display: flex;
     float: none;
-    color: white;
-    background-color: black;
+    background-color: whitesmoke;
+    padding: 1.5rem;
+}
+
+.hr_div{
+    width: 100%;
 }
 
 .logofooter{
     float: left;
+    width: 30%;
 }
 
 .centerfooter{
     justify-content: center;
+    text-align: center;
     align-items: center;
+    float: left;
+    width: 40%;
+    
 }
 
 .contactfooter{
