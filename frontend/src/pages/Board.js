@@ -95,7 +95,7 @@ const Board = () => {
             <div className="projectContainer">
               <div className='projectName'>
                 <h3 className='d-inline'><span className='pe-2'><i className="fa fa-angle-left"></i></span></h3>
-                <h1 className='d-inline'>Board Name</h1>
+                <h2 className='d-inline'>Board Name</h2>
               </div>
               <div className='editaddTask' id='editaddTask'>
                 <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
@@ -128,7 +128,7 @@ const Board = () => {
               
               <div className='row gx-4 boardParent'>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -163,7 +163,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -198,7 +198,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -233,7 +233,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -268,7 +268,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -303,7 +303,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -338,7 +338,7 @@ const Board = () => {
                   </div>
                 </div>
                 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -373,7 +373,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -408,7 +408,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -443,7 +443,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -478,7 +478,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -513,7 +513,7 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
+                <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
                       <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
@@ -524,17 +524,6 @@ const Board = () => {
                   </div>
                 </div>
 
-                <div className='col-md-3 p-1'>
-                  <div className='p-1 eachboard'>
-                    <div className='eachboardsubdiv'>
-                      <input className='boardNameInput' type='text' placeholder='+ Add a card' />
-                      <button className='deleteBoard'><span><i className='fa fa-xmark'></i></span></button>
-                    </div>
-                    
-                    
-                  </div>
-                </div>
-                
               </div>
 
             </div>

@@ -8,6 +8,10 @@ body{
     height: 100vh;
 }
 
+.container-body{
+    /*transform: rotate(30deg) scale(0.5, 0.5) ;*/
+}
+
 .projects-and-boards{
     margin-top: 2rem;
 }
@@ -15,6 +19,7 @@ body{
 .project{
     padding: 1rem;
     background-color: inherit;
+    
 }
 
 .project-name{

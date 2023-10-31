@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 
 import jQuery from 'jquery';
 
+
 const jquery = require("jquery");
 /*
 jQuery(function($){
@@ -150,6 +151,7 @@ calendar: 'chinese',
 */
 
 var launchcreateproject = () => {
+    
     if (window.fetch){
         fetch('http:127.0.0.1:8000/api/get_loginstatus')
         .then(response => response.json())
@@ -183,6 +185,7 @@ const Homepage = () => {
             <link rel="stylesheet" href="css/login.css" />
             <link rel="stylesheet" href="css/homepage.css" />
 
+            
             {/*
             <script defer src="../styles/css/Jquery/jquery.js"></script>
             <script src="{% static 'assets/css/bootstrap/js/bootstrap.bundle.js' %}"></script>
@@ -251,13 +254,13 @@ const Homepage = () => {
                                 <p>Manage your boards using Drag-n-Drop, create additional boards and tasks.</p>
                             </div>
                             <div className="workflow-img contentpic-div col-md-7">
-                                <img src="assets/sets/DALL·E 2023-02-05 16.06.55 - A workflow of a project management software that has a drag-and-drop, create boards and tasks features. With white and light blue as background.png" alt="Just an image, you know?" className="contentpic" />
+                                <img src={require('../images/project pic 1.png')} alt="Just an image, you know?" className="contentpic" />
                             </div>
                         </div>
 
                         <div className="package-contents row pt-5">
                             <div className="package-img contentpic-div text-end col-md-7">
-                                <img src="assets/sets/DALL·E 2023-02-05 16.07.02 - A workflow of a project management software that has a drag-and-drop, create boards and tasks features. With white and light blue as background.png" alt="Just an image, you know?" className="contentpic" />
+                                <img src={require('../images/project pic 2.png')} alt="Just an image, you know?" className="contentpic" />
                             </div>
                             <div className="package-text col-md-5 pt-md-5">
                                 <p>Optimized</p>
@@ -274,7 +277,7 @@ const Homepage = () => {
                                 <p>Unlimited different boards, columns and tasks.</p>
                             </div>
                             <div className="limitation-img contentpic-div col-md-7">
-                                <img src="assets/sets/DALL·E 2023-02-05 16.25.50 - specifying info in task description and assign users features in project management software. With white and light blue 3d as background.png" alt="Just an image, you know?" className="contentpic" />
+                                <img src={require('../images/project pic 3.png')} alt="Just an image, you know?" className="contentpic" />
                             </div>
                         </div>
                     </div>

@@ -25,7 +25,7 @@ const Boards = () => {
             
             {/* {% include 'navbar-all.html' %} */}
 
-            <div class="p-2">
+            <div class="container-body">
                 <div class="project-n-search w-100">
                     
                     <div class="row px-5 w-100">
@@ -125,8 +125,8 @@ const Boards = () => {
                                     </div>
                                     
                                     <div class="board-details p-3 pt-1">
-                                        <p>Board title</p>
-                                        <p>Board Description  n  fvn vno vvrn ovn fvnfvrp pfv vvfijvfv invvnf vfvpn rfhfihr irhrf rifrf rirf rirr rirjfr rirjr riff rirr rfrjfrr</p>
+                                        <p>Article</p>
+                                        <p>Accept and crave responsibility; owns their actions and commit to getting things done.</p>
                                     </div>
                                     <div class="p-1 text-center px-2 board-buttons">
                                         <button class="btn btn-info me-2">Open board</button>
