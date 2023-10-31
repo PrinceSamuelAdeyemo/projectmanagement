@@ -45,65 +45,76 @@ const Boards = () => {
                         <div class="project-boards row row-cols-4 g-1">
                             <div class="board">
                                 <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
+                                    <div class="button-x-deletediv">
+                                        <button class="btn float-end button-x-delete">X</button>
                                     </div>
                                     
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Sets targets and objectives and actively work towards them, whilst rasing the quality of the outcomes</p>
+                                    <div class="board-details">
+                                        <div>
+                                            <p>Package</p>
+                                            <p>Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.</p>
+                                        </div>
+                                        
                                     </div>
                                     <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
+                                        <button class="btn board-openbutton me-2">Open Board</button>
+                                        <button class="btn board-editbutton">Edit</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="board">
                                 <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
+                                    <div class="button-x-deletediv">
+                                        <button class="btn float-end button-x-delete">X</button>
                                     </div>
                                     
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description</p>
+                                    <div class="board-details">
+                                        <div>
+                                            <p>Deals App</p>
+                                            <p>Goes out of their way to help the physical, mental, or emotional pains of another and themselves.</p>
+                                        </div>
+                                        
                                     </div>
                                     <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
+                                        <button class="btn board-openbutton me-2">Open Board</button>
+                                        <button class="btn board-editbutton">Edit</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="board">
                                 <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
+                                    <div class="button-x-deletediv">
+                                        <button class="btn float-end button-x-delete">X</button>
                                     </div>
-                                    
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description. Anything goes here. Even though I don't know what it may be</p>
+                                    <div class="board-details">
+                                        <div>
+                                            <p>Brochure products</p>
+                                            <p>Conscious and aware of their own character, feelings and behaviour.</p>
+                                        </div>
+                                        
                                     </div>
-                                    <div class="board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
+                                    <div class="p-1 text-center px-2 board-buttons">
+                                        <button class="btn board-openbutton me-2">Open Board</button>
+                                        <button class="btn board-editbutton">Edit</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="board">
                                 <div class="board-insight">
-                                    <div class="d-block mb-2 bg-primary w-100">
-                                        <button class="btn float-end">X</button>
+                                    <div class="button-x-deletediv">
+                                        <button class="btn float-end button-x-delete">X</button>
                                     </div>
                                     
-                                    <div class="board-details p-1">
-                                        <p>Board title</p>
-                                        <p>Board description</p>
+                                    <div class="board-details">
+                                        <div>
+                                            <p>Static printing</p>
+                                            <p>Do what they and say what they do. They bring their whole self to work.</p>
+                                        </div>
+                                        
                                     </div>
                                     <div class="p-1 text-center px-2 board-buttons">
-                                        <button class="btn btn-info me-2">Open board</button>
-                                        <button class="btn btn-info">Edit</button>
+                                        <button class="btn board-openbutton me-2">Open Board</button>
+                                        <button class="btn board-editbutton">Edit</button>
                                     </div>
                                 </div>
                             </div>

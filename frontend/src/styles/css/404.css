@@ -1,0 +1,13 @@
+.parent404div{
+    height: 80vh;
+    width: 100%;
+    display: table;
+    align-items: center;
+    justify-content: center;
+}
+
+.child404div{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}

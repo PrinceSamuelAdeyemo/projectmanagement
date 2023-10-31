@@ -4,7 +4,11 @@
     align-items: center;
     height: 60vh;
     width: 100%;
-    background: radial-gradient(circle farthest-corner at top left, lightblue, white 50%, lightblue);
+    background: 
+        radial-gradient(circle farthest-corner at bottom left, skyblue, white 30%, transparent),
+        radial-gradient(circle farthest-corner at bottom right, skyblue, white 30%, transparent)
+        
+    ;
     
     
 }
@@ -71,6 +75,8 @@
     font-size: 0.8rem;
 }
 
+/*
 footercd n{
     height: 5rem;
 }
+*/
