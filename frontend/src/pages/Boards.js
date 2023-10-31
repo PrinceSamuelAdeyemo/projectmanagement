@@ -42,8 +42,8 @@ const Boards = () => {
                 </div>
                 <div class="projects-and-boards">
                     <div class="project">
-                        <div class="project-boards row row-cols-4 g-1 w-100">
-                            <div class="board p-1">
+                        <div class="project-boards row row-cols-4 g-1">
+                            <div class="board">
                                 <div class="board-insight">
                                     <div class="d-block mb-2 bg-primary w-100">
                                         <button class="btn float-end">X</button>
@@ -51,7 +51,7 @@ const Boards = () => {
                                     
                                     <div class="board-details p-1">
                                         <p>Board title</p>
-                                        <p>Board Description  n  fvn vno vvrn ovn fvnfvrp pfv vvfijvfv invvnf vfvpn rfhfihr irhrf rifrf rirf rirr rirjfr rirjr riff rirr rfrjfrr firferf frfjri.</p>
+                                        <p>Sets targets and objectives and actively work towards them, whilst rasing the quality of the outcomes</p>
                                     </div>
                                     <div class="p-1 text-center px-2 board-buttons">
                                         <button class="btn btn-info me-2">Open board</button>
@@ -59,7 +59,7 @@ const Boards = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="board p-1">
+                            <div class="board">
                                 <div class="board-insight">
                                     <div class="d-block mb-2 bg-primary w-100">
                                         <button class="btn float-end">X</button>
@@ -75,7 +75,7 @@ const Boards = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="board p-1">
+                            <div class="board">
                                 <div class="board-insight">
                                     <div class="d-block mb-2 bg-primary w-100">
                                         <button class="btn float-end">X</button>
@@ -91,7 +91,7 @@ const Boards = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="board p-1">
+                            <div class="board">
                                 <div class="board-insight">
                                     <div class="d-block mb-2 bg-primary w-100">
                                         <button class="btn float-end">X</button>
@@ -107,7 +107,7 @@ const Boards = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="board p-1">
+                            <div class="board">
                                 <div class="board-insight">
                                     <div class="d-block mb-2 bg-primary w-100">
                                         <button class="btn float-end">X</button>
@@ -123,8 +123,8 @@ const Boards = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="board p-1">
-                                <div class="board-button-div text-center p-5">             
+                            <div class="board">
+                                <div class="board-button-div text-center">             
                                     <button class="btn btn-primary" id="create-board">Create a board</button>
                                 </div>
                             </div>
