@@ -1,5 +1,6 @@
 import React,{ useState } from 'react'
-import { HelmetProvider, Helmet} from 'react-helmet-async'
+import { HelmetProvider, Helmet} from 'react-helmet-async';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/css/todoapp.css';
 import '../styles/css/login.css'
 import jQuery from 'jquery';
@@ -9,7 +10,12 @@ import NavbarAnonymous from '../components/NavbarAnonymous'
 // The functional component of the Signup page.
 const Signup = () => {
 
-    // Starting first with the react hooks, useState('')
+    // Starting first with the react hooks, useNavigate and useState('')
+    const navigate = useNavigate();
+    const openPage = (page) =>{
+        navigate(`/${page}`)
+    };
+
     // For the personal or business form states, followed by the recording of the personal and business details in the states.
     const [clickedButton, setClickedButton] = useState('');
     const [signupButton, setSignupButton] = useState('personalSignupForm');
@@ -117,9 +123,15 @@ const Signup = () => {
                             
                         }else{
                             console.log('Proceed');
+                            
+                            
                         }
                     })
-                    .then(data => console.log('Personal Registered'))
+                    //openPage('boards')
+                    .then((data) => {
+                        //console.log('Personal Registered');
+                        openPage('boards');
+                    })
                     .catch(error => console.log(error));
 
                 }else{

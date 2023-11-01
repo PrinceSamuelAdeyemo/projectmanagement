@@ -15,8 +15,9 @@ const Boards = () => {
             <meta name="keywords" content="todo, app, Simple, task management program" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             
-            <script src="{% static 'assets/js/jquery.js'%} "></script>
-            <script src="{% static 'assets/js/activity.js'%} "></script>
+            
+            {/*<script src="{% static 'assets/js/jquery.js'%} "></script>
+            <script src="{% static 'assets/js/activity.js'%} "></script>*/}
 
             <title></title>
         </Helmet>
