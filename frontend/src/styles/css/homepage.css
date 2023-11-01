@@ -27,6 +27,7 @@
 .aim-div{
     padding: 0 5rem;
     height: 30vh;
+    
 }
 
 .aim-subdiv{
@@ -34,7 +35,7 @@
 }
 
 .three-divs{
-
+    
 }
 
 .three-subdivs{
@@ -80,3 +81,28 @@ footercd n{
     height: 5rem;
 }
 */
+
+@media only screen and (min-width: 300px) and (max-width: 767px){
+    .aim-div{
+        padding: 0 5rem;
+        height: 100vh;
+    }
+
+    .three-divs{
+        margin: 1rem 0;
+    }
+
+    .package-contents{
+       display: flex;
+       flex-direction: column;
+    }
+
+    .package-text{
+        order: 1;
+    }
+
+    .package-contents  > .contentpic-div{
+        order: 2;
+    }
+    
+}

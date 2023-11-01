@@ -3,6 +3,7 @@
     float: none;
     background-color: whitesmoke;
     padding: 1.5rem;
+    z-index: 0;
 }
 
 .hr_div{
