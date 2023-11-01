@@ -268,9 +268,13 @@ class Login(APIView):
         return Response(content)
     
     def post(self, request):
-        serializer = LoginSerializer(data = request.data)
-        serializer.is_valid(raise_exception = True)
         
+        #serializer = LoginSerializer(data = request.data)
+        #serializer.is_valid(raise_exception = True)
+        
+        # Login with username and token generated
+        # Feature will be added later
+        """
         user = serializer.validated_data['user']
         token = serializer.validated_data['token']
         
@@ -278,8 +282,8 @@ class Login(APIView):
             'user': user.pk, 
             'token': token
             })
-        
-        '''
+        """
+        print(request.data)
         sender = request.data.pop('sender')
         #sender = 'business'
         if sender == 'personal':
@@ -287,12 +291,12 @@ class Login(APIView):
             #return Response(r)
             
             #username = request.data.user['username']
-            email = request.data['user']['email']
-            password = request.data['user']['password']
+            email = request.data['email']
+            password = request.data['password']
             
             auth_user = auth.authenticate(request, username=User.objects.get(email = email), password=password)
             if auth_user is not None:
-                auth.login(request, auth_user, )
+                auth.login(request, auth_user)
                 return Response('Authenticated')
 
             else:
@@ -311,10 +315,6 @@ class Login(APIView):
                 return Response('Not Authenticated')
       
         '''
-    '''
-    def get(self, request):
-        
-        return render(request, 'login.html')
     
     
     def post(self, request):
@@ -408,8 +408,8 @@ class Login(APIView):
             
         else:
                 return HttpResponse('None of the personal and business login works!')
-        
-    '''
+        '''
+    
 ###### Log out view ######
 @login_required(login_url='login')    
 def logout(request):

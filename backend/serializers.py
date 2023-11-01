@@ -133,6 +133,9 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField()
     
     def validate(self, data):
+        user = auth.authenticate(request, username = User.objects.get(email = email), password = password)
+        return user
+        """
         if data.username != None:
             user = auth.authenticate(request, username = username, password = password)
             if not user:
@@ -152,7 +155,7 @@ class LoginSerializer(serializers.Serializer):
                 token = AuthToken.objects.create(user)
                 tokenResponse = {'user': user, 'token': token}
                 return tokenResponse
-            
+        """    
 class LoginViewSerializer(serializers.Serializer):
     username = serializers.CharField(required=False)
     email = serializers.EmailField(required=False)

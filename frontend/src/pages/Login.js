@@ -102,9 +102,9 @@ const Login = () => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                           // "sender": "personal",
+                            "sender": "personal",
                             //'user':
-                            'username': personalLoginDetails.username,
+                            //'username': personalLoginDetails.username,
                             'email': personalLoginDetails.email,
                             'password': personalLoginDetails.password,},
                         )
@@ -119,8 +119,7 @@ const Login = () => {
                     })
                     .then((data) => {
                         console.log('Personal Registered');
-                        openPage('dashboard');
-                        //window.location('/dashboard')
+                        openPage('boards');
                     })
                     .catch(error => console.log(error));
 
