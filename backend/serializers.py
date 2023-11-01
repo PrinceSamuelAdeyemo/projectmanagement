@@ -128,14 +128,16 @@ class TaskSerializer(serializers.ModelSerializer):
 ########## Login Serializer ##############
 class LoginSerializer(serializers.Serializer):
     
-    username = serializers.CharField(max_length = 256)
+    #username = serializers.CharField(max_length = 256)
     email = serializers.EmailField()
     password = serializers.CharField()
     
-    def validate(self, data):
-        user = auth.authenticate(request, username = User.objects.get(email = email), password = password)
-        return user
-        """
+    #def validate(self, data):
+    #    #user = auth.authenticate(request, username = User.objects.get(email = email), password = password)
+    #    #return user
+        
+    #    
+    """
         if data.username != None:
             user = auth.authenticate(request, username = username, password = password)
             if not user:

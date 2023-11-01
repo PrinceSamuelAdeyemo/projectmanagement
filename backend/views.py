@@ -269,8 +269,38 @@ class Login(APIView):
     
     def post(self, request):
         
-        #serializer = LoginSerializer(data = request.data)
-        #serializer.is_valid(raise_exception = True)
+        serializer = LoginSerializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        
+        sender = request.data['sender']
+        if sender == 'personal':
+            #r = request.data['user']['email']
+            #return Response(r)
+            
+            #username = request.data.user['username']
+            email = request.data['email']
+            password = request.data['password']
+            
+            auth_user = auth.authenticate(request, username=User.objects.get(email = email), password=password)
+            if auth_user is not None:
+                auth.login(request, auth_user)
+                return Response('Authenticated')
+
+            else:
+                return Response('Not Authenticated')
+            
+        elif sender == 'business':
+           
+            username = request.data['username']
+            email = request.data['email']
+            password = request.data['password']
+            
+            auth_user = auth.authenticate(request, username=User.objects.get(email = email), password=password)
+            if auth_user is not None:
+                return Response('Authenticated')
+            else:
+                return Response('Not Authenticated')
+      
         
         # Login with username and token generated
         # Feature will be added later
@@ -282,6 +312,8 @@ class Login(APIView):
             'user': user.pk, 
             'token': token
             })
+        """
+        
         """
         print(request.data)
         sender = request.data.pop('sender')
@@ -313,7 +345,9 @@ class Login(APIView):
                 return Response('Authenticated')
             else:
                 return Response('Not Authenticated')
-      
+                """
+                
+                
         '''
     
     
