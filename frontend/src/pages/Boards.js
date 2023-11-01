@@ -42,7 +42,7 @@ const Boards = () => {
                 </div>
                 <div class="projects-and-boards">
                     <div class="project">
-                        <div class="project-boards row row-cols-4 g-1">
+                        <div class="project-boards ">
                             <div class="board">
                                 <div class="board-insight">
                                     <div class="button-x-deletediv">
