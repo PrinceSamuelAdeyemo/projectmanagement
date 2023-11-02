@@ -55,8 +55,7 @@ body{
     .board-buttons{
         display: none;
         position: absolute;
-        
-
+        width: 100%;
         left: 50%;
         transform: translate(-50%, 0);
         bottom: 1rem;

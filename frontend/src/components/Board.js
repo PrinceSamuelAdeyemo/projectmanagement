@@ -8,11 +8,7 @@ import '../styles/css/activities.css';
 
 
 
-const Board = () => {
-
-    
-    
-
+const Board = ({ boardName, boardDescription }) => {
   return (
             <div className="board">
                 <div className="board-insight">
@@ -22,8 +18,8 @@ const Board = () => {
                     
                     <div className="board-details">
                         <div>
-                            <p>{board.boardName}</p>
-                            <p>{board.boardDescription}</p>
+                            <p>{boardName}</p>
+                            <p>{boardDescription}</p>
                             
                         </div>
                         

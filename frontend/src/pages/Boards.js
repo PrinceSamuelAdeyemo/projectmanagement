@@ -5,54 +5,102 @@ import '../styles/css/activities.css';
 //import '../components/NavbarAnonymous';
 import Board from '../components/Board';
 
-const Boards = () => {
-    
 
-    const [boards, setBoards] = [
+
+const Boards = () => {
+    let boards = [
         {
-            "boardTitle": "Package",
+            "boardName": "Package",
             "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
             "board_BgColor": "blue",
+            "boardID": 1,
         },
         
         {
-            "boardTitle": "Deals App",
+            "boardName": "Deals App",
             "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
             "board_BgColor": "blue",
+            "boardID": 2,
         },
-
+    
         {
-            "boardTitle": "Brochure products",
+            "boardName": "Brochure products",
             "boardDescription": "Conscious and aware of their own character, feelings and behaviour.",
             "board_BgColor": "blue",
+            "boardID": 3,
         },
-
+    
         {
-            "boardTitle": "Static printing",
+            "boardName": "Static printing",
             "boardDescription": "Do what they and say what they do. They bring their whole self to work.",
             "board_BgColor": "blue",
+            "boardID": 4,
         },
-
+    
         {
-            "boardTitle": "Article",
+            "boardName": "Article",
             "boardDescription": "Accept and crave responsibility; owns their actions and commit to getting things done.",
             "board_BgColor": "blue",
+            "boardID": 5,
+        },
+    
+        {
+            "boardName": "Deals App",
+            "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
+            "board_BgColor": "blue",
+            "boardID": 6,
+        },
+    ];
+    /*
+    const [boards, setBoards] = [
+        {
+            "boardName": "Package",
+            "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
+            "board_BgColor": "blue",
+            "boardID": 1,
+        },
+        
+        {
+            "boardName": "Deals App",
+            "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
+            "board_BgColor": "blue",
+            "boardID": 2,
         },
 
         {
-            "boardTitle": "Deals App",
+            "boardName": "Brochure products",
+            "boardDescription": "Conscious and aware of their own character, feelings and behaviour.",
+            "board_BgColor": "blue",
+            "boardID": 3,
+        },
+
+        {
+            "boardName": "Static printing",
+            "boardDescription": "Do what they and say what they do. They bring their whole self to work.",
+            "board_BgColor": "blue",
+            "boardID": 4,
+        },
+
+        {
+            "boardName": "Article",
+            "boardDescription": "Accept and crave responsibility; owns their actions and commit to getting things done.",
+            "board_BgColor": "blue",
+            "boardID": 5,
+        },
+
+        {
+            "boardName": "Deals App",
             "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
             "board_BgColor": "blue",
+            "boardID": 6,
         },
     ];
-
+    */
+   
     let openBoard = () =>{
         console.log(this);
     }
 
-    let boardLists = () => {
-        //let allBoards = 
-    };
 
   return (
     <HelmetProvider>
@@ -71,106 +119,44 @@ const Boards = () => {
             <title></title>
         </Helmet>
 
-        <div class="container-fluid p-0">
+        <div className="container-fluid p-0">
             
             {/* {% include 'navbar-all.html' %} */}
 
-            <div class="container-body">
-                <div class="project-n-search w-100">
+            <div className="container-body">
+                <div className="project-n-search w-100">
                     
-                    <div class="row px-5 w-100">
-                        <div class="col-6">
-                            <h3 class="d-md-inline fw-bold" id="totalproject-count">Projects (5)</h3>
+                    <div className="row px-5 w-100">
+                        <div className="col-6">
+                            <h3 className="d-md-inline fw-bold" id="totalproject-count">Projects (5)</h3>
                         </div>
-                        <div class=" col-6">
-                            <input type="search" class="search_board mt-2 float-end" placeholder='Search Board...' />
+                        <div className=" col-6">
+                            <input type="search" className="search_board mt-2 float-end" placeholder='Search Board...' />
                         </div>
                         
                     </div>
                     
                     
                 </div>
-                <div class="projects-and-boards">
-                    <div class="project">
-                        <div class="project-boards ">
+                <div className="projects-and-boards">
+                    <div className="project">
+                        <div className="project-boards ">
 
                             {boards.map((board) => (
-                                <Board board={board} />
+                                <Board key={`${board.boardID}`} boardName={board.boardName} boardDescription={board.boardDescription} />
                             ))}
 
-                            <div className="board">
-                                <div className="board-insight">
-                                    <div className="button-x-deletediv">
-                                        <button className="btn float-end button-x-delete">X</button>
-                                    </div>
-                                    
-                                    <div className="board-details">
-                                        <div>
-                                            <p>name</p>
-                                            <p>Description</p>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                    <div className="p-1 text-center px-2 board-buttons">
-                                        <button className="btn board-openbutton me-2" >Open Board</button>
-                                        <button className="btn board-editbutton">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="board">
-                                <div className="board-insight">
-                                    <div className="button-x-deletediv">
-                                        <button className="btn float-end button-x-delete">X</button>
-                                    </div>
-                                    
-                                    <div className="board-details">
-                                        <div>
-                                            <p>name</p>
-                                            <p>Description</p>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                    <div className="p-1 text-center px-2 board-buttons">
-                                        <button className="btn board-openbutton me-2" >Open Board</button>
-                                        <button className="btn board-editbutton">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="board">
-                                <div className="board-insight">
-                                    <div className="button-x-deletediv">
-                                        <button className="btn float-end button-x-delete">X</button>
-                                    </div>
-                                    
-                                    <div className="board-details">
-                                        <div>
-                                            <p>name</p>
-                                            <p>Description</p>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                    <div className="p-1 text-center px-2 board-buttons">
-                                        <button className="btn board-openbutton me-2" >Open Board</button>
-                                        <button className="btn board-editbutton">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <Board />
-
-                            <div class="board">
-                                <div class="board-button-div text-center">             
-                                    <button class="btn btn-primary" id="create-board">Create a board</button>
+                            <div className="board">
+                                <div className="board-button-div text-center">             
+                                    <button className="btn btn-primary" id="create-board">Create a board</button>
                                 </div>
                             </div>
                             
                         </div>  
                         {/*<!--  
-                        <div class="d-inline">
-                            <button class="btn btn-primary" id="create-board">Create a board</button>
+                        <div className="d-inline">
+                            <button className="btn btn-primary" id="create-board">Create a board</button>
                         </div>
                     -->*/}
                     </div>
