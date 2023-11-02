@@ -5,7 +5,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
 
-const Board = () => {
+const BoardInfo = () => {
 
   /*
     
@@ -533,4 +533,4 @@ const Board = () => {
   )
 }
 
-export default Board
+export default BoardInfo

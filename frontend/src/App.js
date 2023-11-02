@@ -20,9 +20,11 @@ import Signup from './pages/Signup';
 import Logout from './pages/Logout'
 import Dashboard from './pages/Dashboard';
 import Boards from './pages/Boards';
-import Board from './pages/Board';
+import BoardInfo from './pages/BoardInfo';
 import CreateBoard from './pages/CreateBoard';
 import Error from './pages/404';
+
+import Board from './components/Board';
 
 // Other components
 import NavbarAnonymous from './components/NavbarAnonymous';
@@ -68,7 +70,8 @@ function App() {
       <div>
         <NavbarAnonymous/>
         <Routes>
-          <Route path='/' exact element={<Homepage />} />
+          <Route exact path='/' element={<Homepage />} />
+          <Route exact path='/homepage' element={<Homepage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
 
@@ -76,10 +79,14 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/boards' element={<Boards />} />
           
-          <Route path='board/:company/:board_id' element={<Board />} />
-          <Route path='/board/:id' element={<Board />} />
+          <Route path='board/:company/:board_id' element={<BoardInfo />} />
+          <Route path='/board/:id' element={<BoardInfo />} />
+          <Route path='/board/' element={<BoardInfo />} />
+
           <Route path='/createboard' element={<CreateBoard />} />
           <Route path='/404' element={<Error />} />
+
+          <Route path='/test/' element={<Board />} />
         </Routes>
       </div>
     </Router>
