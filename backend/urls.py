@@ -10,7 +10,7 @@ urlpatterns = [
     
     
     path('boardsrequest', BoardsRequest.as_view(), name='boardsrequest'),
-    
+    #path('board/<str:pk>', ),
     
     #path('home', UserStatus.as_view(), name = 'home'),
     

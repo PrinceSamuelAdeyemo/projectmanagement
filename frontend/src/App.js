@@ -75,7 +75,9 @@ function App() {
           <Route path='/logout' element={<Logout />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/boards' element={<Boards />} />
-          <Route path='/board' element={<Board />} />
+          
+          <Route path='board/:company/:board_id' element={<Board />} />
+          <Route path='/board/:id' element={<Board />} />
           <Route path='/createboard' element={<CreateBoard />} />
           <Route path='/404' element={<Error />} />
         </Routes>

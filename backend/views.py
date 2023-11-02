@@ -256,7 +256,7 @@ class Signup(View):
 ###### Log in view ######
 class Login(APIView):
     #authentication_classes = [SessionAuthentication, BasicAuthentication]
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = LoginSerializer
     
     def get(self, request):
