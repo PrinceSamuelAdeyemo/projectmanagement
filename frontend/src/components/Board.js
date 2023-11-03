@@ -20,8 +20,8 @@ const Board = ({ boardName, boardDescription, boardBgColor }) => {
     }
 
     let rgb = colors[boardBgColor].join(',')
-    let backgroundOptions = {background: `linear-gradient(to bottom, rgb(${rgb}), #ffffff 80%), \
-    linear-gradient(to bottom, rgb(${rgb}), #ffffff 85%)`, 
+    let backgroundOptions = {background: `linear-gradient(to bottom, rgba(${rgb}, 0.7), #ffffff 80%), \
+    linear-gradient(to bottom, rgba(${rgb}, 1), #ffffff 85%)`, 
                             backgroundClip: 'padding-box, border-box', 
                             backgroundOrigin: 'padding-box, border-box' }
     
@@ -30,18 +30,6 @@ const Board = ({ boardName, boardDescription, boardBgColor }) => {
     useEffect(() => {
         let getBgColor = document.getElementsByClassName('board-insight');
         let getBgColorArray = Array.from(getBgColor);
-        //console.log(getBgColor.style.width);
-        //getBgColorArray.forEach(eachBgColor => console.log(eachBgColor.style.background = boardBgColor))
-        /*
-        
-        for (let i = 0; i < getBgColorArray.length; i++){
-            getBgColorArray[i].style.background = boardBgColor;
-            //console.log(boardBgColor);
-            console.log(getBgColorArray[i].style.background)
-        }
-        */
-
-        //console.log(...colors["indigo"])
         
     }, []);
 
