@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 // Styling
 import '../styles/css/board.css';
@@ -8,7 +9,9 @@ import '../styles/css/activities.css';
 
 
 
-const Board = ({ boardName, boardDescription, boardBgColor }) => {
+const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
+    const navigate = useNavigate();
+
     const colors = {
         "red": [255, 0, 0],
         "orange": [255, 165, 0],
@@ -25,11 +28,14 @@ const Board = ({ boardName, boardDescription, boardBgColor }) => {
                             backgroundClip: 'padding-box, border-box', 
                             backgroundOrigin: 'padding-box, border-box' }
     
+    const openBoard = (company, boardID) => {
+        navigate(`/board/${company}/${boardID}`);
+    }
     
 
     useEffect(() => {
-        let getBgColor = document.getElementsByClassName('board-insight');
-        let getBgColorArray = Array.from(getBgColor);
+        //let getBgColor = document.getElementsByClassName('board-insight');
+        //let getBgColorArray = Array.from(getBgColor);
         
     }, []);
 
@@ -44,12 +50,10 @@ const Board = ({ boardName, boardDescription, boardBgColor }) => {
                         <div>
                             <p>{boardName}</p>
                             <p>{boardDescription}</p>
-                            
                         </div>
-                        
                     </div>
                     <div className="p-1 text-center px-2 board-buttons">
-                        <button className="btn board-openbutton me-2" >Open Board</button>
+                        <button className="btn board-openbutton me-2" onClick={(event) => openBoard("tesla", `${boardID}`) }>Open Board</button>
                         <button className="btn board-editbutton">Edit</button>
                     </div>
                 </div>

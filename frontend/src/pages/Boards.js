@@ -143,7 +143,7 @@ const Boards = () => {
                         <div className="project-boards ">
 
                             {boards.map((board) => (
-                                <Board key={`${board.boardID}`} boardName={board.boardName} boardDescription={board.boardDescription} boardBgColor={board.boardBgColor} />
+                                <Board key={`${board.boardID}`} boardID={board.boardID} boardName={board.boardName} boardDescription={board.boardDescription} boardBgColor={board.boardBgColor} />
                             ))}
 
 

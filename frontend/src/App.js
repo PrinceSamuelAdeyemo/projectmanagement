@@ -81,12 +81,12 @@ function App() {
           
           <Route path='board/:company/:board_id' element={<BoardInfo />} />
           <Route path='/board/:id' element={<BoardInfo />} />
-          <Route path='/board/' element={<BoardInfo />} />
+          
 
           <Route path='/createboard' element={<CreateBoard />} />
           <Route path='/404' element={<Error />} />
 
-          <Route path='/test/' element={<Board />} />
+          <Route path='/test' element={<Board boardID="99" boardName="Name" boardDescription="Desc" boardBgColor="red" />} />
         </Routes>
       </div>
     </Router>
