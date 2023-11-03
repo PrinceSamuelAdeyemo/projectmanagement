@@ -12,7 +12,7 @@ const Boards = () => {
         {
             "boardName": "Package",
             "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
-            "boardBgColor": "brown",
+            "boardBgColor": "red",
             "boardID": 1,
         },
         
@@ -33,7 +33,7 @@ const Boards = () => {
         {
             "boardName": "Static printing",
             "boardDescription": "Do what they and say what they do. They bring their whole self to work.",
-            "boardBgColor": "blue",
+            "boardBgColor": "violet",
             "boardID": 4,
         },
     
@@ -47,7 +47,7 @@ const Boards = () => {
         {
             "boardName": "Deals App",
             "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "boardBgColor": "blue",
+            "boardBgColor": "green",
             "boardID": 6,
         },
     ]);
