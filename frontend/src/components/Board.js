@@ -8,10 +8,20 @@ import '../styles/css/activities.css';
 
 
 
-const Board = ({ boardName, boardDescription }) => {
+const Board = ({ boardName, boardDescription, boardBgColor }) => {
+    useEffect(() => {
+        let getBgColor = document.getElementsByClassName('board-insight');
+        let getBgColorArray = Array.from(getBgColor);
+        //console.log(getBgColor.style.width);
+        getBgColorArray.map(eachBgColor => console.log(eachBgColor.style.background = boardBgColor))
+        
+
+    }, []);
+    
+
   return (
             <div className="board">
-                <div className="board-insight">
+                <div className="board-insight" id='board-insight'>
                     <div className="button-x-deletediv">
                         <button className="btn float-end button-x-delete">X</button>
                     </div>

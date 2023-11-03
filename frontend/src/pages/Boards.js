@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import '../styles/css/activities.css';
 
@@ -8,49 +8,49 @@ import Board from '../components/Board';
 
 
 const Boards = () => {
-    let boards = [
+    const [boards, setBoards] = useState([
         {
             "boardName": "Package",
             "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
-            "board_BgColor": "blue",
+            "boardBgColor": "brown",
             "boardID": 1,
         },
         
         {
             "boardName": "Deals App",
             "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "board_BgColor": "blue",
+            "boardBgColor": "orange",
             "boardID": 2,
         },
     
         {
             "boardName": "Brochure products",
             "boardDescription": "Conscious and aware of their own character, feelings and behaviour.",
-            "board_BgColor": "blue",
+            "boardBgColor": "red",
             "boardID": 3,
         },
     
         {
             "boardName": "Static printing",
             "boardDescription": "Do what they and say what they do. They bring their whole self to work.",
-            "board_BgColor": "blue",
+            "boardBgColor": "blue",
             "boardID": 4,
         },
     
         {
             "boardName": "Article",
             "boardDescription": "Accept and crave responsibility; owns their actions and commit to getting things done.",
-            "board_BgColor": "blue",
+            "boardBgColor": "yellow",
             "boardID": 5,
         },
     
         {
             "boardName": "Deals App",
             "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "board_BgColor": "blue",
+            "boardBgColor": "blue",
             "boardID": 6,
         },
-    ];
+    ]);
     /*
     const [boards, setBoards] = [
         {
@@ -143,7 +143,7 @@ const Boards = () => {
                         <div className="project-boards ">
 
                             {boards.map((board) => (
-                                <Board key={`${board.boardID}`} boardName={board.boardName} boardDescription={board.boardDescription} />
+                                <Board key={`${board.boardID}`} boardName={board.boardName} boardDescription={board.boardDescription} boardBgColor={board.boardBgColor} />
                             ))}
 
 

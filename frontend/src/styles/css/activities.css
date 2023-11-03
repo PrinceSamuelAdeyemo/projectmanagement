@@ -69,20 +69,27 @@ body{
     border-radius: 0.4rem;
 }
 
-
+/*  This class must go along with the board-insight class and always on top it to work perfectly*/
+.bgd-gray{
+    background: 
+        linear-gradient(to bottom, rgba(128, 128, 128, 1), #ffffff 80%), 
+        linear-gradient(to bottom, rgba(64, 64, 64, 1), #ffffff 85%);
+} /*  + */
 .board-insight{
     padding: 0 0.8rem;
     border: 2px solid transparent;
     border-radius: 1rem;
     background: 
-        linear-gradient(to bottom, rgb(43, 43, 139), #ffffff 80%), 
-        linear-gradient(to bottom, blue, #ffffff 85%); 
+        linear-gradient(to bottom, rgba(128, 128, 128, 1), #ffffff 80%), 
+        linear-gradient(to bottom, rgba(64, 64, 64, 1), #ffffff 85%);
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;
     height: inherit;
     width: 100%;
     position: relative;
 }
+
+
   
 
 .button-x-deletediv{
