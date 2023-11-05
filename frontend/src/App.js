@@ -79,7 +79,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/boards' element={<Boards />} />
           
-          <Route path='board/:company/:board_id' element={<BoardInfo />} />
+          <Route path='board/:company/:boardID' element={<BoardInfo />} />
           <Route path='/board/:id' element={<BoardInfo />} />
           
 

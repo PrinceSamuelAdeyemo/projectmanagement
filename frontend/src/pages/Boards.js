@@ -51,6 +51,7 @@ const Boards = () => {
             "boardID": 6,
         },
     ]);
+    
     /*
     const [boards, setBoards] = [
         {
@@ -128,7 +129,7 @@ const Boards = () => {
                     
                     <div className="row px-5 w-100">
                         <div className="col-6">
-                            <h3 className="d-md-inline fw-bold" id="totalproject-count">Projects (5)</h3>
+                            <h3 className="d-md-inline fw-bold" id="totalproject-count">Projects ({boards.length})</h3>
                         </div>
                         <div className=" col-6">
                             <input type="search" className="search_board mt-2 float-end" placeholder='Search Board...' />

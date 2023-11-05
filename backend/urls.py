@@ -10,6 +10,7 @@ urlpatterns = [
     
     
     path('boardsrequest', BoardsRequest.as_view(), name='boardsrequest'),
+    #path(r'board/<str:company>/<str:boardID>', BoardInfo.as_view(), name='boardinfo'),
     #path('board/<str:pk>', ),
     
     #path('home', UserStatus.as_view(), name = 'home'),

@@ -1,11 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 
 // Styling
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
 
 const BoardInfo = () => {
+
+  const { boardID } = useParams();
+  let company = 'tesla';
+  let host = 'ws://127.0.0.1:8000/ws/socketapi/'
+  const socket = new WebSocket(`${window.location}/board/${company}/${boardID}`);
+  socket.onmessage = (event) => {
+    let result = JSON.parse(event.data);
+    document.getElementById('testID').value += "Server: "+result;
+  }
+
+  socket.onclose = (event) => {
+    console.log("Socket closed.")
+  }
+
+  document.addEventListener('click', function(e){
+    socket.send(JSON
+      .stringify({
+        "key": "value"
+      }))
+  })
+  useEffect(() => {
+    const boardInfo = async() => {
+      await fetch('')
+    }
+  }, []);
 
   /*
     
@@ -17,8 +43,8 @@ const BoardInfo = () => {
   */  
 
     //const [boardList, setBoardList] = useState([]);
-    const [boardName, setBoardName] = useState('');
-    const [boardDescription, setBoardDescription] = useState('');
+    //const [boardName, setBoardName] = useState('');
+    //const [boardDescription, setBoardDescription] = useState('');
     const [boardCards, setBoardCards] = useState([]);
     const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
 
@@ -100,6 +126,8 @@ const BoardInfo = () => {
               <div className='editaddTask' id='editaddTask'>
                 <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
                 <div className=''>
+                  <p id='testID'></p>
+                  <button id='testButton'>Send socket</button>
                   <h3>Task</h3>
                   <p>Name</p>
                   <input id="tempTaskName" className='w-100' type='text' />
