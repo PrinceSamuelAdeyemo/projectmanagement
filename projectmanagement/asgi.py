@@ -19,14 +19,14 @@ from channels.security.websocket import AllowedHostsOriginValidator
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'projectmanagement.settings')
 #django.setup()
-#import backend.routing
+import backend.routing
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AllowedHostsOriginValidator(
         AuthMiddlewareStack(
         URLRouter(
-            backend.routing.websocket_urlpatterns
+            websocket_urlpatterns
         )
     ))
 })
