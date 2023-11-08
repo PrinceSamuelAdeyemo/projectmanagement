@@ -33,9 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'channels',
-   
-    
     #Django default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -112,7 +111,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'projectmanagement.wsgi.application'
 
 # ASGI SETTINGS
-# Daphne
 ASGI_APPLICATION = 'projectmanagement.asgi.application'
 CHANNEL_LAYERS = {
     "default": {

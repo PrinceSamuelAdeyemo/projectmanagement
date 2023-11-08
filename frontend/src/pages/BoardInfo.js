@@ -11,7 +11,7 @@ const BoardInfo = () => {
 
   const { boardID } = useParams();
   let company = 'tesla';
-  let host = 'ws://127.0.0.1/ws'
+  let host = 'ws://127.0.0.1:8000/ws'
   const socket = new WebSocket(`${host}/test`);
   socket.onopen = (event) => {
     console.log("Socket opened")
@@ -19,6 +19,7 @@ const BoardInfo = () => {
 
   socket.onmessage = (event) => {
     let result = JSON.parse(event.data);
+    console.log(result);
     document.getElementById('testID').value += "Server: "+result;
   }
 
