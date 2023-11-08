@@ -17,34 +17,20 @@ const BoardInfo = () => {
     console.log("Socket opened")
   }
 
-  socket.onmessage = (event) => {
-    let result = JSON.parse(event.data);
-    console.log(result);
-    document.getElementById('testID').value += "Server: "+result;
-  }
-
+  
   
   socket.onerror = (event) => {
     console.log(error)
   }
-  socket.send = (event) => {
-    console.log("Data")
-  }
+  
 
   socket.onclose = (event) => {
     console.log("Socket closed.")
   }
 
-  document.addEventListener('click', function(e){
-    socket.send(JSON
-      .stringify({
-        "key": "value"
-      }))
-  })
+
   useEffect(() => {
-    const boardInfo = async() => {
-      await fetch('')
-    }
+    
   }, []);
 
   /*
@@ -113,6 +99,15 @@ const BoardInfo = () => {
     alert("Hello, World")
   }
 
+  let bb = () => {
+    socket.send(JSON.stringify({"message": "Data sent from frontend, to be returned in same manner"}));
+    socket.onmessage = (event) => {
+      let result = JSON.parse(event.data);
+      console.log({"parsed": result});
+      document.getElementById('testID').textContent = `Server:  ${result["message"]}`;
+    }
+  }
+
   return (
     <HelmetProvider>
         <Helmet>
@@ -134,14 +129,16 @@ const BoardInfo = () => {
             {/* {% include 'navbar-all.html' %} */}
             <div className="projectContainer">
               <div className='projectName'>
+                <p>socket space</p>
+                <p id='testID'></p>
+                <button id='testButton' onClick={bb}>Send socket</button>
                 <h3 className='d-inline'><span className='pe-2'><i className="fa fa-angle-left"></i></span></h3>
                 <h2 className='d-inline'>Board Name</h2>
               </div>
               <div className='editaddTask' id='editaddTask'>
                 <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
                 <div className=''>
-                  <p id='testID'></p>
-                  <button id='testButton'>Send socket</button>
+                  
                   <h3>Task</h3>
                   <p>Name</p>
                   <input id="tempTaskName" className='w-100' type='text' />
