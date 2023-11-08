@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('backend.urls')),
     path(r'api/auth/', include('knox.urls')),
+    #path(r'websocketapi/', include('backend.routing')),
     
 ]

@@ -26,7 +26,7 @@ application = ProtocolTypeRouter({
     "websocket": AllowedHostsOriginValidator(
         AuthMiddlewareStack(
         URLRouter(
-            websocket_urlpatterns
+            backend.routing.websocket_urlpatterns
         )
     ))
 })

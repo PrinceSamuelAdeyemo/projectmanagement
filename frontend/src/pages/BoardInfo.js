@@ -5,16 +5,29 @@ import { useParams } from 'react-router-dom';
 // Styling
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
+import { error } from 'jquery';
 
 const BoardInfo = () => {
 
   const { boardID } = useParams();
   let company = 'tesla';
-  let host = 'ws://127.0.0.1:8000/ws/socketapi/'
-  const socket = new WebSocket(`${window.location}/board/${company}/${boardID}`);
+  let host = 'ws://127.0.0.1/ws'
+  const socket = new WebSocket(`${host}/test`);
+  socket.onopen = (event) => {
+    console.log("Socket opened")
+  }
+
   socket.onmessage = (event) => {
     let result = JSON.parse(event.data);
     document.getElementById('testID').value += "Server: "+result;
+  }
+
+  
+  socket.onerror = (event) => {
+    console.log(error)
+  }
+  socket.send = (event) => {
+    console.log("Data")
   }
 
   socket.onclose = (event) => {
