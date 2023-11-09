@@ -41,7 +41,7 @@ const Boards = () => {
             "boardName": "Article",
             "boardDescription": "Accept and crave responsibility; owns their actions and commit to getting things done.",
             "boardBgColor": "indigo",
-            "boardID": 5,
+            "boardID": "10c37205-2870-48ab-8eb2-b29b9f5cb7f2",
         },
     
         {

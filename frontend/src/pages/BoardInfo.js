@@ -12,11 +12,24 @@ const BoardInfo = () => {
   const { boardID } = useParams();
   let company = 'tesla';
   let host = 'ws://127.0.0.1:8000/ws'
-  const socket = new WebSocket(`${host}/test`);
+  const socket = new WebSocket(`${host}/board/boardID`);
   socket.onopen = (event) => {
     console.log("Socket opened")
+    socket.send(JSON.stringify(
+      {
+        "title": "boardID",
+        "boardID": boardID}));
+
+    console.log('Sent');
   }
 
+  let bb = () => {
+    console.log("Starting")
+    socket.onmessage = (event) => {
+      let success = JSON.parse(event.data)
+      console.log("Received "+success);
+    }
+  }
   
   
   socket.onerror = (event) => {
@@ -31,7 +44,7 @@ const BoardInfo = () => {
 
   useEffect(() => {
     
-  }, []);
+  });
 
   /*
     
@@ -99,15 +112,6 @@ const BoardInfo = () => {
     alert("Hello, World")
   }
 
-  let bb = () => {
-    socket.send(JSON.stringify({"message": "Data sent from frontend, to be returned in same manner"}));
-    socket.onmessage = (event) => {
-      let result = JSON.parse(event.data);
-      console.log({"parsed": result});
-      document.getElementById('testID').textContent = `Server:  ${result["message"]}`;
-    }
-  }
-
   return (
     <HelmetProvider>
         <Helmet>
@@ -129,9 +133,7 @@ const BoardInfo = () => {
             {/* {% include 'navbar-all.html' %} */}
             <div className="projectContainer">
               <div className='projectName'>
-                <p>socket space</p>
-                <p id='testID'></p>
-                <button id='testButton' onClick={bb}>Send socket</button>
+                
                 <h3 className='d-inline'><span className='pe-2'><i className="fa fa-angle-left"></i></span></h3>
                 <h2 className='d-inline'>Board Name</h2>
               </div>
@@ -162,6 +164,7 @@ const BoardInfo = () => {
 
               </div>
               <div className='projectDescription'>
+              <button onClick={bb}>Hola</button>
                 <p>This is a safe space for the project description</p>
               </div>
               

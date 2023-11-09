@@ -86,6 +86,7 @@ class Project(models.Model):
 
 # Task model
 class Board(models.Model):
+    board_id = models.UUIDField(default = uuid.uuid4, primary_key=True)
     personalBoardowner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     businessBoardowner = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE, null=True, blank=True)
     board_project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
@@ -99,6 +100,8 @@ class Board(models.Model):
     board_inprogress = models.BooleanField(default=False, null = True, blank = True)
     #subtask = models.ForeignKey(SubTask, on_delete = models.CASCADE, null = True, blank = True)
     board_color = models.CharField(max_length=15, null = True, blank = True)
+    board_date = models.DateTimeField(auto_now_add=True)
+    board_dateUpdated = models.DateTimeField(auto_now=True)
     
     '''
     task_project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -125,10 +128,6 @@ class Board(models.Model):
     task_assignee = models.CharField(max_length=1, choices=for_assignee)
     '''
     
-    board_id = models.UUIDField(default = uuid.uuid4, primary_key=True)
-    
-    board_date = models.DateTimeField(auto_now_add=True)
-    board_dateUpdated = models.DateTimeField(auto_now=True)
     '''
     User
     group_user
@@ -155,11 +154,13 @@ class Board(models.Model):
 class Task(models.Model):
     #subTask = models.CharField(max_length=200)
     #businessSubTask = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    task_id = models.UUIDField(default = uuid.uuid4, primary_key=True)
     task_parent = models.ForeignKey(Board, on_delete = models.CASCADE, null = True, blank = True)
     task_name = models.CharField(max_length=150, null=True, blank=True)
     task_description = models.TextField(null = True, blank = True)
-    task_assign = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True)
-    task_id = models.UUIDField(default = uuid.uuid4, primary_key=True)
+    task_assigner = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_assigned", related_query_name="task_assigned")
+    task_assignee = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_received", related_query_name="task_received")
+    
     task_done = models.BooleanField(default=False)
     task_date = models.DateField(auto_now_add=True, null=True, blank=True)
     task_dateUpdated = models.DateTimeField(auto_now=True)
