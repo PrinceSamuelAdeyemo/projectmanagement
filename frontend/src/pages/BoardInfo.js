@@ -18,19 +18,23 @@ const BoardInfo = () => {
     socket.send(JSON.stringify(
       {
         "title": "boardID",
-        "boardID": boardID}));
+        "boardID": "10c37205-2870-48ab-8eb2-b29b9f5cb7f2",
+        }));
 
     console.log('Sent');
   }
 
-  let bb = () => {
-    console.log("Starting")
-    socket.onmessage = (event) => {
-      let success = JSON.parse(event.data)
-      console.log("Received "+success);
-    }
+  socket.onmessage = (event) => {
+    let success = JSON.parse(event.data);
+    console.log("Received "+success.board_name);
+    document.getElementById('aa').textContent = success.board_name;
   }
-  
+
+  let bb = (event) => {
+    console.log("Starting")
+    
+    console.log("completed")
+  }
   
   socket.onerror = (event) => {
     console.log(error)
@@ -165,6 +169,7 @@ const BoardInfo = () => {
               </div>
               <div className='projectDescription'>
               <button onClick={bb}>Hola</button>
+              <p id='aa'>aa</p>
                 <p>This is a safe space for the project description</p>
               </div>
               
