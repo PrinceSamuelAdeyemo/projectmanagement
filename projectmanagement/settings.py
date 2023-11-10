@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     
     # Created apps, corsheader and rest framework,
     'frontend',
-    'backend',
+    'backend.apps.BackendConfig',
     'corsheaders',
     'rest_framework',
     'knox',

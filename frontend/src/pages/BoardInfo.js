@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // Styling
 import '../styles/css/board.css'
@@ -10,6 +10,30 @@ import { error } from 'jquery';
 const BoardInfo = () => {
 
   const { boardID } = useParams();
+  const navigate = useNavigate();
+  
+  /*
+    
+    const [boardTasks, setBoardTasks] = useState([]);
+
+    const [boardTaskName, setBoardTaskName] = useState([]);
+    const [boardTaskDescription, setBoardTaskDescription] = useState([]);
+    const [boardTaskAssignedto, setBoardAssignedto] = useState([]);
+  */  
+
+    //const [boardList, setBoardList] = useState([]);
+    const [boardName, setBoardName] = useState('');
+    const [boardDescription, setBoardDescription] = useState('');
+    const [boardCards, setBoardCards] = useState([]);
+    const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
+
+    const [cardNames, setCardNames] = useState([]);
+    const [cardTasks, setCardTasks] = useState([]);
+
+    const [tempcardTask, settempCardTask] = useState('');
+
+    const [tempcardName, settempCardName] = useState('');
+
   let company = 'tesla';
   let host = 'ws://127.0.0.1:8000/ws'
   const socket = new WebSocket(`${host}/board/boardID`);
@@ -25,9 +49,12 @@ const BoardInfo = () => {
   }
 
   socket.onmessage = (event) => {
-    let success = JSON.parse(event.data);
-    console.log("Received "+success.board_name);
-    document.getElementById('aa').textContent = success.board_name;
+    let message = JSON.parse(event.data);
+    console.log(message);
+    console.log(message.board_name);
+    console.log(message.board_description);
+    setBoardName(message.board_name);
+    setBoardDescription(message.board_description);
   }
 
   let bb = (event) => {
@@ -47,30 +74,11 @@ const BoardInfo = () => {
 
 
   useEffect(() => {
-    
+    window.history.scrollRestoration = 'auto';
+    window.scrollTo(0,0)
   });
 
-  /*
-    
-    const [boardTasks, setBoardTasks] = useState([]);
-
-    const [boardTaskName, setBoardTaskName] = useState([]);
-    const [boardTaskDescription, setBoardTaskDescription] = useState([]);
-    const [boardTaskAssignedto, setBoardAssignedto] = useState([]);
-  */  
-
-    //const [boardList, setBoardList] = useState([]);
-    //const [boardName, setBoardName] = useState('');
-    //const [boardDescription, setBoardDescription] = useState('');
-    const [boardCards, setBoardCards] = useState([]);
-    const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
-
-    const [cardNames, setCardNames] = useState([]);
-    const [cardTasks, setCardTasks] = useState([]);
-
-    const [tempcardTask, settempCardTask] = useState('');
-
-    const [tempcardName, settempCardName] = useState('');
+  
 
     const addBoardTask = (event, cardName) => {
       var addTask = document.getElementById("editaddTask");
@@ -116,6 +124,10 @@ const BoardInfo = () => {
     alert("Hello, World")
   }
 
+  var previousPage = () => {
+    navigate(-1);
+  }
+
   return (
     <HelmetProvider>
         <Helmet>
@@ -138,8 +150,8 @@ const BoardInfo = () => {
             <div className="projectContainer">
               <div className='projectName'>
                 
-                <h3 className='d-inline'><span className='pe-2'><i className="fa fa-angle-left"></i></span></h3>
-                <h2 className='d-inline'>Board Name</h2>
+                <button className='btn d-inline' onClick={previousPage}><span className='pe-2'><i className="fa fa-angle-left"></i></span></button>
+                <h2 className='d-inline'>{boardName}</h2>
               </div>
               <div className='editaddTask' id='editaddTask'>
                 <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
@@ -168,9 +180,7 @@ const BoardInfo = () => {
 
               </div>
               <div className='projectDescription'>
-              <button onClick={bb}>Hola</button>
-              <p id='aa'>aa</p>
-                <p>This is a safe space for the project description</p>
+                <p>{boardDescription}</p>
               </div>
               
               <div className='row gx-4 boardParent'>

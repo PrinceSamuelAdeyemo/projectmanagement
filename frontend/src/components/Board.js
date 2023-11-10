@@ -29,6 +29,7 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
                             backgroundOrigin: 'padding-box, border-box' }
     
     const openBoard = (company, boardID) => {
+        window.history.scrollRestoration = 'manual'
         navigate(`/board/${company}/${boardID}`);
     }
     
