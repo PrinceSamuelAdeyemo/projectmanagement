@@ -158,8 +158,8 @@ class Task(models.Model):
     task_parent = models.ForeignKey(Board, on_delete = models.CASCADE, null = True, blank = True)
     task_name = models.CharField(max_length=150, null=True, blank=True)
     task_description = models.TextField(null = True, blank = True)
-    task_assigner = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_assigned", related_query_name="task_assigned")
-    task_assignee = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_received", related_query_name="task_received")
+    #task_assigner = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_assigned", related_query_name="task_assigned")
+    #task_assignee = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_received", related_query_name="task_received")
     
     task_done = models.BooleanField(default=False)
     task_date = models.DateField(auto_now_add=True, null=True, blank=True)

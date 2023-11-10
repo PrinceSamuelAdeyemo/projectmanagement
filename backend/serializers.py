@@ -223,3 +223,5 @@ class LoginViewSerializer(serializers.Serializer):
         '''
         
     
+class UserStatusSerializer(serializers.Serializer):
+    pass #user = 

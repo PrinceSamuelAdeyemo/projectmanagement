@@ -9,6 +9,7 @@ import { error } from 'jquery';
 
 const BoardInfo = () => {
 
+  
   const { boardID } = useParams();
   const navigate = useNavigate();
   

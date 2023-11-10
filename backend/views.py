@@ -10,7 +10,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 
 ################# SERIALIZERS ####################
-from .serializers import LoginSerializer, UserSerializer, ProfileSerializer, BusinessProfileSerializer, ProjectSerializer, BoardSerializer, CreateUserSerializer, LoginViewSerializer
+from .serializers import LoginSerializer, UserSerializer, ProfileSerializer, BusinessProfileSerializer, ProjectSerializer, BoardSerializer, \
+    CreateUserSerializer, LoginViewSerializer, UserStatusSerializer
 
 ################ REST FRAMEWORK LIBRARIES #################
 from rest_framework import status
@@ -37,8 +38,12 @@ import socketio
 
 # Create your views here.
 
-
-
+class UserStatus(APIView):
+    query_set = User.objects.all()
+    serializer_class = UserStatusSerializer
+    
+    def get(self, request):
+        serializer = self.serializer_class(data = request.data)
 
 class ReturnProfile(APIView):
     #authentication_classes = (TokenAuthentication,)
@@ -83,8 +88,6 @@ class LoginView(knox_views.LoginView):
         return Response({'message': response.data}, status = status.HTTP_200_OK)
             
 
-
-
 ###### Sign up view ######
 class Signup(APIView):
     
@@ -120,20 +123,6 @@ class Signup(APIView):
 sio = socketio.Server()
 
 class BoardsRequest(APIView):
-    @staticmethod
-    @sio.event
-    def connect(sid, environ):
-        print('Connected to socket', sid)
-
-    @staticmethod
-    @sio.event
-    def disconnect(sid):
-        print('Disconnected from socket', sid)
-
-    @staticmethod
-    def send_data_to_frontend():
-        data = Board.objects.count()
-        sio.emit('boards-data', {'data': data}, namespace='/')
 
     def get(self, request):
         query_set = Board.objects.all()

@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useEffect, useState } from 'react';
 
 // Pages components
 import Homepage from './pages/Homepage';
@@ -44,16 +45,16 @@ import '../src/styles/css/bootstrap/css/bootstrap.css';
 // Importing icons from both bootstrap and fontawesome
 import '../src/icons/bootstrap-icons-1.10.1/bootstrap-icons.css';
 
-
 import '../src/icons/fontawesome-icons/css/all.css';
 import '../src/icons/fontawesome-icons/css/fontawesome.css';
 
-
-import $ from 'jquery'
+import $, { error } from 'jquery'
 import BoardRequest from './components/BoardRequest';
 
+//import homepage from './url_paths';
 
 function App() {
+
   return (
     <HelmetProvider>
 
@@ -79,8 +80,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/boards' element={<Boards />} />
           
-          <Route path='board/:company/:boardID' element={<BoardInfo />} />
-          <Route path='/board/:id' element={<BoardInfo />} />
+          <Route path='/board/:company/:boardID' element={<BoardInfo />} />
+          <Route path='/board/:boardID' element={<BoardInfo />} />
           
 
           <Route path='/createboard' element={<CreateBoard />} />

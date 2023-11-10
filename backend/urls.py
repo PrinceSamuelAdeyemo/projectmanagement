@@ -1,8 +1,11 @@
 from django.urls import path
-from .views import Index, Signup, Login, ReturnProfile, BoardsRequest, CreateUser, LoginView
+from .views import Index, Signup, Login, ReturnProfile, BoardsRequest, CreateUser, LoginView, UserStatus
 from knox.views import LogoutView, LogoutAllView
 
 urlpatterns = [
+    
+    # Check login status
+    path('user-status', UserStatus.as_view(), name='userstatus'),
     #path('', Index.as_view(), name='homepage')
     path('', ReturnProfile.as_view(), name='returnprofile'),
     path('signup', Signup.as_view(), name='signup'),
