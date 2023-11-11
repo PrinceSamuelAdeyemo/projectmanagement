@@ -73,10 +73,10 @@ CORS_ORIGIN_WHITELIST = (
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         #'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        #'knox.auth.TokenAuthentication',
+        #'rest_framework.authentication.TokenAuthentication',
+        'knox.auth.TokenAuthentication',
         ],
     
     #'DEFAULT_PERMISSION_CLASSES': [
@@ -86,8 +86,13 @@ REST_FRAMEWORK = {
 }
 
 REST_KNOX = {
+    'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
+    'AUTH_TOKEN_CHARACTER_LENGTH': 64,
     'USER_SERIALIZER': 'backend.serializers.UserSerializer',
-    'TOKEN_TTL': timedelta(hours=48)
+    'TOKEN_TTL': timedelta(hours=48),
+    'TOKEN_LIMIT_PER_USER': None,
+    'AUTO_REFRESH': False,
+    #'EXPIRY_DATETIME_FORMAT': api_settings.DATETIME_FORMAT,
 }
 
 ROOT_URLCONF = 'projectmanagement.urls'

@@ -9,7 +9,7 @@ urlpatterns = [
     #path('', Index.as_view(), name='homepage')
     path('', ReturnProfile.as_view(), name='returnprofile'),
     path('signup', Signup.as_view(), name='signup'),
-    path('login', Login.as_view(), name='login'),
+    #path('login', Login.as_view(), name='login'),
     
     
     path('boardsrequest', BoardsRequest.as_view(), name='boardsrequest'),
@@ -19,9 +19,9 @@ urlpatterns = [
     #path('home', UserStatus.as_view(), name = 'home'),
     
     path('sign-up', CreateUser.as_view(), name= 'sign-up'),
-    path('log-in', LoginView.as_view(), name= 'log-in'),
-    path('log-out', LogoutView.as_view(), name = 'log-out'),
-    path('log-outall', LogoutAllView.as_view(), name = 'log-outall'),
+    path('login', LoginView.as_view(), name= 'knox_login'),
+    path('log-out', LogoutView.as_view(), name = 'knox_logout'),
+    path('log-outall', LogoutAllView.as_view(), name = 'knox_logoutall'),
     
     
     # Url endpoint for setting and retrieving projects, boards and tasks

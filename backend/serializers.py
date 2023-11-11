@@ -5,6 +5,7 @@ from knox.models import AuthToken
 
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth import authenticate
 from .models import Profile, BusinessProfile, Project, Board, Task, Test
 
 
@@ -86,7 +87,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         user_data = validated_data.pop('user')
         user_serializer = UserSerializer(data=user_data)
         user_serializer.is_valid(raise_exception=True)
+        
         user = user_serializer.save()
+        #user.is_active = True
         profile = Profile.objects.create(user = user, **validated_data)
         #profile = Profile.objects.create(user=user, middle_name=validated_data.pop('middle_name'), country=validated_data.pop('country'))
         return profile
@@ -130,9 +133,24 @@ class LoginSerializer(serializers.Serializer):
     
     #username = serializers.CharField(max_length = 256)
     email = serializers.EmailField()
-    password = serializers.CharField()
+    password = serializers.CharField(style={"input_type": 'password'}, trim_whitespace=False)
     
-    #def validate(self, data):
+    def validate(self, attrs):
+        email =attrs.get("email").lower()
+        password = attrs.get("password")
+        
+        if not email or not password:
+            raise serializers.ValidationError("Please give email and password")
+        
+        if User.objects.filter(email=email).exists():
+            user = authenticate(request=self.context.get("request"), email = email, password = password)
+            
+            if not user:
+                raise serializers.ValidationError("Wrong credentials")
+            
+            attrs['user'] = user
+            return attrs
+            
     #    #user = auth.authenticate(request, username = User.objects.get(email = email), password = password)
     #    #return user
         

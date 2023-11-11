@@ -73,16 +73,18 @@ class CreateUser(CreateAPIView):
 class LoginView(knox_views.LoginView):
     serializer_class = LoginViewSerializer
     permission_classes = (AllowAny,)
+    authentication_classes = [BasicAuthentication]
     
     def post(self, request, format = None):
         serializer = self.serializer_class(data = request.data)
         if serializer.is_valid(raise_exception = True):
             user = serializer.validated_data['user']
+            user.is_active = True
             auth.login(request, user)
             
             response = super().post(request, format = None)
             
-        else:
+        else: 
             return Response({'errors': serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
         
         return Response({'message': response.data}, status = status.HTTP_200_OK)
