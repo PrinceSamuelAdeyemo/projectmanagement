@@ -20,7 +20,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Logout from './pages/Logout'
 import Dashboard from './pages/Dashboard';
-import Boards from './pages/Boards';
+import WrappedBoards from './pages/WrappedBoards';
 import BoardInfo from './pages/BoardInfo';
 import CreateBoard from './pages/CreateBoard';
 import Error from './pages/404';
@@ -50,6 +50,7 @@ import '../src/icons/fontawesome-icons/css/fontawesome.css';
 
 import $, { error } from 'jquery'
 import BoardRequest from './components/BoardRequest';
+import WrappedHomepage from './pages/Homepage';
 
 //import homepage from './url_paths';
 
@@ -78,7 +79,7 @@ function App() {
 
           <Route path='/logout' element={<Logout />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/boards' element={<Boards />} />
+          <Route path='/boards' element={<WrappedBoards />} />
           
           <Route path='/board/:company/:boardID' element={<BoardInfo />} />
           <Route path='/board/:boardID' element={<BoardInfo />} />

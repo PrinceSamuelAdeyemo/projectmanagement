@@ -3,6 +3,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import '../styles/css/activities.css';
 
 //import '../components/NavbarAnonymous';
+import RequireAuthentication from '../components/RequireAuthentication';
 import Board from '../components/Board';
 
 
@@ -173,4 +174,6 @@ const Boards = () => {
   )
 }
 
-export default Boards
+const WrappedBoards = RequireAuthentication(Boards)
+
+export default WrappedBoards

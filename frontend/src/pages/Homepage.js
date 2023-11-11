@@ -2,6 +2,7 @@ import React from 'react';
 import { HelmetProvider, Helmet} from 'react-helmet-async';
 import { componentDidMount } from 'react-dom';
 
+import RequireAuthentication from '../components/RequireAuthentication';
 import NavbarAnonymous from '../components/NavbarAnonymous';
 import NavbarActive from '../components/NavbarActive';
 
@@ -296,4 +297,5 @@ const Homepage = () => {
   )
 }
 
+//const WrappedHomepage = RequireAuthentication(Homepage);
 export default Homepage
