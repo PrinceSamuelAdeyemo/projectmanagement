@@ -89,8 +89,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         user_serializer.is_valid(raise_exception=True)
         
         user = user_serializer.save()
+        profile_id = User.objects.get(username=user.username).id
         #user.is_active = True
-        profile = Profile.objects.create(user = user, **validated_data)
+        profile = Profile.objects.create(user = user, profile_id=profile_id, **validated_data)
         #profile = Profile.objects.create(user=user, middle_name=validated_data.pop('middle_name'), country=validated_data.pop('country'))
         return profile
 
@@ -215,7 +216,7 @@ class LoginViewSerializer(serializers.Serializer):
             if not User.objects.filter(email = email).exists():
                 raise serializers.ValidationError('This email does not exist in our record, please try logging in with your username if you may have forgotten your email')
             user = auth.authenticate(request=self.context.get('request'), username = User.objects.get(email = email), password=password)
-            
+            #user = auth.authenticate(request=self.context.get('request'), email = email, password = password)
             if not user:
                 raise serializers.ValidationError('Invalid login details from email')
             
@@ -242,4 +243,6 @@ class LoginViewSerializer(serializers.Serializer):
         
     
 class UserStatusSerializer(serializers.Serializer):
-    pass #user = 
+    
+    def validate(self, attrs):
+        pass

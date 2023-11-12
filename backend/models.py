@@ -18,6 +18,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='profile')
     middle_name = models.CharField(max_length=100, blank=True, null=True)
     country = models.CharField(max_length=100, default=None, blank=True, null=True)
+    profile_id = models.CharField(max_length=100, blank=True, null = True)
     #position = models.CharField(max_)
     #personalTask = models.ForeignKey(Task, on_delete=models.CASCADE, null = True, blank = True)
     

@@ -5,7 +5,7 @@ from knox.views import LogoutView, LogoutAllView
 urlpatterns = [
     
     # Check login status
-    path('user-status', UserStatus.as_view(), name='userstatus'),
+    path('userstatus', UserStatus.as_view(), name='userstatus'),
     #path('', Index.as_view(), name='homepage')
     path('', ReturnProfile.as_view(), name='returnprofile'),
     path('signup', Signup.as_view(), name='signup'),

@@ -43,7 +43,11 @@ class UserStatus(APIView):
     serializer_class = UserStatusSerializer
     
     def get(self, request):
-        serializer = self.serializer_class(data = request.data)
+        #serializer = self.serializer_class(data = request.data)
+        #serializer.is_valid(raise_exception = True)
+        print(self.request.user, "\n"*10)
+        return Response(self.request.user)
+        
 
 class ReturnProfile(APIView):
     #authentication_classes = (TokenAuthentication,)
@@ -121,8 +125,6 @@ class Signup(APIView):
         else:
             return Response(f'Not Personal and Business {request.data}')
         
-
-sio = socketio.Server()
 
 class BoardsRequest(APIView):
 
