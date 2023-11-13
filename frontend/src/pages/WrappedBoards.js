@@ -53,52 +53,7 @@ const Boards = () => {
         },
     ]);
     
-    /*
-    const [boards, setBoards] = [
-        {
-            "boardName": "Package",
-            "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
-            "board_BgColor": "blue",
-            "boardID": 1,
-        },
-        
-        {
-            "boardName": "Deals App",
-            "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "board_BgColor": "blue",
-            "boardID": 2,
-        },
-
-        {
-            "boardName": "Brochure products",
-            "boardDescription": "Conscious and aware of their own character, feelings and behaviour.",
-            "board_BgColor": "blue",
-            "boardID": 3,
-        },
-
-        {
-            "boardName": "Static printing",
-            "boardDescription": "Do what they and say what they do. They bring their whole self to work.",
-            "board_BgColor": "blue",
-            "boardID": 4,
-        },
-
-        {
-            "boardName": "Article",
-            "boardDescription": "Accept and crave responsibility; owns their actions and commit to getting things done.",
-            "board_BgColor": "blue",
-            "boardID": 5,
-        },
-
-        {
-            "boardName": "Deals App",
-            "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "board_BgColor": "blue",
-            "boardID": 6,
-        },
-    ];
-    */
-   
+    
     let openBoard = () =>{
         console.log(this);
     }

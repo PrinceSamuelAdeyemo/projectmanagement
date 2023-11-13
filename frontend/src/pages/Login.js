@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { HelmetProvider, Helmet} from 'react-helmet-async'
 import NavbarAnonymous from '../components/NavbarAnonymous'
@@ -8,8 +8,11 @@ import jQuery from 'jquery';
 
 const Login = () => {
 
-    // Redirecting to another page using useNavigate() function
+    useEffect(() => {
 
+    }, [])
+
+    // Redirecting to another page using useNavigate() function
     const navigate = useNavigate();
     const openPage = (page) =>{
         navigate(`/${page}`);

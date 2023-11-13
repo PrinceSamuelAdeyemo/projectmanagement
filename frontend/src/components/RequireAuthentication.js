@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+//import { useSelector, useDispatch } from 'react-redux';
+//import { viewToken,addByToken, removeByToken } from '../redux/features/authentication/authenticationReducer';
 
 const RequireAuthentication = (Component) => {
-  class RequireAuthentication extends React.Component{
-    
-    
-    constructor(){
-      super();
-      this.state = {
-        token: null
+    const RequireAuthentication = (props) => {
+      //const authenticate = useSelector((state) => state.token.value)
+      //const dispatch = useDispatch();
+
+      let username = "Personal";
+      let token = "c6f334cb569cf956fc76d3f6ddaa0cb354fb4072b0be7c147d150bec7f4582bb8e712fecf3368a8ce7a8865283a6a9a6b93c48b5684a2c7879fa5a22ac4a1dd1"
+      let host = 'ws://127.0.0.1:8000/ws'
+      const requestUserStatus = (event) => {
+        const socket = new WebSocket(`${host}/auth_token`);
+        socket.onopen((event) => {
+          socket.send(JSON.stringify({
+            "user_auth": {
+              "username": username,
+              "token": token,
+            }
+          }))
+        })
+
+        console.log("SOCKET SENT")
       }
+      
 
       let userStatus = async() =>{
         await fetch('http://127.0.0.1:8000/api/userstatus', {
@@ -29,45 +44,17 @@ const RequireAuthentication = (Component) => {
           console.log(error)
         });
       }
-      console.log("About to initiate")
-      userStatus();
-      console.log("Initiated")
-    }
-
-    
-
-    componentDidMount(){
-      console.log(`Component: This component should be authorised to view.`);
-    }
-
-    render(){
-      return <Component {...this.props} />
-    }
+      useEffect(() =>{
+        requestUserStatus();
+        console.log("About to initiate fetch")
+        userStatus();
+        console.log("Initiated")
+      }, []);
+   
+      return <Component {...props} />
   }
 
   return RequireAuthentication;
-
-/*
-    const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const loginStatus = async() =>{
-    let response = await fetch(`${"http:127.0.0.1:8000"}`, {
-      "method": "GET",
-      "headers": "application/json",
-      "credentials": "include",
-      "Authorization": `Token ${token}`
-    })
-    .then(response => response.json)
-    .then(user => setUser(user))
-    .catch(error => console.log({"Error: ": error}))
-
-    //.log("http:127.0.0.1:8000");
-  }
-  return (
-    <div>AuthenticatedComponent</div>
-  )
-
-  */
 }
 
-export default RequireAuthentication
+export default RequireAuthentication;

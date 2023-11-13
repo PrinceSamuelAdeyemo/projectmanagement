@@ -179,3 +179,4 @@ class Test(models.Model):
     
     def __str__(self):
         return self.first_name+' '+self.last_name
+    

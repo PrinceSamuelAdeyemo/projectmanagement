@@ -94,4 +94,22 @@ class BoardInfoWS(WebsocketConsumer):
         except:
             return {"error": "A unknown error occurred."}
         
+class UserStatus(WebsocketConsumer):
+    def connect(self):
+        self.accept()
     
+    def disconnect(self, close_code):
+        self.close()
+    
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        user_auth = text_data["user_auth"]
+        username = user_auth["username"]
+        token = user_auth["token"]
+        print({
+            "USERNAME": username,
+            "TOKEN": token
+        })
+    
+    def send(self, text_data):
+        pass  

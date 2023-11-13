@@ -36,6 +36,8 @@ import json
 import socketio
 
 
+#from backend.signals import (userLoggedIn)
+
 # Create your views here.
 
 class UserStatus(APIView):
@@ -45,6 +47,8 @@ class UserStatus(APIView):
     def get(self, request):
         #serializer = self.serializer_class(data = request.data)
         #serializer.is_valid(raise_exception = True)
+        #userLoggedIn.send('h')
+        
         print(self.request.user, "\n"*10)
         return Response(self.request.user)
         
