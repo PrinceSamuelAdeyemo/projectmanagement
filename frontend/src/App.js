@@ -54,9 +54,13 @@ import WrappedHomepage from './pages/Homepage';
 
 //import homepage from './url_paths';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 function App() {
 
   return (
+    
     <HelmetProvider>
 
     <Helmet>

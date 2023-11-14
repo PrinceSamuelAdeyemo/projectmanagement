@@ -1,14 +1,4 @@
 "use client";
-import './styles/css/bootstrap/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import './styles/css/bootstrap/js/bootstrap.bundle.min';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
 // Redux stuffs
 /*
 import store from './redux/app/store';
@@ -16,7 +6,20 @@ import { Provider } from 'react-redux';
 import ErrorBoundary from '../src/ErrorBoundary'
 */
 
-//import { ErrorBoundary } from "react-error-boundary";
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+import './styles/css/bootstrap/css/bootstrap.min.css';
+//import $ from 'jquery';
+//import Popper from 'popper.js';
+import './styles/css/bootstrap/js/bootstrap.bundle.min';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+import { ErrorBoundary } from "react-error-boundary";
 /*
 root.render(
   <React.StrictMode>
@@ -31,7 +34,11 @@ root.render(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary fallback={<p>Something went wrong</p>}>
+      <Provider store={ store }>
+        <App />
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
