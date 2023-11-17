@@ -103,13 +103,17 @@ class UserStatus(WebsocketConsumer):
     
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        user_auth = text_data["user_auth"]
+        
+        user_auth = text_data_json["user_auth"]
         username = user_auth["username"]
         token = user_auth["token"]
-        print({
+        user_details = {
             "USERNAME": username,
             "TOKEN": token
-        })
+        }
+        
+        print(user_details)
+        self.send(text_data=json.dumps(user_details))
     
-    def send(self, text_data):
-        pass  
+    #def send(self, text_data):
+    #    pass  

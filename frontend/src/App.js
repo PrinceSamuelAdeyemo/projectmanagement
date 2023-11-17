@@ -56,6 +56,7 @@ import WrappedHomepage from './pages/Homepage';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
 

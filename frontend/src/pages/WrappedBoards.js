@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import '../styles/css/activities.css';
 
@@ -6,6 +6,10 @@ import '../styles/css/activities.css';
 import RequireAuthentication from '../components/RequireAuthentication';
 import Board from '../components/Board';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getToken, addByToken } from '../redux/features/userAuthSliceReducer/userAuthSlice';
+
+import { get } from 'jquery';
 
 
 const Boards = () => {
@@ -53,10 +57,12 @@ const Boards = () => {
         },
     ]);
     
-    
     let openBoard = () =>{
         console.log(this);
     }
+    let dispatch = useDispatch()
+    let num = '90'
+    useCallback(() => dispatch(addByToken(num))) 
 
 
   return (

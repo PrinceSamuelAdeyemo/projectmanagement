@@ -39,38 +39,36 @@ const BoardInfo = () => {
   let host = 'ws://127.0.0.1:8000/ws'
   const socket = new WebSocket(`${host}/board/boardID`);
   socket.onopen = (event) => {
-    console.log("Socket opened")
+    //console.log("Socket opened")
     socket.send(JSON.stringify(
       {
         "title": "boardID",
         "boardID": "10c37205-2870-48ab-8eb2-b29b9f5cb7f2",
         }));
 
-    console.log('Sent');
+    //console.log('Sent');
   }
 
   socket.onmessage = (event) => {
     let message = JSON.parse(event.data);
+    /*
     console.log(message);
     console.log(message.board_name);
     console.log(message.board_description);
+    */
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
   }
 
-  let bb = (event) => {
-    console.log("Starting")
-    
-    console.log("completed")
-  }
+  
   
   socket.onerror = (event) => {
-    console.log(error)
+    //console.log(error)
   }
   
 
   socket.onclose = (event) => {
-    console.log("Socket closed.")
+    //console.log("Socket closed.")
   }
 
 
