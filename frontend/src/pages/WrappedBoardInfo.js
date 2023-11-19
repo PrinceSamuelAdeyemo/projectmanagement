@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import RequireAuthentication from '../components/RequireAuthentication';
+
 // Styling
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
@@ -589,4 +591,5 @@ const BoardInfo = () => {
   )
 }
 
-export default BoardInfo
+const WrappedBoardInfo = RequireAuthentication(BoardInfo)
+export default WrappedBoardInfo

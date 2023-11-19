@@ -111,8 +111,6 @@ class UserStatus(WebsocketConsumer):
             "USERNAME": username,
             "TOKEN": token
         }
-        
-        print(user_details)
         self.send(text_data=json.dumps(user_details))
     
     #def send(self, text_data):

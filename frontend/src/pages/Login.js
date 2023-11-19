@@ -8,6 +8,11 @@ import jQuery from 'jquery';
 
 const Login = () => {
 
+    const COOKIE_NAME = 'user_auth_cookie';
+    var COOKIE_TOKENVALUE = null;
+    var COOKIE_EXPIRES = (new Date(Date.now + 604800000)).toUTCString;
+    const COOKIE_PATH = '/cookie/user_auth_cookie';
+
     useEffect(() => {
 
     }, [])
@@ -89,7 +94,7 @@ const Login = () => {
     }
 
     
-    var submitLoginDetails = (event) =>{
+    var submitLoginDetails = async (event) =>{
         //const personalSignup = document.getElementById('personalSignupForm')
         //const businessSignup = document.getElementById('businessSignupForm');
         
@@ -99,7 +104,7 @@ const Login = () => {
                 console.log('From personal form');
                 if (personalLoginDetails.email !== '' && personalLoginDetails.password !== '') {
                     //setPersonalSignupDetails({password: personalSignupDetails.password});
-                    fetch('http://127.0.0.1:8000/api/login', {
+                    await fetch('http://127.0.0.1:8000/api/login', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -111,16 +116,14 @@ const Login = () => {
                             'email': personalLoginDetails.email,
                             'password': personalLoginDetails.password,},
                         )
-                    }).then((response) => {
-                        if (!response.ok) {
-                            console.log(response);
-                            throw new Error('Not okay', {'cause': response});
-                            
-                        }else{
-                            console.log('Proceed');
-                        }
+                    })
+                    .then((response) => {
+                        return response.json()
                     })
                     .then((data) => {
+                        console.log("Your data",data)
+                        COOKIE_TOKENVALUE = data['token']
+                        document.cookie = `${COOKIE_NAME} = ${COOKIE_TOKENVALUE}; COOKIE_EXPIRES = ${COOKIE_EXPIRES}; COOKIE_PATH = ${COOKIE_PATH}`
                         console.log('Personal Registered');
                         openPage('boards');
                     })

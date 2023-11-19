@@ -1,37 +1,62 @@
 import { TimeToLeaveRounded } from '@material-ui/icons';
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getToken, addByToken, removeByToken } from '../redux/features/userAuthSliceReducer/userAuthSlice';
 
+import Login from '../pages/Login';
+import { render } from 'react-dom';
+
 const RequireAuthentication = (Component) => {
     const RequireAuthentication = (props) => {
+      // May not be needed
+      let username = "Personal";
+      let host = 'ws://127.0.0.1:8000/ws'
+      let COOKIE_NAME, COOKIE_VALUE, COOKIE_EXPIRES, COOKIE_PATH;
+      COOKIE_NAME = 'user_auth_cookie';
+      //COOKIE_VALUE = getUserToken;
+      COOKIE_EXPIRES = (new Date(Date.now + 604800000)).toUTCString;
+      COOKIE_PATH = '/cookie/user_auth_cookie'
+      ///
+
+      const [isAuthenticated, SetIsAuthenticated] = useState(false);
+      // Function to check if cookies are enabled
+      if (navigator.cookieEnabled == true){
+        console.log("Cookies enabled")
+        console.log(document.cookie)
+        
+      } else{
+        console.log("Cookies not enabled.")
+      }
+      // This is the function to get/read cookies
+      const readCookie = () =>{
+        if (document.cookie.includes("user_auth_cookie")) {
+          let starting_position = document.cookie.indexOf("user_auth_cookie=") + 17; // plus 17 is the index of "=" in "user_auth_cookies="
+          var derived_cookie = ''
+          for (let i = starting_position; i < (starting_position + 64); i++){
+            derived_cookie += document.cookie[i];
+          }
+          SetIsAuthenticated(true);
+          return derived_cookie;
+      }
+      else{
+        console.log("Authentication cookie not found!")
+      }
+    }
       //const authenticate = useSelector((state) => state)
       const dispatch = useDispatch();
       
       //useCallback(() => {dispatch({type: addByToken("123456")})})
-      
-      
       let getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
-    
-    console.log("Here is it", getUserToken)
-    
-      let username = "Personal";
-      let token = "c6f334cb569cf956fc76d3f6ddaa0cb354fb4072b0be7c147d150bec7f4582bb8e712fecf3368a8ce7a8865283a6a9a6b93c48b5684a2c7879fa5a22ac4a1dd1"
-      let host = 'ws://127.0.0.1:8000/ws'
-      let COOKIE_NAME, COOKIE_VALUE, COOKIE_EXPIRES, COOKIE_PATH;
-      COOKIE_NAME = 'user_auth_cookie';
-      COOKIE_VALUE = getUserToken;
-      COOKIE_EXPIRES = (new Date(Date.now + 604800000)).toUTCString;
-      COOKIE_PATH = '/cookie/user_auth_cookie'
-      //document.cookie = `${COOKIE_NAME} = ${COOKIE_VALUE}; COOKIE_EXPIRES = ${COOKIE_EXPIRES}; COOKIE_PATH = ${COOKIE_PATH}`
-      console.log(document.cookie)
+      
+      //if (document.cookie)
+      /*
       const requestUserStatus = (event) => {
         const socket = new WebSocket(`${host}/auth_token`);
         socket.onopen = ((event) => {
           socket.send(JSON.stringify({
             "user_auth": {
               "username": username,
-              "token": token,
+              //"token": token,
             }
           }))
           socket.onmessage = (event) => {
@@ -39,40 +64,41 @@ const RequireAuthentication = (Component) => {
             if (event.origin === (`${host}/auth_token`) && event.data === "auth_token"){
 
             };
-            */
+            *
            console.log("Socket response", event.origin, event.data)
           };
         })
 
-        console.log("SOCKET SENT")
+        //console.log("SOCKET SENT")
       }
-      
+      */
 
-      let userStatus = async() =>{
+      var userStatus = async() =>{
         await fetch('http://127.0.0.1:8000/api/userstatus', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            //'Authorization': `Token ${token}`
+            'Authorization': `Token ${readCookie()}`
           },
           //credentials: 'include',
           //mode: 'cors'
-          
         })
         .then((response) => response.json())
         .then(data => {
-            console.log({"data": data});
+            console.log({"Your data": data});
         })
         .catch(error =>{
           console.log(error)
         });
       }
+
+      
       useEffect(() =>{
         //dispatch({type: addByToken("6789")})
-        
-        requestUserStatus();
+        //readCookie()
+        //requestUserStatus();
         //console.log("About to initiate fetch")
-        //userStatus();
+        userStatus();
         //console.log("Initiated")
         //console.log({"YOUR TOKEN": getUserToken})
         //console.log({"Hey": getToken()})
@@ -80,18 +106,23 @@ const RequireAuthentication = (Component) => {
       let mytoken = () =>{
         dispatch(addByToken('70'))
       }
-
-      console.log("Take", getUserToken)
+      var renderedComponent = (isAuthenticated) =>{
+        if (isAuthenticated == true){
+          return <Component {...props} />
+        } else{
+          return (
+          <div>
+            <p>"Please login to continue"</p>
+            <Login />
+          </div>)
+        }
+      } 
+      
 
    
       return (
         <div>
-          <p>Hello</p>
-          <button onClick={mytoken}>press</button>
-          <p>{getUserToken}</p>
-
-          <p>World</p>
-          <Component {...props} />
+        {renderedComponent(isAuthenticated)}
         </div>
         
       )

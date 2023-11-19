@@ -26,6 +26,7 @@ from rest_framework import status
 ############### KNOX LIBRARIES
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
+from knox.settings import CONSTANTS
 from knox import views as knox_views
 
 ########### MODEL VIEW IMPORTS ##################
@@ -41,16 +42,19 @@ import socketio
 # Create your views here.
 
 class UserStatus(APIView):
-    query_set = User.objects.all()
-    serializer_class = UserStatusSerializer
-    
+    #authentication_classes = (TokenAuthentication,)
+    #query_set = User.objects.all()
+    #serializer_class = UserStatusSerializer
     def get(self, request):
         #serializer = self.serializer_class(data = request.data)
         #serializer.is_valid(raise_exception = True)
         #userLoggedIn.send('h')
         
-        print(self.request.user, "\n"*10)
-        return Response(self.request.user)
+        #print(f'{request.auth}')
+        #token= AuthToken.objects.filter(token_key__startswith=token).first()
+        #print(token, '\n'*5)
+        return Response({"TOKEN": f"{request.auth}"})
+        #return Response({"A": "B"})
         
 
 class ReturnProfile(APIView):
@@ -90,12 +94,14 @@ class LoginView(knox_views.LoginView):
             user.is_active = True
             auth.login(request, user)
             
-            response = super().post(request, format = None)
             
+            response = super().post(request, format = None)
+            #return Response({"token": "Work"})
         else: 
             return Response({'errors': serializer.errors}, status = status.HTTP_400_BAD_REQUEST)
         
-        return Response({'message': response.data}, status = status.HTTP_200_OK)
+        return Response({'token': response.data["token"]}, status = status.HTTP_200_OK)
+        #return Response({"token": "Work"})
             
 
 ###### Sign up view ######
@@ -752,8 +758,6 @@ class CreateProject(LoginRequiredMixin, View):
                 #messages.info(request, 'Please enter a board name')
             
             
-
-
 ###### CreateBoard view  from the create board button in the html ######
 class CreateBoard(LoginRequiredMixin, View):
     login_url = 'login'

@@ -21,7 +21,7 @@ import Signup from './pages/Signup';
 import Logout from './pages/Logout'
 import Dashboard from './pages/Dashboard';
 import WrappedBoards from './pages/WrappedBoards';
-import BoardInfo from './pages/BoardInfo';
+import WrappedBoardInfo from './pages/WrappedBoardInfo';
 import CreateBoard from './pages/CreateBoard';
 import Error from './pages/404';
 
@@ -86,8 +86,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/boards' element={<WrappedBoards />} />
           
-          <Route path='/board/:company/:boardID' element={<BoardInfo />} />
-          <Route path='/board/:boardID' element={<BoardInfo />} />
+          <Route path='/board/:company/:boardID' element={<WrappedBoardInfo />} />
+          <Route path='/board/:boardID' element={<WrappedBoardInfo />} />
           
 
           <Route path='/createboard' element={<CreateBoard />} />
