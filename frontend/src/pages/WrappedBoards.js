@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import '../styles/css/activities.css';
 
 //import '../components/NavbarAnonymous';
@@ -13,6 +14,7 @@ import { get } from 'jquery';
 
 
 const Boards = () => {
+    const navigate = useNavigate();
     const [boards, setBoards] = useState([
         {
             "boardName": "Package",
@@ -60,10 +62,19 @@ const Boards = () => {
     let openBoard = () =>{
         console.log(this);
     }
+
+    
+    let openPage = (page) =>{
+        navigate(`/${page}`);
+    }
+
     let dispatch = useDispatch()
     let num = '90'
     useCallback(() => dispatch(addByToken(num))) 
 
+    useEffect(() => {
+        
+    })
 
   return (
     <HelmetProvider>
@@ -109,7 +120,7 @@ const Boards = () => {
 
                             <div className="board">
                                 <div className="board-button-div text-center">             
-                                    <button className="btn btn-primary" id="create-board">Create a board</button>
+                                    <button className="btn btn-primary" id="create-board" onClick={openPage("")}>Create a board</button>
                                 </div>
                             </div>
                             

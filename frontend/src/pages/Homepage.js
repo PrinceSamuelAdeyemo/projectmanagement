@@ -1,6 +1,5 @@
 import React from 'react';
 import { HelmetProvider, Helmet} from 'react-helmet-async';
-import { componentDidMount } from 'react-dom';
 
 import RequireAuthentication from '../components/RequireAuthentication';
 import NavbarAnonymous from '../components/NavbarAnonymous';
@@ -10,6 +9,8 @@ import Dashboard from './Dashboard';
 
 import jQuery from 'jquery';
 
+// Redux stuffs
+import { useSelector, useDispatch } from 'react-redux';
 
 const jquery = require("jquery");
 /*
@@ -151,6 +152,7 @@ calendar: 'chinese',
 })
 */
 
+
 var launchcreateproject = () => {
     
     if (window.fetch){
@@ -165,7 +167,10 @@ var launchcreateproject = () => {
 }
 
 
+
 const Homepage = () => {
+
+
   return (
     <HelmetProvider>
         <Helmet>
@@ -201,12 +206,8 @@ const Homepage = () => {
             <title></title>
         </Helmet>
 
-        
-        
         <div>
             <div className="container-fluid p-0 m-0">
-                
-
                 <main>
                     <div className="headline">
                         <div className="headline-child center-text">
@@ -297,5 +298,6 @@ const Homepage = () => {
   )
 }
 
-//const WrappedHomepage = RequireAuthentication(Homepage);
+const WrappedHomepage = RequireAuthentication(Homepage);
+//export default WrappedHomepage
 export default Homepage

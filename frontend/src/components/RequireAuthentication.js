@@ -2,12 +2,19 @@ import { TimeToLeaveRounded } from '@material-ui/icons';
 import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getToken, addByToken, removeByToken } from '../redux/features/userAuthSliceReducer/userAuthSlice';
+import { setStatus } from '../redux/features/userAuthSliceReducer/userStatusSlice';
 
 import Login from '../pages/Login';
 import { render } from 'react-dom';
+import NavbarActive from './NavbarActive';
+import NavbarAnonymous from './NavbarAnonymous';
 
 const RequireAuthentication = (Component) => {
     const RequireAuthentication = (props) => {
+
+      //const authenticate = useSelector((state) => state)
+      const dispatch = useDispatch();
+      
       // May not be needed
       let username = "Personal";
       let host = 'ws://127.0.0.1:8000/ws'
@@ -36,14 +43,16 @@ const RequireAuthentication = (Component) => {
             derived_cookie += document.cookie[i];
           }
           SetIsAuthenticated(true);
+          dispatch(setStatus(true));
+          //dispatch(setStatus(true));
           return derived_cookie;
       }
       else{
         console.log("Authentication cookie not found!")
       }
     }
-      //const authenticate = useSelector((state) => state)
-      const dispatch = useDispatch();
+    
+    
       
       //useCallback(() => {dispatch({type: addByToken("123456")})})
       let getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
@@ -95,7 +104,7 @@ const RequireAuthentication = (Component) => {
       
       useEffect(() =>{
         //dispatch({type: addByToken("6789")})
-        //readCookie()
+        readCookie()
         //requestUserStatus();
         //console.log("About to initiate fetch")
         userStatus();
@@ -103,18 +112,22 @@ const RequireAuthentication = (Component) => {
         //console.log({"YOUR TOKEN": getUserToken})
         //console.log({"Hey": getToken()})
       }, []);
-      let mytoken = () =>{
-        dispatch(addByToken('70'))
-      }
+      
       var renderedComponent = (isAuthenticated) =>{
         if (isAuthenticated == true){
-          return <Component {...props} />
-        } else{
           return (
           <div>
-            <p>"Please login to continue"</p>
-            <Login />
-          </div>)
+            <NavbarActive />
+            <Component {...props} />
+          </div>  
+          )
+        } else{
+            return (
+            <div>
+              <NavbarAnonymous />
+              <p>Please login to continue</p>
+              <Login />
+            </div>)
         }
       } 
       

@@ -14,6 +14,7 @@ import {
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
 
+import LaterCreateBoard from './pages/LaterCreateBoard.js';
 // Pages components
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -22,7 +23,7 @@ import Logout from './pages/Logout'
 import Dashboard from './pages/Dashboard';
 import WrappedBoards from './pages/WrappedBoards';
 import WrappedBoardInfo from './pages/WrappedBoardInfo';
-import CreateBoard from './pages/CreateBoard';
+import CreateBoard from './pages/CreateBoard.js';
 import Error from './pages/404';
 
 import Board from './components/Board';
@@ -53,15 +54,16 @@ import BoardRequest from './components/BoardRequest';
 import WrappedHomepage from './pages/Homepage';
 
 //import homepage from './url_paths';
-
-import { Provider } from 'react-redux';
+// Redux stuffs
 import store from './redux/store';
 import { ErrorBoundary } from "react-error-boundary";
+import { useSelector, useDispatch } from 'react-redux';
+
 
 function App() {
 
+  const autheticated = useSelector((state) => state.USER_STATUS)
   return (
-    
     <HelmetProvider>
 
     <Helmet>
@@ -72,10 +74,8 @@ function App() {
       <script src="../src/customjs/js/login.js" type='text/jsx'></script>
     </Helmet>
     <div>
-    
     <Router>
       <div>
-        <NavbarAnonymous/>
         <Routes>
           <Route exact path='/' element={<Homepage />} />
           <Route exact path='/homepage' element={<Homepage />} />
@@ -91,6 +91,7 @@ function App() {
           
 
           <Route path='/createboard' element={<CreateBoard />} />
+          <Route path='/latercreateboard' element={<LaterCreateBoard />} />
           <Route path='/404' element={<Error />} />
 
           <Route path='/test' element={<Board boardID="99" boardName="Name" boardDescription="Desc" boardBgColor="red" />} />
