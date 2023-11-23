@@ -152,11 +152,28 @@ class Board(models.Model):
     
 
     
+class Card(models.Model):
+    #subTask = models.CharField(max_length=200)
+    #businessSubTask = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    card_id = models.UUIDField(default = uuid.uuid4, primary_key=True)
+    card_parent = models.ForeignKey(Board, on_delete = models.CASCADE, null = True, blank = True)
+    card_name = models.CharField(max_length=150, null=True, blank=True)
+    #task_description = models.TextField(null = True, blank = True)
+    #task_assigner = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_assigned", related_query_name="task_assigned")
+    #task_assignee = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_received", related_query_name="task_received")
+    
+    card_done = models.BooleanField(default=False)
+    card_date = models.DateField(auto_now_add=True, null=True, blank=True)
+    card_dateUpdated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.card_name
+    
 class Task(models.Model):
     #subTask = models.CharField(max_length=200)
     #businessSubTask = models.ForeignKey(Profile, on_delete=models.CASCADE)
     task_id = models.UUIDField(default = uuid.uuid4, primary_key=True)
-    task_parent = models.ForeignKey(Board, on_delete = models.CASCADE, null = True, blank = True)
+    task_parent = models.ForeignKey(Card, on_delete = models.CASCADE, null = True, blank = True)
     task_name = models.CharField(max_length=150, null=True, blank=True)
     task_description = models.TextField(null = True, blank = True)
     #task_assigner = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True, blank = True, related_name="task_assigned", related_query_name="task_assigned")

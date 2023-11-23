@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,  } from 'react'
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -27,10 +27,11 @@ const BoardInfo = () => {
     //const [boardList, setBoardList] = useState([]);
     const [boardName, setBoardName] = useState('');
     const [boardDescription, setBoardDescription] = useState('');
+    const [boardCard, setBoardCard] = useState({});
     const [boardCards, setBoardCards] = useState([]);
     const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
 
-    const [cardNames, setCardNames] = useState([]);
+    
     const [cardTasks, setCardTasks] = useState([]);
 
     const [tempcardTask, settempCardTask] = useState('');
@@ -45,14 +46,19 @@ const BoardInfo = () => {
     socket.send(JSON.stringify(
       {
         "title": "boardID",
-        "boardID": "10c37205-2870-48ab-8eb2-b29b9f5cb7f2",
+        "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
         }));
 
+      socket.close(1)
     //console.log('Sent');
   }
 
+
+  
+
   socket.onmessage = (event) => {
     let message = JSON.parse(event.data);
+    var cardList = message["card_details"]
     /*
     console.log(message);
     console.log(message.board_name);
@@ -60,6 +66,9 @@ const BoardInfo = () => {
     */
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
+    //setBoardCard(message.card_details)
+    console.log({"Some cards here":cardList})
+    console.log(Arrayfrom(cardList).length)
   }
 
   
@@ -73,8 +82,11 @@ const BoardInfo = () => {
     //console.log("Socket closed.")
   }
 
-
+  //socket.OPEN
   useEffect(() => {
+    
+    
+
     window.history.scrollRestoration = 'auto';
     window.scrollTo(0,0)
   });

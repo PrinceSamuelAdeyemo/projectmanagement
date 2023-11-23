@@ -3,7 +3,7 @@ from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
 
-from .models import Board
+from .models import Board, Card
 
 class Data(WebsocketConsumer):
     def connect(self):
@@ -58,10 +58,12 @@ class BoardInfoWS(WebsocketConsumer):
             except:
                 self.board_name = self.board_details["board_name"]
                 self.board_desc = self.board_details["board_desc"]
+                self.card_details = self.board_details["board_cards"]
                 
                 self.send(text_data=json.dumps({
                     "board_name": self.board_name,
-                    "board_description": self.board_desc
+                    "board_description": self.board_desc,
+                    "card_details": self.card_details
                 }))
             
         else:
@@ -79,9 +81,21 @@ class BoardInfoWS(WebsocketConsumer):
             self.board_name = self.board.board_name
             self.board_desc = self.board.board_description
             
+            self.cards = Card.objects.filter(card_parent=self.board).all()
+            
+            self.card_details = {}
+            for self.card in self.cards:
+                self.card_details_current = {
+                    f"{self.card.card_name}": f"{self.card.card_id}",
+                }
+                self.card_details = {**self.card_details, **self.card_details_current}
+                
+            self.card_details = {**self.card_details}
+                        
             return {
                 "board_name": self.board_name,
-                "board_desc": self.board_desc
+                "board_desc": self.board_desc,
+                "board_cards": self.card_details
             }
             
         except KeyError:

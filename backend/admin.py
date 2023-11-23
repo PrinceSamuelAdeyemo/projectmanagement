@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, BusinessProfile, Team, Membership, Project, Board, Task, Test
+from .models import Profile, BusinessProfile, Team, Membership, Project, Board, Card, Task, Test
 
 # Register your models here.
 admin.site.register(Profile)
@@ -8,5 +8,6 @@ admin.site.register(Team)
 admin.site.register(Membership)
 admin.site.register(Project)
 admin.site.register(Board)
+admin.site.register(Card)
 admin.site.register(Task)
 admin.site.register(Test)
