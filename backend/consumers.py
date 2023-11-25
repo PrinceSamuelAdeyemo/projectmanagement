@@ -8,15 +8,15 @@ from .models import Board, Card
 class Data(WebsocketConsumer):
     def connect(self):
         self.accept()
-        message = "From server"
-        self.send(text_data=json.dumps({"message": message}))
+        #message = "From server"
+        #self.send(text_data=json.dumps({"message": message}))
         
     def disconnect(self, close_code):
         self.close()
         
     def receive(self, text_data): 
         text_data_json = json.loads(text_data) 
-        message = "From server: "+text_data_json["message"]
+        message = f"From server: {text_data_json['message']}"
         
         self.send(text_data=json.dumps({"message": message}))
         """        
@@ -30,7 +30,6 @@ class Data(WebsocketConsumer):
         """
     
 class BoardInfoWS(WebsocketConsumer):
-  
     # connect, disconnect and recieve functions are below
     def connect(self):
         
@@ -46,8 +45,15 @@ class BoardInfoWS(WebsocketConsumer):
         
         if (messagetitle == "boardID"):
             board_id = text_data_json[messagetitle]
-            self.board_details = self.get_board(board_id)
+            board_details = get_board(board_id)
+            message = self.board_details["error"]
             
+            self.send(text_data=json.dumps({
+                "board_name": message,
+                "board_description": message
+            }))
+            
+            """
             try:
                 message = self.board_details["error"]
                 self.send(text_data=json.dumps({
@@ -65,10 +71,11 @@ class BoardInfoWS(WebsocketConsumer):
                     "board_description": self.board_desc,
                     "card_details": self.card_details
                 }))
-            
+            """
         else:
-            self.send(
-                text_data=json.dumps({"error": "Not requesting for boardID as supposed to."})
+            print(messagetitle)
+            self.send(text_data=json.dumps({
+                "error": "Not requesting for boardID as supposed to."})
             )
         
   

@@ -25,6 +25,7 @@ import WrappedBoards from './pages/WrappedBoards';
 import WrappedBoardInfo from './pages/WrappedBoardInfo';
 import CreateBoard from './pages/CreateBoard.js';
 import Error from './pages/404';
+import Test from './pages/Test.js';
 
 import Board from './components/Board';
 
@@ -94,7 +95,7 @@ function App() {
           <Route path='/latercreateboard' element={<LaterCreateBoard />} />
           <Route path='/404' element={<Error />} />
 
-          <Route path='/test' element={<Board boardID="99" boardName="Name" boardDescription="Desc" boardBgColor="red" />} />
+          <Route path='/test' element={<Test />} />
         </Routes>
       </div>
     </Router>

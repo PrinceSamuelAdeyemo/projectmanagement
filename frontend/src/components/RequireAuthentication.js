@@ -1,19 +1,23 @@
-import { TimeToLeaveRounded } from '@material-ui/icons';
 import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getToken, addByToken, removeByToken } from '../redux/features/userAuthSliceReducer/userAuthSlice';
-import { setStatus } from '../redux/features/userAuthSliceReducer/userStatusSlice';
+import { getStatus, setStatus, userAuthenticated } from '../redux/features/userAuthSliceReducer/userStatusSlice';
 
 import Login from '../pages/Login';
 import { render } from 'react-dom';
 import NavbarActive from './NavbarActive';
 import NavbarAnonymous from './NavbarAnonymous';
 
-const RequireAuthentication = (Component) => {
+const RequireAuthentication = React.memo((Component) => {
     const RequireAuthentication = (props) => {
 
       //const authenticate = useSelector((state) => state)
       const dispatch = useDispatch();
+      const is_authenticated = useSelector((state) => state.USER_STATUS.status)
+      console.log(is_authenticated)
+      console.log("Done parent")
+      //let userAuthenticate = useSelector(userAuthenticated)
+      //console.log("User auth", userAuthenticate)
       
       // May not be needed
       let username = "Personal";
@@ -29,7 +33,7 @@ const RequireAuthentication = (Component) => {
       // Function to check if cookies are enabled
       if (navigator.cookieEnabled == true){
         console.log("Cookies enabled")
-        console.log(document.cookie)
+        //console.log(document.cookie)
         
       } else{
         console.log("Cookies not enabled.")
@@ -44,20 +48,16 @@ const RequireAuthentication = (Component) => {
           }
           SetIsAuthenticated(true);
           dispatch(setStatus(true));
-          //dispatch(setStatus(true));
           return derived_cookie;
+        }
+        else{
+          console.log("Authentication cookie not found!")
+        }
       }
-      else{
-        console.log("Authentication cookie not found!")
-      }
-    }
+      //readCookie();
     
-    
-      
-      //useCallback(() => {dispatch({type: addByToken("123456")})})
       let getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
       
-      //if (document.cookie)
       /*
       const requestUserStatus = (event) => {
         const socket = new WebSocket(`${host}/auth_token`);
@@ -94,7 +94,7 @@ const RequireAuthentication = (Component) => {
         })
         .then((response) => response.json())
         .then(data => {
-            console.log({"Your data": data});
+            console.log("Your data is ready");
         })
         .catch(error =>{
           console.log(error)
@@ -103,15 +103,13 @@ const RequireAuthentication = (Component) => {
 
       
       useEffect(() =>{
-        //dispatch({type: addByToken("6789")})
-        readCookie()
+        //readCookie()
         //requestUserStatus();
-        //console.log("About to initiate fetch")
         userStatus();
-        //console.log("Initiated")
         //console.log({"YOUR TOKEN": getUserToken})
         //console.log({"Hey": getToken()})
-      }, []);
+        
+      });
       
       var renderedComponent = (isAuthenticated) =>{
         if (isAuthenticated == true){
@@ -144,6 +142,6 @@ const RequireAuthentication = (Component) => {
   }
 
   return RequireAuthentication;
-}
+});
 
 export default RequireAuthentication;

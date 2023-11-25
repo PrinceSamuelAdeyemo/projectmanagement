@@ -14,7 +14,7 @@ const Login = () => {
     const COOKIE_PATH = '/cookie/user_auth_cookie';
 
     useEffect(() => {
-
+        
     }, [])
 
     // Redirecting to another page using useNavigate() function

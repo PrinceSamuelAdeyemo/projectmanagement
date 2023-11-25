@@ -15,9 +15,11 @@ export default store
 
 */
 
-export default configureStore({
+const store = configureStore({
     reducer: {
         AUTH_TOKEN: userAuthReducer,
         USER_STATUS: userStatusReducer
     }
 })
+
+export default store;

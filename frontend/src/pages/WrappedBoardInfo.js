@@ -42,22 +42,17 @@ const BoardInfo = () => {
   let host = 'ws://127.0.0.1:8000/ws'
   const socket = new WebSocket(`${host}/board/boardID`);
   socket.onopen = (event) => {
-    //console.log("Socket opened")
+    console.log("Connection established")
     socket.send(JSON.stringify(
       {
         "title": "boardID",
         "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
         }));
 
-      socket.close(1)
-    //console.log('Sent');
   }
 
-
-  
-
-  socket.onmessage = (event) => {
-    let message = JSON.parse(event.data);
+  socket.onmessage = async (event) => {
+    let message = await JSON.parse(event.data);
     var cardList = message["card_details"]
     /*
     console.log(message);
@@ -66,26 +61,39 @@ const BoardInfo = () => {
     */
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
+    let newCardList = {...cardList}
+    setBoardCard(newCardList)
+    //console.log(boardCard)
     //setBoardCard(message.card_details)
-    console.log({"Some cards here":cardList})
-    console.log(Arrayfrom(cardList).length)
+    
   }
 
-  
-  
   socket.onerror = (event) => {
     //console.log(error)
   }
-  
 
   socket.onclose = (event) => {
-    //console.log("Socket closed.")
+    console.log("Socket closed.")
   }
+  const requestBoardCards = () =>{
+    //if (socket.OPEN){
+    socket.send(JSON.stringify(
+      {
+        "title": "boardID",
+        "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
+        }));
+
+      //socket.close(3000)
+    console.log('Sent');
+    //}
+    
+  }
+  
 
   //socket.OPEN
   useEffect(() => {
     
-    
+    //requestBoardCards();
 
     window.history.scrollRestoration = 'auto';
     window.scrollTo(0,0)
@@ -603,5 +611,5 @@ const BoardInfo = () => {
   )
 }
 
-const WrappedBoardInfo = RequireAuthentication(BoardInfo)
-export default WrappedBoardInfo
+//const WrappedBoardInfo = RequireAuthentication(BoardInfo)
+export default BoardInfo

@@ -73,17 +73,12 @@ CORS_ORIGIN_WHITELIST = (
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.BasicAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.TokenAuthentication',
         'knox.auth.TokenAuthentication',
         ],
     
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    #'knox.auth.TokenHasReadWriteScope'
-    ]
-    
+        ]
 }
 
 REST_KNOX = {

@@ -14,6 +14,10 @@ import { get } from 'jquery';
 
 
 const Boards = () => {
+    const is_authenticated = useSelector((state) => state.USER_STATUS)
+    console.log(is_authenticated)
+    console.log("Done")
+
     const navigate = useNavigate();
     const [boards, setBoards] = useState([
         {
@@ -67,10 +71,6 @@ const Boards = () => {
     let openPage = (page) =>{
         navigate(`/${page}`);
     }
-
-    let dispatch = useDispatch()
-    let num = '90'
-    useCallback(() => dispatch(addByToken(num))) 
 
     useEffect(() => {
         
@@ -146,6 +146,6 @@ const Boards = () => {
   )
 }
 
-const WrappedBoards = RequireAuthentication(Boards)
+//const WrappedBoards = RequireAuthentication(Boards)
 
-export default WrappedBoards
+export default Boards

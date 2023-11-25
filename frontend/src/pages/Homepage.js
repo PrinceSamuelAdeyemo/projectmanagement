@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HelmetProvider, Helmet} from 'react-helmet-async';
 
 import RequireAuthentication from '../components/RequireAuthentication';
 import NavbarAnonymous from '../components/NavbarAnonymous';
 import NavbarActive from '../components/NavbarActive';
+
+import { getStatus, userAuthenticated } from '../redux/features/userAuthSliceReducer/userStatusSlice';
 
 import Dashboard from './Dashboard';
 
@@ -170,6 +172,22 @@ var launchcreateproject = () => {
 
 const Homepage = () => {
 
+    const is_authenticated = useSelector((state) => state.USER_STATUS)
+    console.log(is_authenticated)
+    console.log("Done")
+    useEffect(() => {
+        console.log(is_authenticated)
+    })
+    
+    
+
+    var navbar;
+    if (is_authenticated == true){
+        navbar = <NavbarActive />
+    }
+    else{
+        navbar = <NavbarAnonymous />
+    }
 
   return (
     <HelmetProvider>
@@ -207,6 +225,9 @@ const Homepage = () => {
         </Helmet>
 
         <div>
+            <div>
+                {navbar}
+            </div>
             <div className="container-fluid p-0 m-0">
                 <main>
                     <div className="headline">
@@ -298,6 +319,6 @@ const Homepage = () => {
   )
 }
 
-const WrappedHomepage = RequireAuthentication(Homepage);
+//const WrappedHomepage = RequireAuthentication(Homepage);
 //export default WrappedHomepage
 export default Homepage
