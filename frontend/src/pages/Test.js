@@ -28,24 +28,29 @@ const Test = () => {
   }
   
     var mymessage;
-    socket.onmessage = async (event) => {
-        var message = await JSON.parse(event.data);
-        console.log(message.message)
-        console.log("A")
-        console.log("B")
-        console.log("C")
-        //setBoardName("Name")
-        console.log('\n')
-  }
+    
     useEffect((event) => {
+        socket.onmessage = async (event) => {
+            var message = await JSON.parse(event.data);
+            console.log(message.message)
+            console.log("A")
+            console.log("B")
+            console.log("C")
+            //setBoardName("Name")
+            console.log('\n')
+      }
         setBoardName("Board Name")
         setBoardDescription("Board Description")
-        //setBoardCard(...{A: "b"})
-    })
+        setBoardCard({A: "b"})
+
+        return () => socket.close()
+    }, [])
   
   socket.onerror = (event) => {
-    console.log(event)
+    console.log("Error at websocket")
   }
+
+  socket.onclose = () => console.log("Connection was closed")
   const requestBoardCards = () =>{
     //if (socket.OPEN){
     socket.send(JSON.stringify(

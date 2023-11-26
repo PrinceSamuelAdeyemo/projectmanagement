@@ -34,8 +34,7 @@ class BoardInfoWS(WebsocketConsumer):
     def connect(self):
         
         self.accept()
-        #self.send(text_data=json.dumps({"message": "Hello"}))
-    
+            
     def disconnect(self, close_code):
         self.close()
     
@@ -45,15 +44,16 @@ class BoardInfoWS(WebsocketConsumer):
         
         if (messagetitle == "boardID"):
             board_id = text_data_json[messagetitle]
-            board_details = get_board(board_id)
-            message = self.board_details["error"]
+            board_details = self.get_board(board_id)
+            """
+            message = board_details["error"]
             
             self.send(text_data=json.dumps({
                 "board_name": message,
                 "board_description": message
             }))
+                """
             
-            """
             try:
                 message = self.board_details["error"]
                 self.send(text_data=json.dumps({
@@ -62,16 +62,16 @@ class BoardInfoWS(WebsocketConsumer):
                 }))
                 
             except:
-                self.board_name = self.board_details["board_name"]
-                self.board_desc = self.board_details["board_desc"]
-                self.card_details = self.board_details["board_cards"]
+                self.board_name = board_details["board_name"]
+                self.board_desc = board_details["board_desc"]
+                self.card_details = board_details["board_cards"]
                 
                 self.send(text_data=json.dumps({
                     "board_name": self.board_name,
                     "board_description": self.board_desc,
                     "card_details": self.card_details
                 }))
-            """
+            
         else:
             print(messagetitle)
             self.send(text_data=json.dumps({

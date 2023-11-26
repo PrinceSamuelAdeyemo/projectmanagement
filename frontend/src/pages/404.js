@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Homepage from './Homepage';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import '../styles/css/404.css';
 
 const Error = () => {
+  const [some, setSome] = useState('')
   const navigate = useNavigate();
     const openPage = (page) =>{
         navigate(`/${page}`);
@@ -36,11 +37,17 @@ const Error = () => {
   }
 
   let host = 'ws://127.0.0.1:8000/ws'
-  const socket = new WebSocket(`${host}/board/boardID`);
+  const socket = new WebSocket(`${host}/test`);
   socket.onopen = (event) => {
   console.log("Connection established")
+  setSome({message:'aa'})
   //requestBoardCards();
     }
+  socket.onmessage = (event) => {
+    console.log("just received")
+    setSome('b');
+    console.log("Done")
+  }
 
 
   return (
