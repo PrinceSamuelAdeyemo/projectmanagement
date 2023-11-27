@@ -50,7 +50,7 @@ import '../src/icons/bootstrap-icons-1.10.1/bootstrap-icons.css';
 import '../src/icons/fontawesome-icons/css/all.css';
 import '../src/icons/fontawesome-icons/css/fontawesome.css';
 
-import $, { error } from 'jquery'
+//import $, { error } from 'jquery'
 import BoardRequest from './components/BoardRequest';
 import WrappedHomepage from './pages/Homepage';
 
@@ -69,7 +69,7 @@ function App() {
 
     <Helmet>
       
-      <script src="../src/customjs/js/jquery.js" type='text/jsx'></script>
+      {/*<script src="../src/customjs/js/jquery.js" type='text/jsx'></script>*/}
       <script src="../src/customjs/js/todoapp.js" type='text/jsx'></script>
       <script src="../src/customjs/js/signup.js" type='text/jsx'></script>
       <script src="../src/customjs/js/login.js" type='text/jsx'></script>

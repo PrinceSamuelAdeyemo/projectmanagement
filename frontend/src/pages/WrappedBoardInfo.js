@@ -57,17 +57,18 @@ const BoardInfo = () => {
 
   socket.onmessage = async (event) => {
     let message = await JSON.parse(event.data);
-    console.log(message.card_details)
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
     setBoardCard(message.card_details)
   }
 
+  console.log(boardCard)
+  const boardBasicDetails = new Map()
   for (let card in boardCard){
-    console.log(boardCard)
-    //console.log({card: card[id]})
+    boardBasicDetails.set(card, boardCard[card])
   }
-  
+
+  boardBasicDetails.size
 
   socket.onerror = (event) => {
     console.log(error)

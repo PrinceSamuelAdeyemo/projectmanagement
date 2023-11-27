@@ -3,7 +3,7 @@ from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
 
-from .models import Board, Card
+from .models import Board, Card, Task
 
 class Data(WebsocketConsumer):
     def connect(self):
@@ -29,49 +29,44 @@ class Data(WebsocketConsumer):
         })) 
         """
     
-class BoardInfoWS(WebsocketConsumer):
+class BoardInfoWS(AsyncWebsocketConsumer):
     # connect, disconnect and recieve functions are below
-    def connect(self):
-        
-        self.accept()
+    async def connect(self):
+        #self.send(text_data={"connect_status": "Connected"})
+        await self.accept()
             
-    def disconnect(self, close_code):
-        self.close()
+    async def disconnect(self, close_code):
+        await self.close()
     
-    def receive(self, text_data):
+    async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         messagetitle = text_data_json['title']
         
         if (messagetitle == "boardID"):
             board_id = text_data_json[messagetitle]
-            board_details = self.get_board(board_id)
-            """
-            message = board_details["error"]
-            
-            self.send(text_data=json.dumps({
-                "board_name": message,
-                "board_description": message
-            }))
-                """
+            card_id = board_id
+            #task_id = None
+            board_details = await self.get_board(board_id)
+            card_details = await self.get_cards(board_id)
+            #task_details = await self.get_tasks(card_id)
             
             try:
-                message = self.board_details["error"]
+                if board_details["board_name"] and board_details["board_description"]:
+                    card_detailslist = {"card_details": card_details}
+                    message = {**board_details, **card_detailslist}
+                    print(message)
+                    await self.send(text_data=json.dumps(message))
+                #self.card_details = board_details["board_cards"]
+                     
+            except Exception as e:
+                print(e)
+                """
+                message = board_details["error"]
                 self.send(text_data=json.dumps({
                     "board_name": message,
                     "board_description": message
                 }))
-                
-            except:
-                self.board_name = board_details["board_name"]
-                self.board_desc = board_details["board_desc"]
-                self.card_details = board_details["board_cards"]
-                
-                self.send(text_data=json.dumps({
-                    "board_name": self.board_name,
-                    "board_description": self.board_desc,
-                    "card_details": self.card_details
-                }))
-            
+                """
         else:
             print(messagetitle)
             self.send(text_data=json.dumps({
@@ -80,29 +75,21 @@ class BoardInfoWS(WebsocketConsumer):
         
   
     # Custom functions
+    @database_sync_to_async
     def get_board(self, boardID):
         self.boardID = boardID
         try:
             Board.objects.filter(board_id = self.boardID).exists()
             self.board = Board.objects.get(board_id = self.boardID)
+                
+            #self.get_cards(boardID=self.boardID, cardID=)
             self.board_name = self.board.board_name
             self.board_desc = self.board.board_description
-            
-            self.cards = Card.objects.filter(card_parent=self.board).all()
-            
-            self.card_details = {}
-            for self.card in self.cards:
-                self.card_details_current = {
-                    f"{self.card.card_name}": f"{self.card.card_id}",
-                }
-                self.card_details = {**self.card_details, **self.card_details_current}
-                
-            self.card_details = {**self.card_details}
-                        
+             
             return {
                 "board_name": self.board_name,
-                "board_desc": self.board_desc,
-                "board_cards": self.card_details
+                "board_description": self.board_desc,
+                #"board_cards": self.card_details
             }
             
         except KeyError:
@@ -114,7 +101,51 @@ class BoardInfoWS(WebsocketConsumer):
             """
         except:
             return {"error": "A unknown error occurred."}
+    
+    @database_sync_to_async
+    def get_cards(self, boardID):
+        self.board = Board.objects.get(board_id = boardID)
+        self.card_details = {}
+        try:
+            Card.objects.filter(card_parent=self.board).exists()
+            self.cards = Card.objects.filter(card_parent=self.board).all()
+            
+            for self.card in self.cards:
+                self.card_details_current = {
+                    f"{self.card.card_id}": f"{self.card.card_name}",
+                }
+                self.card_details = {**self.card_details, **self.card_details_current}
+                    
+            self.card_details = {**self.card_details}
+            return self.card_details
+            """
+            
+            """
+        except:
+            pass
+    
+    @database_sync_to_async
+    def get_tasks(self, cardID):
         
+        self.card = Card.objects.get(card_id = cardID)
+        try:
+            Task.objects.filter(task_parent=self.card).exists()
+            self.tasks = Task.objects.filter(task_parent=self.card).all()
+        
+            
+            self.task_details = {}
+            for self.task in self.tasks:
+                self.task_details_current = {
+                    f"{self.task.task_name}": f"{self.task.task_id}",
+                }
+                self.task_details = {**self.task_details, **self.task_details_current}
+                    
+            self.task_details = {**self.task_details}
+            return self.task_details
+            
+        except:
+            pass
+
 class UserStatus(WebsocketConsumer):
     def connect(self):
         self.accept()
