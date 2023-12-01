@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 
 const NavbarActive = () => {
+
+    const logout = () =>{
+        
+    }
   return (
     <nav className="navbar navbar-expand-md">
     <div className="container-fluid" id="nav-container">
@@ -20,7 +24,7 @@ const NavbarActive = () => {
                 
             </ul>
             <ul className="navbar-nav d-md-flex ms-auto">
-                <li className="nav-item"><button href="" className="navbar-link btn">Sign out</button></li>
+                <li className="nav-item"><button href="" className="navbar-link btn">Logout</button></li>
             </ul>
             
         </div>

@@ -39,7 +39,6 @@ import '../src/styles/css/homepage.css';
 import '../src/styles/css/login.css';
 import '../src/styles/css/todoapp.css';
 
-
 // Importing bootstrap styles
 import '../src/styles/css/bootstrap/css/bootstrap.css';
 //import '../src/icons/bootstrap-icons-1.10.1'
@@ -63,7 +62,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
 
-  const autheticated = useSelector((state) => state.USER_STATUS)
+  const authenticated = useSelector((state) => state.USER_STATUS)
   return (
     <HelmetProvider>
 
@@ -88,9 +87,6 @@ function App() {
           <Route path='/boards' element={<WrappedBoards />} />
           
           <Route path='/board/:company/:boardID' element={<WrappedBoardInfo />} />
-          <Route path='/board/:boardID' element={<WrappedBoardInfo />} />
-          
-
           <Route path='/createboard' element={<CreateBoard />} />
           <Route path='/latercreateboard' element={<LaterCreateBoard />} />
           <Route path='/404' element={<Error />} />

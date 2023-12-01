@@ -8,32 +8,29 @@ import { render } from 'react-dom';
 import NavbarActive from './NavbarActive';
 import NavbarAnonymous from './NavbarAnonymous';
 
-const RequireAuthentication = React.memo((Component) => {
-    const RequireAuthentication = (props) => {
+const RequireAuthentication = (Component) => {
+    const ComponenentRenderer = (props) => {
 
       //const authenticate = useSelector((state) => state)
       const dispatch = useDispatch();
       const is_authenticated = useSelector((state) => state.USER_STATUS.status)
-      console.log(is_authenticated)
-      console.log("Done parent")
+      console.log(is_authenticated);
       //let userAuthenticate = useSelector(userAuthenticated)
       //console.log("User auth", userAuthenticate)
       
       // May not be needed
       let username = "Personal";
-      let host = 'ws://127.0.0.1:8000/ws'
+      let host = 'ws://127.0.0.1:8000/ws';
       let COOKIE_NAME, COOKIE_VALUE, COOKIE_EXPIRES, COOKIE_PATH;
       COOKIE_NAME = 'user_auth_cookie';
       //COOKIE_VALUE = getUserToken;
       COOKIE_EXPIRES = (new Date(Date.now + 604800000)).toUTCString;
-      COOKIE_PATH = '/cookie/user_auth_cookie'
-      ///
+      COOKIE_PATH = '/cookie/user_auth_cookie';
+      //
 
       const [isAuthenticated, SetIsAuthenticated] = useState(false);
-      // Function to check if cookies are enabled
+      // Function to check if cookies are enabled.
       if (navigator.cookieEnabled == true){
-        console.log("Cookies enabled")
-        //console.log(document.cookie)
         
       } else{
         console.log("Cookies not enabled.")
@@ -94,7 +91,6 @@ const RequireAuthentication = React.memo((Component) => {
         })
         .then((response) => response.json())
         .then(data => {
-            console.log("Your data is ready");
         })
         .catch(error =>{
           console.log(error)
@@ -105,10 +101,10 @@ const RequireAuthentication = React.memo((Component) => {
       useEffect(() =>{
         //readCookie()
         //requestUserStatus();
+        console.log("Parent oo")
         userStatus();
         //console.log({"YOUR TOKEN": getUserToken})
         //console.log({"Hey": getToken()})
-        
       });
       
       var renderedComponent = (isAuthenticated) =>{
@@ -129,7 +125,7 @@ const RequireAuthentication = React.memo((Component) => {
         }
       } 
       
-
+      
    
       return (
         <div>
@@ -141,7 +137,7 @@ const RequireAuthentication = React.memo((Component) => {
 
   }
 
-  return RequireAuthentication;
-});
+  return React.memo(ComponenentRenderer);
+}
 
 export default RequireAuthentication;

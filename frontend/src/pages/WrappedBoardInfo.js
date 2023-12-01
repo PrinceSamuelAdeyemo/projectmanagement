@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import Card from '../components/Card';
 
 import { HelmetProvider, Helmet } from 'react-helmet-async';
@@ -9,14 +9,49 @@ import RequireAuthentication from '../components/RequireAuthentication';
 // Styling
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
-import { error } from 'jquery';
+import { each, error } from 'jquery';
 
 let host = 'ws://127.0.0.1:8000/ws'
-const socket = new WebSocket(`${host}/board/boardID`);
-const BoardInfo = () => {
 
-  
+const BoardInfo = () => {
+  const socket = new WebSocket(`${host}/board/boardID`);
+
   const { boardID } = useParams();
+
+  const board_data = useMemo(() =>{
+
+    socket.onmessage = async (event) => {
+    console.log("Received")
+    let message = await JSON.parse(event.data);
+    setBoardName(message.board_name);
+    setBoardDescription(message.board_description);
+    setBoardCards(message.card_details)
+    console.log(message)
+    return socket
+  }}, [socket.onmessage])
+
+  /*
+  socket.onerror = (event) => {
+    console.log(error)
+  }
+
+  socket.onclose = (event) => {
+    console.log("Socket closed.")
+  }
+  */
+  useEffect(() => {
+    //requestBoardCards();
+    sendInfo();
+    window.history.scrollRestoration = 'auto';
+    window.scrollTo(0,0)
+
+    return () => {
+      //socket.close();
+    }
+  }, [socket]);
+
+
+  console.log(boardID)
   const navigate = useNavigate();
   
   /*
@@ -32,53 +67,33 @@ const BoardInfo = () => {
     const [boardName, setBoardName] = useState('');
     const [boardDescription, setBoardDescription] = useState('');
     const [boardCard, setBoardCard] = useState({});
-    const [boardCards, setBoardCards] = useState([]);
-    const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
-
+    const [boardCards, setBoardCards] = useState({});
     
-    const [cardTasks, setCardTasks] = useState([]);
+    const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
 
     const [tempcardTask, settempCardTask] = useState('');
 
     const [tempcardName, settempCardName] = useState('');
-
+    
   let company = 'tesla';
   const getBoardInfoStuffs = useCallback(() =>{
     
   })
-  socket.onopen = (event) => {
-    console.log("Connection established")
-    socket.send(JSON.stringify(
-      {
-        "title": "boardID",
-        "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
-        }));
+
+  
+  const sendInfo = () => {
+    socket.onopen = (event) => {
+      console.log("Connection established")
+      socket.send(JSON.stringify(
+        {
+          "title": "boardID",
+          "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
+          }));
+    }
   }
 
-  socket.onmessage = async (event) => {
-    let message = await JSON.parse(event.data);
-    setBoardName(message.board_name);
-    setBoardDescription(message.board_description);
-    setBoardCard(message.card_details)
-  }
-
-  console.log(boardCard)
-  const boardBasicDetails = new Map()
-  for (let card in boardCard){
-    boardBasicDetails.set(card, boardCard[card])
-  }
-
-  boardBasicDetails.size
-
-  socket.onerror = (event) => {
-    console.log(error)
-  }
-
-  socket.onclose = (event) => {
-    console.log("Socket closed.")
-  }
   const requestBoardCards = () =>{
-    //if (socket.OPEN){
+    /*
     socket.send(JSON.stringify(
       {
         "title": "boardID",
@@ -88,21 +103,9 @@ const BoardInfo = () => {
       //socket.close(3000)
     console.log('Sent');
     //}
-    
+    */
   }
   
-
-  //socket.OPEN
-  useEffect(() => {
-    
-    //requestBoardCards();
-
-    window.history.scrollRestoration = 'auto';
-    window.scrollTo(0,0)
-  });
-
-  
-
   var closeTaskEdit = (event) => {
     var editaddTask = document.getElementById("editaddTask");
     var tempTaskName = document.getElementById("tempTaskName");
@@ -116,14 +119,15 @@ const BoardInfo = () => {
   }
 
   var saveCard = (event) => {
-    var cardNameInput = document.getElementById("cardNameInput");
-    console.log(cardNameInput.value)
+    console.log("To save a new card: ", event.target.value)
+    //var cardNameInput = document.getElementById("cardNameInput");
+    //console.log(cardNameInput.value)
   }
 
   var deleteBoardTask = (event) => {
     alert("Hello, World")
   }
-
+  
   var previousPage = () => {
     navigate(-1);
   }
@@ -185,12 +189,16 @@ const BoardInfo = () => {
               
               <div className='row gx-4 boardParent'>
 
-                <Card/>
+                {
+                  Object.keys(boardCards).map((card) => (
+                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} />
+                  ))
+                }
 
                 <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
-                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onSelect={saveCard} />
                       <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
                     
@@ -202,10 +210,9 @@ const BoardInfo = () => {
 
             </div>
         </div>
-
     </HelmetProvider>
   )
 }
 
-//const WrappedBoardInfo = RequireAuthentication(BoardInfo)
-export default BoardInfo
+const WrappedBoardInfo = RequireAuthentication(BoardInfo)
+export default WrappedBoardInfo

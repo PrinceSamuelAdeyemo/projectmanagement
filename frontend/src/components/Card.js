@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../styles/css/board.css'
 
 
 const Card = (props) => {
+    var card_id = props.cardID;
+    var card_name = props.cardName;
+    const card_tasks = useMemo(() => {
 
+    })
+    //useEffect
+    const [cardTasks, setCardTasks] = useState({});
     const navigate = useNavigate();
     var saveCard = (event) => {
-        var cardNameInput = document.getElementById("cardNameInput");
-        console.log(cardNameInput.value)
+        console.log(event.target.value)
+        //var cardNameInput = document.getElementById("cardNameInput");
+        //console.log(cardNameInput.value)
     }
     
     var deleteBoardTask = (event) => {
@@ -18,8 +25,8 @@ const Card = (props) => {
     var previousPage = () => {
     navigate(-1);
     }
-
-    const addBoardTask = (event, cardName) => {
+    //Removed cardName in this function
+    const addBoardTask = (event) => {
         var addTask = document.getElementById("editaddTask");
         var tempTaskName = document.getElementById("tempTaskName");
         var tempTaskDescription = document.getElementById("tempTaskDescription");
@@ -49,7 +56,7 @@ const Card = (props) => {
     <div className='col-md-3 p-2'>
         <div className='p-1 eachboard'>
         <div className='eachboardsubdiv' id='eachboardsubdiv'>
-            <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onBlur={(event) => saveCard()} />
+            <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' defaultValue={card_name} onBlur={saveCard} />
             <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
         </div>
         <div className='boardTasks' id='boardTasks'>

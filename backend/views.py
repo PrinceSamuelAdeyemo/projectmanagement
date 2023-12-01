@@ -53,6 +53,10 @@ class UserStatus(APIView):
         #print(f'{request.auth}')
         #token= AuthToken.objects.filter(token_key__startswith=token).first()
         #print(token, '\n'*5)
+        if request.auth in AuthToken.objects.all():
+            print(request.auth)
+        #token = AuthToken.objects.filter(token_key__startswith=token_short).first()
+        #print(token)
         return Response({"TOKEN": f"{request.auth}"})
         #return Response({"A": "B"})
         
@@ -105,8 +109,8 @@ class LoginView(knox_views.LoginView):
             
 
 ###### Sign up view ######
-class Signup(APIView):
-    
+class Signup(knox_views.LoginView, APIView):
+    authentication_classes = []
     def get(self, request):
         queryset = Profile.objects.all()
         serializer_class = ProfileSerializer(queryset, many=True)
@@ -139,7 +143,7 @@ class Signup(APIView):
 class BoardsRequest(APIView):
 
     def get(self, request):
-        query_set = Board.objects.all()
+        query_set = Board.objects.filter()
         serializer = BoardSerializer(query_set, many=True)
         total_count = Board.objects.count()
         # Emit the count to the Socket.IO server

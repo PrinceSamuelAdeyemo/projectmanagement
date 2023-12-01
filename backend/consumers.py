@@ -5,6 +5,8 @@ from channels.db import database_sync_to_async
 
 from .models import Board, Card, Task
 
+import time
+
 class Data(WebsocketConsumer):
     def connect(self):
         self.accept()
@@ -44,18 +46,24 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         
         if (messagetitle == "boardID"):
             board_id = text_data_json[messagetitle]
-            card_id = board_id
+            #card_id = board_id
             #task_id = None
             board_details = await self.get_board(board_id)
             card_details = await self.get_cards(board_id)
-            #task_details = await self.get_tasks(card_id)
-            
+            all_card_tasks = {}
             try:
                 if board_details["board_name"] and board_details["board_description"]:
+                    for card_id in card_details.keys():
+                        task_details = await self.get_tasks(card_id)
+                        current_card_task = task_details
+                        all_card_tasks = {**all_card_tasks, **current_card_task}
+                    print(all_card_tasks)
                     card_detailslist = {"card_details": card_details}
+                    
                     message = {**board_details, **card_detailslist}
-                    print(message)
+                    
                     await self.send(text_data=json.dumps(message))
+                    
                 #self.card_details = board_details["board_cards"]
                      
             except Exception as e:
@@ -109,6 +117,7 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         try:
             Card.objects.filter(card_parent=self.board).exists()
             self.cards = Card.objects.filter(card_parent=self.board).all()
+            cards = self.cards
             
             for self.card in self.cards:
                 self.card_details_current = {
@@ -118,34 +127,32 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     
             self.card_details = {**self.card_details}
             return self.card_details
-            """
             
-            """
         except:
             pass
     
     @database_sync_to_async
     def get_tasks(self, cardID):
-        
+         
         self.card = Card.objects.get(card_id = cardID)
         try:
             Task.objects.filter(task_parent=self.card).exists()
             self.tasks = Task.objects.filter(task_parent=self.card).all()
         
-            
             self.task_details = {}
             for self.task in self.tasks:
                 self.task_details_current = {
-                    f"{self.task.task_name}": f"{self.task.task_id}",
+                    f"{self.task.task_id}": f"{self.task.task_name}",
                 }
                 self.task_details = {**self.task_details, **self.task_details_current}
                     
             self.task_details = {**self.task_details}
-            return self.task_details
+            
+            return ({f"{cardID}" : self.task_details})
             
         except:
             pass
-
+    
 class UserStatus(WebsocketConsumer):
     def connect(self):
         self.accept()

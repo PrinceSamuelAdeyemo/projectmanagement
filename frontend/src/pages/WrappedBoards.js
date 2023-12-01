@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/css/activities.css';
 
 //import '../components/NavbarAnonymous';
@@ -19,12 +19,17 @@ const Boards = () => {
     console.log("Done")
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        
+    })
+
     const [boards, setBoards] = useState([
         {
             "boardName": "Package",
             "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
             "boardBgColor": "red",
-            "boardID": 1,
+            "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
         },
         
         {
@@ -72,9 +77,7 @@ const Boards = () => {
         navigate(`/${page}`);
     }
 
-    useEffect(() => {
-        
-    })
+    
 
   return (
     <HelmetProvider>
@@ -120,7 +123,7 @@ const Boards = () => {
 
                             <div className="board">
                                 <div className="board-button-div text-center">             
-                                    <button className="btn btn-primary" id="create-board" onClick={openPage("")}>Create a board</button>
+                                    <Link className="btn btn-primary" id="create-board" to={`/board/tesla/a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f}`}>Create a board</Link>
                                 </div>
                             </div>
                             
@@ -146,6 +149,6 @@ const Boards = () => {
   )
 }
 
-//const WrappedBoards = RequireAuthentication(Boards)
+const WrappedBoards = RequireAuthentication(Boards)
 
-export default Boards
+export default WrappedBoards

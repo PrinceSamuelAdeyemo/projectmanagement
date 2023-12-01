@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Styling
 import '../styles/css/board.css';
 import '../styles/css/activities.css';
+import WrappedBoardInfo from '../pages/WrappedBoardInfo';
 
 
 
@@ -30,13 +31,22 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
     
     const openBoard = (company, boardID) => {
         window.history.scrollRestoration = 'manual'
-        navigate(`/board/${company}/${boardID}`);
+        //<Link to="2" />
+        //navigate(`/board/${company}/${boardID}`);
+        //return <WrappedBoardInfo />
+        //navigate(`/board/tesla/4`);
     }
     
 
     useEffect(() => {
         //let getBgColor = document.getElementsByClassName('board-insight');
         //let getBgColorArray = Array.from(getBgColor);
+        if (true){
+
+        }
+        else{
+            navigate(`/board/tesla/4`);
+        }
         
     }, []);
 
@@ -54,7 +64,7 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
                         </div>
                     </div>
                     <div className="p-1 text-center px-2 board-buttons">
-                        <button className="btn board-openbutton me-2" onClick={(event) => openBoard("tesla", `${boardID}`) }>Open Board</button>
+                        <button className="btn board-openbutton me-2" onClick = {openBoard('tesla', `${boardID}`)}>Open Board</button>
                         <button className="btn board-editbutton">Edit</button>
                     </div>
                 </div>

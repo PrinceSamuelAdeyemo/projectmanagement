@@ -56,7 +56,6 @@ const Signup = () => {
         setPersonalSignupDetails((prevValues) => (
             { ...prevValues, [name]:value}
             ))
-        console.log(personalSignupDetails.username);
     }
 
     const updateBusinessDetails = (event) => {
@@ -108,11 +107,11 @@ const Signup = () => {
                         body: JSON.stringify({
                             "sender": "personal",
                             'user':
-                            {'username': personalSignupDetails.username,
-                            'first_name': personalSignupDetails.firstName,
-                            'last_name': personalSignupDetails.lastName,
-                            'email': personalSignupDetails.email,
-                            'password': personalSignupDetails.password,},
+                                {'username': personalSignupDetails.username,
+                                'first_name': personalSignupDetails.firstName,
+                                'last_name': personalSignupDetails.lastName,
+                                'email': personalSignupDetails.email,
+                                'password': personalSignupDetails.password,},
                             'middle_name': personalSignupDetails.middleName,
                             'country': 'Nigeria',
                         })
@@ -155,10 +154,10 @@ const Signup = () => {
                         body: JSON.stringify({
                             "sender": "business",
                             'business_basicdetails': 
-                            {'username': businessSignupDetails.busername,
-                            //'username': businessSignupDetails.companyNameabbr,
-                            'email': businessSignupDetails.businessemail,
-                            'password': businessSignupDetails.bpassword,},
+                                {'username': businessSignupDetails.busername,
+                                //'username': businessSignupDetails.companyNameabbr,
+                                'email': businessSignupDetails.businessemail,
+                                'password': businessSignupDetails.bpassword,},
                             'business_name': businessSignupDetails.companyName,
                             'business_country': 'Nigeria',
                     })
