@@ -125,8 +125,6 @@ const RequireAuthentication = (Component) => {
         }
       } 
       
-      
-   
       return (
         <div>
         {renderedComponent(isAuthenticated)}

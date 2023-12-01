@@ -56,12 +56,13 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     for card_id in card_details.keys():
                         task_details = await self.get_tasks(card_id)
                         current_card_task = task_details
+                        
                         all_card_tasks = {**all_card_tasks, **current_card_task}
-                    print(all_card_tasks)
+                    all_card_taskslist = {"all_card_tasks": all_card_tasks}
                     card_detailslist = {"card_details": card_details}
                     
-                    message = {**board_details, **card_detailslist}
-                    
+                    message = {**board_details, **card_detailslist, **all_card_taskslist}
+                    #print(message)
                     await self.send(text_data=json.dumps(message))
                     
                 #self.card_details = board_details["board_cards"]
@@ -77,11 +78,10 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                 """
         else:
             print(messagetitle)
-            self.send(text_data=json.dumps({
+            await self.send(text_data=json.dumps({
                 "error": "Not requesting for boardID as supposed to."})
             )
         
-  
     # Custom functions
     @database_sync_to_async
     def get_board(self, boardID):
@@ -153,6 +153,53 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         except:
             pass
     
+    
+class CardInfoWS(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
+        
+    async def disconnect(self, close_code):
+        await self.close()
+        
+    async def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        card_id = text_data_json['cardID']
+        
+        """
+        Get the tasks under the boards since the card details (card_id) will be sent one after the order
+        It make sense to treat them as one entity per request/response
+        """
+        try:
+            task_details = await self.get_tasks(card_id)
+            print(task_details)
+            await self.send(text_data=json.dumps(task_details))
+        except:
+            pass
+            
+    
+    @database_sync_to_async
+    def get_tasks(self, cardID):
+         
+        self.card = Card.objects.get(card_id = cardID)
+        try:
+            Task.objects.filter(task_parent=self.card).exists()
+            self.tasks = Task.objects.filter(task_parent=self.card).all()
+        
+            self.task_details = {}
+            for self.task in self.tasks:
+                self.task_details_current = {
+                    f"{self.task.task_id}": f"{self.task.task_name}",
+                }
+                self.task_details = {**self.task_details, **self.task_details_current}
+                    
+            self.task_details = {**self.task_details}
+            return ({f"{cardID}" : self.task_details})
+            
+        except:
+            pass
+    
+  
+  
 class UserStatus(WebsocketConsumer):
     def connect(self):
         self.accept()

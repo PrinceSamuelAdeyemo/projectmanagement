@@ -14,41 +14,44 @@ import { each, error } from 'jquery';
 let host = 'ws://127.0.0.1:8000/ws'
 
 const BoardInfo = () => {
-  const socket = new WebSocket(`${host}/board/boardID`);
+  const board_socket = new WebSocket(`${host}/board/boardID`);
 
   const { boardID } = useParams();
 
   const board_data = useMemo(() =>{
 
-    socket.onmessage = async (event) => {
+    board_socket.onmessage = async (event) => {
     console.log("Received")
     let message = await JSON.parse(event.data);
+    var all_card_tasks = message.all_card_tasks
+
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
     setBoardCards(message.card_details)
+    setCardTasks(all_card_tasks)
+
     console.log(message)
-    return socket
-  }}, [socket.onmessage])
+    return board_socket
+  }}, [board_socket.onmessage])
 
   /*
-  socket.onerror = (event) => {
+  board_socket.onerror = (event) => {
     console.log(error)
   }
 
-  socket.onclose = (event) => {
+  board_socket.onclose = (event) => {
     console.log("Socket closed.")
   }
   */
   useEffect(() => {
-    //requestBoardCards();
-    sendInfo();
+    requestBoardCards();
     window.history.scrollRestoration = 'auto';
     window.scrollTo(0,0)
 
     return () => {
-      //socket.close();
+      //board_socket.close();
     }
-  }, [socket]);
+  }, [board_socket]);
 
 
   console.log(boardID)
@@ -68,6 +71,8 @@ const BoardInfo = () => {
     const [boardDescription, setBoardDescription] = useState('');
     const [boardCard, setBoardCard] = useState({});
     const [boardCards, setBoardCards] = useState({});
+    const [cardTasks, setCardTasks] = useState({});
+
     
     const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
 
@@ -81,10 +86,10 @@ const BoardInfo = () => {
   })
 
   
-  const sendInfo = () => {
-    socket.onopen = (event) => {
+  const requestBoardCards = () => {
+    board_socket.onopen = (event) => {
       console.log("Connection established")
-      socket.send(JSON.stringify(
+      board_socket.send(JSON.stringify(
         {
           "title": "boardID",
           "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
@@ -92,19 +97,7 @@ const BoardInfo = () => {
     }
   }
 
-  const requestBoardCards = () =>{
-    /*
-    socket.send(JSON.stringify(
-      {
-        "title": "boardID",
-        "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
-        }));
-
-      //socket.close(3000)
-    console.log('Sent');
-    //}
-    */
-  }
+  
   
   var closeTaskEdit = (event) => {
     var editaddTask = document.getElementById("editaddTask");

@@ -30,9 +30,10 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
                             backgroundOrigin: 'padding-box, border-box' }
     
     const openBoard = (company, boardID) => {
+        boardID = `/board/tesla/a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f}`
         window.history.scrollRestoration = 'manual'
         //<Link to="2" />
-        //navigate(`/board/${company}/${boardID}`);
+        navigate(`/board/${company}/${boardID}`);
         //return <WrappedBoardInfo />
         //navigate(`/board/tesla/4`);
     }
@@ -64,7 +65,7 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
                         </div>
                     </div>
                     <div className="p-1 text-center px-2 board-buttons">
-                        <button className="btn board-openbutton me-2" onClick = {openBoard('tesla', `${boardID}`)}>Open Board</button>
+                        <Link className="btn board-openbutton me-2" to={`/board/tesla/a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f}`}>Open Board</Link>
                         <button className="btn board-editbutton">Edit</button>
                     </div>
                 </div>

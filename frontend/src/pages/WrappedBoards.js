@@ -123,7 +123,7 @@ const Boards = () => {
 
                             <div className="board">
                                 <div className="board-button-div text-center">             
-                                    <Link className="btn btn-primary" id="create-board" to={`/board/tesla/a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f}`}>Create a board</Link>
+                                    <Link className="btn btn-primary" id="create-board" >Create a board</Link>
                                 </div>
                             </div>
                             
