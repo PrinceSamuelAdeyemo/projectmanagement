@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import Card from '../components/Card';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -9,13 +11,24 @@ import RequireAuthentication from '../components/RequireAuthentication';
 // Styling
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
-import { each, error } from 'jquery';
 
 let host = 'ws://127.0.0.1:8000/ws'
 
 const BoardInfo = () => {
   const board_socket = new WebSocket(`${host}/board/boardID`);
 
+  const [boardName, setBoardName] = useState('');
+  const [boardDescription, setBoardDescription] = useState('');
+  const [boardCard, setBoardCard] = useState({});
+  const [boardCards, setBoardCards] = useState({});
+  const [cardTasks, setCardTasks] = useState({});
+
+  
+  const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
+
+  const [tempcardTask, settempCardTask] = useState('');
+
+  const [tempcardName, settempCardName] = useState('');
   const { boardID } = useParams();
 
   const board_data = useMemo(() =>{
@@ -29,11 +42,11 @@ const BoardInfo = () => {
     setBoardDescription(message.board_description);
     setBoardCards(message.card_details)
     setCardTasks(all_card_tasks)
-
-    console.log(message)
+    
     return board_socket
   }}, [board_socket.onmessage])
 
+  
   /*
   board_socket.onerror = (event) => {
     console.log(error)
@@ -47,9 +60,7 @@ const BoardInfo = () => {
     requestBoardCards();
     window.history.scrollRestoration = 'auto';
     window.scrollTo(0,0)
-
     return () => {
-      //board_socket.close();
     }
   }, [board_socket]);
 
@@ -67,23 +78,18 @@ const BoardInfo = () => {
   */  
 
     //const [boardList, setBoardList] = useState([]);
-    const [boardName, setBoardName] = useState('');
-    const [boardDescription, setBoardDescription] = useState('');
-    const [boardCard, setBoardCard] = useState({});
-    const [boardCards, setBoardCards] = useState({});
-    const [cardTasks, setCardTasks] = useState({});
-
     
-    const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
-
-    const [tempcardTask, settempCardTask] = useState('');
-
-    const [tempcardName, settempCardName] = useState('');
     
   let company = 'tesla';
   const getBoardInfoStuffs = useCallback(() =>{
     
   })
+
+  const is_authenticated = useSelector((state) => state.USER_STATUS.status)
+    const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
+    console.log("Should give cookie", getUserToken)
+    console.log(is_authenticated)
+    console.log("Done here")
 
   
   const requestBoardCards = () => {
@@ -92,11 +98,18 @@ const BoardInfo = () => {
       board_socket.send(JSON.stringify(
         {
           "title": "boardID",
-          "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
+          "boardID": "6b83ed71-8644-48fe-bac0-abcb944e83d8",
           }));
     }
   }
 
+  const retrieveCardTasks = (card_id) => {
+    if (card_id in cardTasks){
+      var card_tasks = {[card_id]: cardTasks[card_id]}
+
+      return card_tasks
+    }
+  }
   
   
   var closeTaskEdit = (event) => {
@@ -184,7 +197,7 @@ const BoardInfo = () => {
 
                 {
                   Object.keys(boardCards).map((card) => (
-                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} />
+                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} tasks = {retrieveCardTasks(card)} />
                   ))
                 }
 

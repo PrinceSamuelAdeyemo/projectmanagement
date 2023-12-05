@@ -209,7 +209,7 @@ class LoginViewSerializer(serializers.Serializer):
             user = auth.authenticate(request=self.context.get('request'), username = username, password=password)
             
             if not user:
-                raise serializers.ValidationError('Invalid login details from username')
+                raise serializers.ValidationError('Invalid login details')
         
         # This condition is to check if any both of the email and password fields were filled but not the username
         elif (email and password) or not username:
@@ -218,7 +218,7 @@ class LoginViewSerializer(serializers.Serializer):
             user = auth.authenticate(request=self.context.get('request'), username = User.objects.get(email = email), password=password)
             #user = auth.authenticate(request=self.context.get('request'), email = email, password = password)
             if not user:
-                raise serializers.ValidationError('Invalid login details from email')
+                raise serializers.ValidationError('Invalid login details')
             
         attrs['user'] = user
         return attrs

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/css/activities.css';
@@ -10,17 +10,36 @@ import Board from '../components/Board';
 import { useSelector, useDispatch } from 'react-redux';
 import { getToken, addByToken } from '../redux/features/userAuthSliceReducer/userAuthSlice';
 
-import { get } from 'jquery';
 
 
 const Boards = () => {
-    const is_authenticated = useSelector((state) => state.USER_STATUS)
+    //console.log(auth_cookie)
+    let host = 'ws://127.0.0.1:8000/ws'
+    const boardlist_socket = new WebSocket(`${host}/boardlist`);
+
+    
+    const is_authenticated = useSelector((state) => state.USER_STATUS.status)
+    const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
+    console.log("Should give cookie", getUserToken)
     console.log(is_authenticated)
     console.log("Done")
 
     const navigate = useNavigate();
 
+    const boardData = useMemo(() => {
+        boardlist_socket.onmessage = ((event) => {
+            console.log(JSON.parse(event.data))
+        })
+
+        return boardlist_socket
+    }, [boardlist_socket.onmessage])
+
     useEffect(() => {
+        
+        boardlist_socket.onopen = (event) => {
+            let board_request = JSON.stringify({"user": "boards"})
+            boardlist_socket.send(board_request)
+        }
         
     })
 
@@ -29,7 +48,7 @@ const Boards = () => {
             "boardName": "Package",
             "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
             "boardBgColor": "red",
-            "boardID": "a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f9",
+            "boardID": "6b83ed71-8644-48fe-bac0-abcb944e83d8",
         },
         
         {
@@ -77,7 +96,9 @@ const Boards = () => {
         navigate(`/${page}`);
     }
 
-    
+    const requestBoards = () => {
+
+    }
 
   return (
     <HelmetProvider>

@@ -54,11 +54,10 @@ class UserStatus(APIView):
         #token= AuthToken.objects.filter(token_key__startswith=token).first()
         #print(token, '\n'*5)
         if request.auth in AuthToken.objects.all():
-            print(request.auth)
-        #token = AuthToken.objects.filter(token_key__startswith=token_short).first()
-        #print(token)
-        return Response({"TOKEN": f"{request.auth}"})
-        #return Response({"A": "B"})
+            return Response({"TOKEN": f"{request.auth}"})
+        else:
+            return Response({"TOKEN": "No"})
+        
         
 
 class ReturnProfile(APIView):
@@ -477,10 +476,10 @@ def getActivities(request):
         boardOwner = request.user.username
         user_model = User.objects.get(username = boardOwner)
         activities = Board.objects.all()
-        user_activities = Board.objects.filter(board_owner = boardOwner)
-        user_activities_completed = Board.objects.filter(board_owner = boardOwner, board_completed = True, board_inprogress = False)
-        user_activities_progress = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = True)
-        user_activities_notstarted = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = False)
+        #user_activities = Board.objects.filter(board_owner = boardOwner)
+        #user_activities_completed = Board.objects.filter(board_owner = boardOwner, board_completed = True, board_inprogress = False)
+        #user_activities_progress = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = True)
+        #user_activities_notstarted = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = False)
         try:
             profile = Profile.objects.get(personal_basicdetails = user_model)
             #activities = Board.objects.filter(task_owner = taskOwner).order_by('task_dateUpdated')
@@ -530,7 +529,7 @@ class Activities(LoginRequiredMixin, View):
             return render(request, 'boards.html')
             owner = request.user.username
             projects =  Project.objects.filter(project_owner = owner)
-            boards = Board.objects.filter(board_owner = owner)
+            #boards = Board.objects.filter(board_owner = owner)
             
             context = {'totalprojects': list(projects.values()),
                        'totalboards': list(boards.values),
@@ -563,10 +562,10 @@ class DashBoard(LoginRequiredMixin, View):
             boardOwner = request.user.username
             user_model = User.objects.get(username = boardOwner)
             activities = Board.objects.all()
-            user_activities = Board.objects.filter(board_owner = boardOwner)
-            user_activities_completed = Board.objects.filter(board_owner = boardOwner, board_completed = True, board_inprogress = False)
-            user_activities_progress = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = True)
-            user_activities_notstarted = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = False)
+            #user_activities = Board.objects.filter(board_owner = boardOwner)
+            #user_activities_completed = Board.objects.filter(board_owner = boardOwner, board_completed = True, board_inprogress = False)
+            #user_activities_progress = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = True)
+            #user_activities_notstarted = Board.objects.filter(board_owner = boardOwner, board_completed = False, board_inprogress = False)
             try:
                 profile = Profile.objects.get(personal_basicdetails = user_model)
                 #activities = Board.objects.filter(task_owner = taskOwner).order_by('task_dateUpdated')

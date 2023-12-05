@@ -7,7 +7,9 @@ import ErrorBoundary from '../src/ErrorBoundary'
 */
 
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { persistor, store } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 import './styles/css/bootstrap/css/bootstrap.min.css';
 //import $ from 'jquery';
@@ -20,23 +22,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { ErrorBoundary } from "react-error-boundary";
-/*
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-    <ErrorBoundary fallback={<p>Something went wrong</p>}>
-      <App />
-    </ErrorBoundary>
-    </Provider>
-  </React.StrictMode>
-);
-*/
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ErrorBoundary fallback={<p>Something went wrong</p>}>
       <Provider store={ store }>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </Provider>
     </ErrorBoundary>
   </React.StrictMode>

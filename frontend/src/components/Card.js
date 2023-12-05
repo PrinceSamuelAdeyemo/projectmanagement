@@ -1,30 +1,41 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Task from './Task';
 import '../styles/css/board.css'
 
 let host = 'ws://127.0.0.1:8000/ws'
 const Card = (props) => {
-    const card_socket = new WebSocket(`${host}/card/cardID`);
-
+    const [cardTasks, setCardTasks] = useState({});
+    //const card_socket = new WebSocket(`${host}/card/cardID`);
+    const [allCardTasks, SetAllCardTasks] = useState({})
     var card_id = props.cardID;
     var card_name = props.cardName;
+    var card_tasks = props.tasks
+
+    //SetAllCardTasks({[card_id]: card_tasks[card_id]})
+    //var all_card_tasks = useState({[card_id]: card_tasks[card_id]})
+    //console.log(all_card_tasks)
+    /*
+    var all_card_task = {}
     const memoizedcard_tasks = useMemo(() => {
         card_socket.onmessage = async (event) => {
             console.log("Received for the cards")
-            var card_tasks = await JSON.parse(event.data)
-            console.log(card_tasks)
+            var card_task = await JSON.parse(event.data)
+            //console.log(card_tasks)
+            all_card_task = {...all_card_task, ...card_task}
+            //console.log("The stuffs", all_card_tasks)
+            //setCardTasks(all_card_tasks)
+            //setCardTasks((card_tasks) => ({...all_card_tasks, ...card_tasks}) )
             setCardTasks(card_tasks)
-            //setCardTasks((prevCardTasks) => ({prevCardTasks, ...card_tasks}) )
-            console.log(cardTasks)
             return card_socket
         }
     }, [card_socket.onmessage])
-
+    //console.log("The usestate stuff ",cardTasks)
     useEffect(() => {
         requestCardInfo();
     })
-
-    const [cardTasks, setCardTasks] = useState({});
+    */
+    
     const navigate = useNavigate();
     var saveCard = (event) => {
         console.log(event.target.value)
@@ -32,8 +43,8 @@ const Card = (props) => {
         //console.log(cardNameInput.value)
     }
     
+    /*
     const requestCardInfo = () =>{
-        console.log("About to send")
         card_socket.onopen = (event) => {
             console.log("Card Connection established")
             card_socket.send(JSON.stringify(
@@ -43,10 +54,8 @@ const Card = (props) => {
                 }));
           }
     }
-
-    var deleteBoardTask = (event) => {
-    alert("Hello, World")
-    }
+    */
+    
 
     var previousPage = () => {
     navigate(-1);
@@ -61,22 +70,7 @@ const Card = (props) => {
         addTask.style.display = "block";
   
       }
-
-    const editBoardTask = (event) => {
-        var editaddTask = document.getElementById("editaddTask");
-        var tempTaskName = document.getElementById("tempTaskName");
-        var tempTaskDescription = document.getElementById("tempTaskDescription");
-  
-        tempTaskName.textContent = event.target.value;
-        tempTaskName.value = event.target.value;
-        editaddTask.style.display = "block";
-        console.log(event);
-        //tempTaskDescription.textContent = this.value;
-        //tempTaskDescription.value = this.value;
-      }
-
-    
-  
+      
 
   return (
     <div className='col-md-3 p-2'>
@@ -86,26 +80,11 @@ const Card = (props) => {
             <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
         </div>
         <div className='boardTasks' id='boardTasks'>
-
-            <div className='eachCardTask'>
-            <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Proof of Concept</button>
-            <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
-            </div>
-
-            <div className='eachCardTask'>
-            <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Regression Test</button>
-            <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
-            </div>
-
-            <div className='eachCardTask'>
-            <button type='button' className='eachCardTaskName' onClick={(event) => editBoardTask(event)}>Setup monitoring and controlling process</button>
-            <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
-            </div>
             
-            <div className='eachCardTask'>
-            <button className='eachCardTaskName' onClick={editBoardTask}>Requirement analysis completed</button>
-            <button className='eachCardTaskCancel' onClick={deleteBoardTask}><span><i className='fa fa-xmark'></i></span></button>
-            </div>
+            {Object.keys(card_tasks[card_id]).map((taskID) => (// allCardTasks.map((task, index) => (
+                <Task key={taskID} cardID={card_id} taskID={taskID} taskName={card_tasks[card_id][taskID]} /> 
+            ))}
+
             <div className='eachCard_addTask p-1'>
             <button className='addTask' onClick={(event) => addBoardTask(event, )}>+ Add Task</button>
             </div>

@@ -65,7 +65,8 @@ class Membership(models.Model):
 
 class Project(models.Model):
     project_name = models.CharField(max_length=256)
-    project_owner = models.CharField(max_length = 256)
+    #project_owner = models.CharField(max_length = 256)
+    project_owner =models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     personalProjectowner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     businessProjectowner = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE, null=True, blank=True)
     #main_taskowner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
@@ -91,8 +92,8 @@ class Board(models.Model):
     personalBoardowner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     businessBoardowner = models.ForeignKey(BusinessProfile, on_delete=models.CASCADE, null=True, blank=True)
     board_project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
-    
-    board_owner = models.CharField(max_length = 256)
+    #board_owner = models.CharField(max_length = 256, blank=True, null=True)
+    board_owner =models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     board_name = models.CharField(max_length = 150)
     board_description = models.TextField(default=None, null=True, blank=True)
     board_file = models.FileField(default=None, upload_to='task_file_folder', null = True, blank = True)

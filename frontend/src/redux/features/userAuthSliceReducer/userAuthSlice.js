@@ -27,20 +27,17 @@ export default userAuthReducer
 export const userAuthSlice = createSlice({
     name: 'AUTH_TOKEN',
     initialState: {
-        t: "3",
-        token: [
-            '123456789',
-        ]
+        token: ''
     },
     reducers: {
         getToken: (state) => {
             return state.token
         },
         addByToken: (state, action) => {
-            state.token.push(action.payload)
+            state.token = action.payload
         },
         removeByToken: (state, action) => {
-            state.token.pop(action.payload)
+            state.token = ''
         }
     }
 })

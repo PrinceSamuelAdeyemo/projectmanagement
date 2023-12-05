@@ -2,11 +2,61 @@ import json
 from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
+from channels.auth import login, logout, get_user
+
+from knox.models import AuthToken
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import User
 
 from .models import Board, Card, Task
+from .serializers import BoardSerializer
 
 import time
 
+class LoginWS(AsyncWebsocketConsumer):
+    async def connect(self):
+        
+        await self.accept()
+    
+    async def disconnect(self, close_code):
+        await self.close()
+    
+    async def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        token = text_data_json["token"]
+        print("THe token ", token)
+        try:
+            user = await get_token_user(token)
+            try:
+                gg = await login(self.scope, user)
+                print(gg)
+                if gg is not None:
+                    await database_sync_to_async(self.scope["session"].save)()
+                    await self.send(json.dumps({"user": "Authenticated"}))
+                else:
+                    print('kkkkkk')
+                
+            except:
+                await self.send(json.dumps({"user": "Unauthenticated"}))
+            
+            finally:
+                print("From finally", self.scope["user"])
+        except:
+            pass
+        lol = await get_user(self.scope)
+        print("lola",lol)
+        
+@database_sync_to_async
+def get_token_user(token):
+    try:
+        user = AuthToken.objects.get(token_key=token[:8]).user
+    except:
+        user = AnonymousUser()
+        
+    return user
+        
+        
+        
 class Data(WebsocketConsumer):
     def connect(self):
         self.accept()
@@ -31,6 +81,66 @@ class Data(WebsocketConsumer):
         })) 
         """
     
+class BoardListWS(AsyncWebsocketConsumer):
+    async def connect(self):
+        #await login(self.scope, user)
+        #self.user = self.scope["user"]
+        
+        #print(self.user)
+        lol = await get_user(self.scope)
+        print("lol",lol)
+        await self.accept()
+    async def disconnect(self, close_code):
+        await self.close()
+        
+    async def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        user = text_data_json["user"]
+        boards_dict = {}
+        if (user == "boards"):
+            #boards = database_sync_to_async(Board.objects.all())
+            boards = await get_boards()
+            boards_dict = json.dumps(boards)
+            print(boards_dict)
+            await self.send(text_data = json.dumps({"ee":f"{boards_dict}"}))
+            print("sent")
+            
+            """
+            for board in boards:
+                current_board_dict = {"board_id": board[0], 
+                                      "board_name": board[1], 
+                                      "board_description": board[2],}
+                boards_dict = {**boards_dict, **current_board_dict}
+                
+            boards_dict = {**boards_dict, **current_board_dict}
+            print(boards_dict)
+            boards_dict = json.dumps(boards_dict)
+            await self.send(text_data = boards_dict)
+            """
+        
+            #print(boards)
+            
+        
+@database_sync_to_async
+def get_boards():
+    per = User.objects.get(username = "personal")
+    all_boards= Board.objects.filter(board_owner=per)
+    all_boards_dict = {}
+    for board in all_boards:
+        current_board_dict = {"board_id": board.board_id, "board_name": board.board_name,
+                              "board_description": board.board_description, "board_owner": board.board_owner.username}
+        all_boards_dict = {**all_boards_dict, **current_board_dict}
+    
+    all_boards_dict = {**all_boards_dict, **current_board_dict}
+    #print(all_boards_dict)
+    return all_boards_dict
+    
+
+    #all_boards = Board.objects.related_name("board_owner").all()
+    
+    
+    #print(boards)
+
 class BoardInfoWS(AsyncWebsocketConsumer):
     # connect, disconnect and recieve functions are below
     async def connect(self):
@@ -192,7 +302,7 @@ class CardInfoWS(AsyncWebsocketConsumer):
                 }
                 self.task_details = {**self.task_details, **self.task_details_current}
                     
-            self.task_details = {**self.task_details}
+            #self.task_details = {**self.task_details}
             return ({f"{cardID}" : self.task_details})
             
         except:

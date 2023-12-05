@@ -45,15 +45,14 @@ const RequireAuthentication = (Component) => {
           }
           SetIsAuthenticated(true);
           dispatch(setStatus(true));
+          
           return derived_cookie;
         }
         else{
           console.log("Authentication cookie not found!")
         }
       }
-      //readCookie();
     
-      let getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
       
       /*
       const requestUserStatus = (event) => {
@@ -99,13 +98,13 @@ const RequireAuthentication = (Component) => {
 
       
       useEffect(() =>{
-        //readCookie()
         //requestUserStatus();
         console.log("Parent oo")
         userStatus();
         //console.log({"YOUR TOKEN": getUserToken})
         //console.log({"Hey": getToken()})
       });
+      
       
       var renderedComponent = (isAuthenticated) =>{
         if (isAuthenticated == true){

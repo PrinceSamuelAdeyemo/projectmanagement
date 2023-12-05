@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getToken, addByToken, removeByToken } from '../redux/features/userAuthSliceReducer/userAuthSlice';
+
 import { HelmetProvider, Helmet} from 'react-helmet-async'
 import NavbarAnonymous from '../components/NavbarAnonymous'
 import '../styles/css/todoapp.css';
 import '../styles/css/login.css'
 import jQuery from 'jquery';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
+    let host = 'ws://127.0.0.1:8000/ws'
+    
 
     const COOKIE_NAME = 'user_auth_cookie';
     var COOKIE_TOKENVALUE = null;
     var COOKIE_EXPIRES = (new Date(Date.now + 604800000)).toUTCString;
     const COOKIE_PATH = '/cookie/user_auth_cookie';
 
+    const dispatch = useDispatch();
     useEffect(() => {
         
     }, [])
@@ -40,6 +46,8 @@ const Login = () => {
         bpassword: '',
         bpassword2: '',
     })
+
+    const [wrongcredential, SetWrongCrediential] = useState()
 
     // THis is the function that get the button click and update the state for the form to be displayed
     // The "clickedButton" works to get the button clicked and display the form accordingly.
@@ -121,13 +129,32 @@ const Login = () => {
                         return response.json()
                     })
                     .then((data) => {
-                        console.log("Your data",data)
-                        COOKIE_TOKENVALUE = data['token']
-                        document.cookie = `${COOKIE_NAME} = ${COOKIE_TOKENVALUE}; COOKIE_EXPIRES = ${COOKIE_EXPIRES}; COOKIE_PATH = ${COOKIE_PATH}`
-                        console.log('Personal Registered');
-                        openPage('boards');
+                        if ("non_field_errors" in data){
+                            console.log("Wrong details")
+                            SetWrongCrediential("Invalid Details")
+                        }
+                        else{
+                            console.log("Your data",data)
+                            COOKIE_TOKENVALUE = data['token']
+                            document.cookie = `${COOKIE_NAME} = ${COOKIE_TOKENVALUE}; COOKIE_EXPIRES = ${COOKIE_EXPIRES}; COOKIE_PATH = ${COOKIE_PATH}`;
+                            dispatch(addByToken(COOKIE_TOKENVALUE))
+                            //const login_socket = new WebSocket(`${host}/login`)
+                            //login_socket.onopen = ((event) => {
+                            //    login_socket.send(JSON.stringify({"token": COOKIE_TOKENVALUE}))
+                            //})
+                            openPage('boards');
+                            /*
+                            login_socket.onmessage = ((event) => {
+                                let user = JSON.parse(event.data)["user"]
+                                if (user == "Authenticated"){
+                                    console.log('Personal Registered');
+                                }
+                            })
+                            */
+                        }
+                        
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => console.log("error", error));
 
                 }else{
                     //setPersonalSignupDetails({password: ''});
@@ -165,14 +192,27 @@ const Login = () => {
                         }
                     })
                     .then(data => {
+                        console.log("Your data",data)
+                        COOKIE_TOKENVALUE = data['token']
+                        document.cookie = `${COOKIE_NAME} = ${COOKIE_TOKENVALUE}; COOKIE_EXPIRES = ${COOKIE_EXPIRES}; COOKIE_PATH = ${COOKIE_PATH}`;
+                        dispatch(addByToken(COOKIE_TOKENVALUE))
                         console.log(businessLoginDetails.companyName);
-                        console.log('Business Registered')})
+                        /*
+                        const login_socket = new WebSocket(`${host}/login`)
+                        login_socket.onopen = ((event) => {
+                            login_socket.send(COOKIE_TOKENVALUE)
+                        })
+                        */
+                        console.log('Business Registered')
+                        openPage('boards');
+
+                        })
                     .catch(error => console.log(error));
 
                 }else{
                     //setPersonalSignupDetails({password: ''});
-                    console.log(businessLoginDetails.password);
-                    console.log(businessLoginDetails.password2);
+                    console.log(businessLoginDetails.bpassword);
+                    console.log(businessLoginDetails.bpassword2);
                     console.log("Passwords don't match");
                 }
 
@@ -185,7 +225,8 @@ const Login = () => {
     
     }
     
-
+    const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
+    console.log(getUserToken)
 
 
   return (
@@ -231,12 +272,11 @@ const Login = () => {
                         
                             <form id="personalLoginForm" name="personalLoginForm" className="form" method="POST" onSubmit={(event) => submitLoginDetails(event, 'personalLoginForm')}>
                                 {/* {% csrf_token %} */}
-                                <div>
-                                    {/* {% for message in messages %} */}
-                                    {/*<h1>Error messages {/* {{message}} </h1> */}
-                                    {/* {% endfor %} */}
-                                </div>
+                                
                                 <div className="personallogin" id="personallogin">
+                                    <div className="form-group w-100 text-center">
+                                        <label>{wrongcredential}</label>
+                                    </div>
                                     <div className="form-group w-100">
                                         <label htmlFor="email" className="form-label">Email Address</label>
                                         <input id="email" name="email" type="email" className="form-control" placeholder="e.g personal@gmail.com" onChange={updatePersonalDetails} />
@@ -258,6 +298,9 @@ const Login = () => {
                             <form id="businessLoginForm" name="businessLoginForm" className="form" method="POST" >   
                                 {/* {% csrf_token %} */}
                                 <div className="businesslogin" id="businesslogin">
+                                    <div className="form-group w-100 text-center">
+                                        <label>{wrongcredential}</label>
+                                    </div>
                                     <div className="form-group w-100">
                                         <label htmlFor="businessemail" className="form-label">Email Address</label>
                                         <input id="businessemail" name="businessemail" type="email" className="form-control" placeholder="e.g company@company.com" onChange={updateBusinessDetails} />
