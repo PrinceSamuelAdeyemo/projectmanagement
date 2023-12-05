@@ -138,19 +138,19 @@ const Login = () => {
                             COOKIE_TOKENVALUE = data['token']
                             document.cookie = `${COOKIE_NAME} = ${COOKIE_TOKENVALUE}; COOKIE_EXPIRES = ${COOKIE_EXPIRES}; COOKIE_PATH = ${COOKIE_PATH}`;
                             dispatch(addByToken(COOKIE_TOKENVALUE))
-                            //const login_socket = new WebSocket(`${host}/login`)
-                            //login_socket.onopen = ((event) => {
-                            //    login_socket.send(JSON.stringify({"token": COOKIE_TOKENVALUE}))
-                            //})
+                            const login_socket = new WebSocket(`${host}/login`)
+                            login_socket.onopen = ((event) => {
+                                login_socket.send(JSON.stringify({"token": COOKIE_TOKENVALUE}))
+                            })
                             openPage('boards');
-                            /*
+                            
                             login_socket.onmessage = ((event) => {
                                 let user = JSON.parse(event.data)["user"]
                                 if (user == "Authenticated"){
                                     console.log('Personal Registered');
                                 }
                             })
-                            */
+                            
                         }
                         
                     })

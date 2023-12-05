@@ -15,7 +15,6 @@ import time
 
 class LoginWS(AsyncWebsocketConsumer):
     async def connect(self):
-        
         await self.accept()
     
     async def disconnect(self, close_code):
@@ -88,63 +87,46 @@ class BoardListWS(AsyncWebsocketConsumer):
         
         #print(self.user)
         lol = await get_user(self.scope)
-        print("lol",lol)
+        print("1",lol)
         await self.accept()
     async def disconnect(self, close_code):
         await self.close()
         
     async def receive(self, text_data):
+        lol = await get_user(self.scope)
+        print("2",lol)
         text_data_json = json.loads(text_data)
-        user = text_data_json["user"]
-        boards_dict = {}
-        if (user == "boards"):
-            #boards = database_sync_to_async(Board.objects.all())
-            boards = await get_boards()
-            boards_dict = json.dumps(boards)
-            print(boards_dict)
-            await self.send(text_data = json.dumps({"ee":f"{boards_dict}"}))
-            print("sent")
+        user_token = text_data_json["user"]
+        print(user_token)
+        try:
+            boards = await self.list_boards(user_token)
+            boards_listdict = {"boards_data":boards}
+            await self.send(text_data=json.dumps(boards_listdict))
             
-            """
-            for board in boards:
-                current_board_dict = {"board_id": board[0], 
-                                      "board_name": board[1], 
-                                      "board_description": board[2],}
-                boards_dict = {**boards_dict, **current_board_dict}
-                
-            boards_dict = {**boards_dict, **current_board_dict}
-            print(boards_dict)
-            boards_dict = json.dumps(boards_dict)
-            await self.send(text_data = boards_dict)
-            """
-        
-            #print(boards)
+        except:
+            pass
             
+    @database_sync_to_async
+    def list_boards(self, token):
+        self.user = AuthToken.objects.get(token_key=token[:8]).user
+        all_boards= Board.objects.filter(board_owner=self.user).all()
+        all_boards_list = list()
         
-@database_sync_to_async
-def get_boards():
-    per = User.objects.get(username = "personal")
-    all_boards= Board.objects.filter(board_owner=per)
-    all_boards_dict = {}
-    for board in all_boards:
-        current_board_dict = {"board_id": board.board_id, "board_name": board.board_name,
-                              "board_description": board.board_description, "board_owner": board.board_owner.username}
-        all_boards_dict = {**all_boards_dict, **current_board_dict}
-    
-    all_boards_dict = {**all_boards_dict, **current_board_dict}
-    #print(all_boards_dict)
-    return all_boards_dict
-    
-
-    #all_boards = Board.objects.related_name("board_owner").all()
-    
-    
-    #print(boards)
+        for i in range(len(all_boards)):
+            current_board_dict = {
+                "board_id": str(all_boards[i].board_id), "board_name": all_boards[i].board_name,
+                "board_description": all_boards[i].board_description, "board_bgColor": all_boards[i].board_color,
+                "board_owner": all_boards[i].board_owner.username}
+            
+            all_boards_list.append(current_board_dict)
+        print(all_boards_list)
+        print(len(all_boards_list))
+        return all_boards_list
+        
 
 class BoardInfoWS(AsyncWebsocketConsumer):
     # connect, disconnect and recieve functions are below
     async def connect(self):
-        #self.send(text_data={"connect_status": "Connected"})
         await self.accept()
             
     async def disconnect(self, close_code):
@@ -156,8 +138,6 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         
         if (messagetitle == "boardID"):
             board_id = text_data_json[messagetitle]
-            #card_id = board_id
-            #task_id = None
             board_details = await self.get_board(board_id)
             card_details = await self.get_cards(board_id)
             all_card_tasks = {}
@@ -172,11 +152,8 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     card_detailslist = {"card_details": card_details}
                     
                     message = {**board_details, **card_detailslist, **all_card_taskslist}
-                    #print(message)
                     await self.send(text_data=json.dumps(message))
-                    
-                #self.card_details = board_details["board_cards"]
-                     
+                                         
             except Exception as e:
                 print(e)
                 """
@@ -309,7 +286,6 @@ class CardInfoWS(AsyncWebsocketConsumer):
             pass
     
   
-  
 class UserStatus(WebsocketConsumer):
     def connect(self):
         self.accept()
@@ -329,5 +305,3 @@ class UserStatus(WebsocketConsumer):
         }
         self.send(text_data=json.dumps(user_details))
     
-    #def send(self, text_data):
-    #    pass  

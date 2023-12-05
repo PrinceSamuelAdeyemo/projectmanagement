@@ -23,9 +23,9 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
         "violet": [238, 130, 238]
     }
 
-    let rgb = colors[boardBgColor].join(',')
-    let backgroundOptions = {background: `linear-gradient(to bottom, rgba(${rgb}, 0.7), #ffffff 80%), \
-    linear-gradient(to bottom, rgba(${rgb}, 1), #ffffff 85%)`, 
+    //let rgb = colors[boardBgColor].join(',')
+    let backgroundOptions = {background: `linear-gradient(to bottom, rgba((255,0,0,) 0.7), #ffffff 80%), \
+    linear-gradient(to bottom, rgba((255,0,0), 1), #ffffff 85%)`, 
                             backgroundClip: 'padding-box, border-box', 
                             backgroundOrigin: 'padding-box, border-box' }
     

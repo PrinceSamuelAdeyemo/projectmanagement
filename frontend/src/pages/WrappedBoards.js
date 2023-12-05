@@ -17,7 +17,6 @@ const Boards = () => {
     let host = 'ws://127.0.0.1:8000/ws'
     const boardlist_socket = new WebSocket(`${host}/boardlist`);
 
-    
     const is_authenticated = useSelector((state) => state.USER_STATUS.status)
     const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
     console.log("Should give cookie", getUserToken)
@@ -25,73 +24,33 @@ const Boards = () => {
     console.log("Done")
 
     const navigate = useNavigate();
+    const [boards, setBoards] = useState([]);
 
-    const boardData = useMemo(() => {
-        boardlist_socket.onmessage = ((event) => {
-            console.log(JSON.parse(event.data))
-        })
-
-        return boardlist_socket
-    }, [boardlist_socket.onmessage])
+    
 
     useEffect(() => {
         
         boardlist_socket.onopen = (event) => {
-            let board_request = JSON.stringify({"user": "boards"})
+            let board_request = JSON.stringify({"user": `${getUserToken}`})
             boardlist_socket.send(board_request)
         }
         
     })
 
-    const [boards, setBoards] = useState([
-        {
-            "boardName": "Package",
-            "boardDescription": "Sets targets and objectives and actively works towards them, whilst raising the quality of your outcomes.",
-            "boardBgColor": "red",
-            "boardID": "6b83ed71-8644-48fe-bac0-abcb944e83d8",
-        },
-        
-        {
-            "boardName": "Deals App",
-            "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "boardBgColor": "orange",
-            "boardID": 2,
-        },
-    
-        {
-            "boardName": "Brochure products",
-            "boardDescription": "Conscious and aware of their own character, feelings and behaviour.",
-            "boardBgColor": "red",
-            "boardID": 3,
-        },
-    
-        {
-            "boardName": "Static printing",
-            "boardDescription": "Do what they and say what they do. They bring their whole self to work.",
-            "boardBgColor": "violet",
-            "boardID": 4,
-        },
-    
-        {
-            "boardName": "Article",
-            "boardDescription": "Accept and crave responsibility; owns their actions and commit to getting things done.",
-            "boardBgColor": "indigo",
-            "boardID": "10c37205-2870-48ab-8eb2-b29b9f5cb7f24",
-        },
-    
-        {
-            "boardName": "Deals App",
-            "boardDescription": "Goes out of their way to help the physical, mental, or emotional pains of another and themselves.",
-            "boardBgColor": "green",
-            "boardID": 6,
-        },
-    ]);
-    
+    const boardData = useMemo(() => {
+        boardlist_socket.onmessage = async (event) => {
+            let lol = await JSON.parse(event.data).boards_data
+            console.log(lol)
+            await setBoards(lol)            
+        }
+
+        return boardlist_socket
+    }, [boardlist_socket.onmessage])
+
     let openBoard = () =>{
         console.log(this);
     }
 
-    
     let openPage = (page) =>{
         navigate(`/${page}`);
     }
@@ -99,7 +58,7 @@ const Boards = () => {
     const requestBoards = () => {
 
     }
-
+    
   return (
     <HelmetProvider>
         <Helmet>
@@ -120,7 +79,6 @@ const Boards = () => {
 
             <div className="container-body">
                 <div className="project-n-search w-100">
-                    
                     <div className="row px-5 w-100">
                         <div className="col-6">
                             <h3 className="d-md-inline fw-bold" id="totalproject-count">Projects ({boards.length})</h3>
@@ -130,15 +88,13 @@ const Boards = () => {
                         </div>
                         
                     </div>
-                    
-                    
                 </div>
                 <div className="projects-and-boards">
                     <div className="project">
                         <div className="project-boards ">
 
                             {boards.map((board) => (
-                                <Board key={`${board.boardID}`} boardID={board.boardID} boardName={board.boardName} boardDescription={board.boardDescription} boardBgColor={board.boardBgColor} />
+                                <Board key={`${board.board_id}`} boardID={board.board_id} boardName={board.board_name} boardDescription={board.board_description} boardBgColor={board.board_color} />
                             ))}
 
 

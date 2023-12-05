@@ -37,7 +37,7 @@ const BoardInfo = () => {
     console.log("Received")
     let message = await JSON.parse(event.data);
     var all_card_tasks = message.all_card_tasks
-
+    console.log(message)
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
     setBoardCards(message.card_details)
