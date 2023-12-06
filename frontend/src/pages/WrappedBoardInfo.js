@@ -190,12 +190,8 @@ const BoardInfo = () => {
                     </div>
                   </div>
                   <div className='board-color-picker'>
-                    <div className='picker-board'>
-                      
-                    </div>
-                    <div className='picker-slide'>
-                      <input type=''
-                    </div>
+                    <p>Board Background Color</p>
+                    <input type="color" name="boardcolor" defaultValue={"000000"} />
                   </div> 
                   <div className='cancelTaskEdit'>
                     <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>

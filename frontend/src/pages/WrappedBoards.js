@@ -100,7 +100,7 @@ const Boards = () => {
 
                             <div className="board">
                                 <div className="board-button-div text-center">             
-                                    <Link className="btn btn-primary" id="create-board" >Create a board</Link>
+                                    <Link to={"/createboard"} className="btn btn-primary" id="create-board" >Create a board</Link>
                                 </div>
                             </div>
                             

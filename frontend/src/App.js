@@ -90,7 +90,7 @@ function App() {
           <Route path='/board/:company/:boardID' element={<WrappedBoardInfo />} />
           <Route path='/createboard' element={<CreateBoard />} />
           <Route path='/latercreateboard' element={<LaterCreateBoard />} />
-          <Route path='/404' element={<Error />} />
+          <Route path='*' element={<Error />} />
 
           <Route path='/test' element={<Card />} />
         </Routes>
