@@ -142,14 +142,16 @@ const Login = () => {
                             login_socket.onopen = ((event) => {
                                 login_socket.send(JSON.stringify({"token": COOKIE_TOKENVALUE}))
                             })
-                            openPage('boards');
+                            
                             
                             login_socket.onmessage = ((event) => {
                                 let user = JSON.parse(event.data)["user"]
                                 if (user == "Authenticated"){
                                     console.log('Personal Registered');
                                 }
+                                openPage('boards');
                             })
+                            
                             
                         }
                         

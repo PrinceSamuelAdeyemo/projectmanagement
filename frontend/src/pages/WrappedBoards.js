@@ -14,7 +14,7 @@ import { getToken, addByToken } from '../redux/features/userAuthSliceReducer/use
 
 const Boards = () => {
     //console.log(auth_cookie)
-    let host = 'ws://127.0.0.1:8000/ws'
+    let host = 'ws://localhost:8000/ws'
     const boardlist_socket = new WebSocket(`${host}/boardlist`);
 
     const is_authenticated = useSelector((state) => state.USER_STATUS.status)

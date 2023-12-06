@@ -5,13 +5,12 @@ from channels.db import database_sync_to_async
 from channels.auth import login, logout, get_user
 
 from knox.models import AuthToken
-from django.contrib.auth.models import AnonymousUser
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import AnonymousUser, User
 
 from .models import Board, Card, Task
 from .serializers import BoardSerializer
 
-import time
 
 class LoginWS(AsyncWebsocketConsumer):
     async def connect(self):
@@ -24,11 +23,25 @@ class LoginWS(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         token = text_data_json["token"]
         print("THe token ", token)
+        
+        user = await self.get_token_user(token)
+        await login(self.scope, user)
+        await database_sync_to_async(self.scope["session"].save)()
+        #print(gg)
+        print('\n'*5,self.scope)
         try:
-            user = await get_token_user(token)
+            user = await self.get_token_user(token)
+            await login(self.scope, user)
+            await database_sync_to_async(self.scope["session"].save)()
+            #print(gg)
+            print(self.scope)
+            """
             try:
-                gg = await login(self.scope, user)
-                print(gg)
+                await login(self.scope, user)
+                await database_sync_to_async(self.scope["session"].save)()
+                #print(gg)
+                print(self.scope)
+                ""
                 if gg is not None:
                     await database_sync_to_async(self.scope["session"].save)()
                     await self.send(json.dumps({"user": "Authenticated"}))
@@ -37,22 +50,27 @@ class LoginWS(AsyncWebsocketConsumer):
                 
             except:
                 await self.send(json.dumps({"user": "Unauthenticated"}))
-            
+            ""
             finally:
                 print("From finally", self.scope["user"])
+            """
         except:
             pass
         lol = await get_user(self.scope)
         print("lola",lol)
+        await self.send(text_data=json.dumps({"user": "Authenticated"}))
         
-@database_sync_to_async
-def get_token_user(token):
-    try:
-        user = AuthToken.objects.get(token_key=token[:8]).user
-    except:
-        user = AnonymousUser()
         
-    return user
+    @database_sync_to_async
+    def get_token_user(self, token):
+        try:
+            user = AuthToken.objects.get(token_key=token[:8]).user
+            return user
+        except:
+            user = AnonymousUser()
+            return user
+            
+        #return user
         
         
         
@@ -82,12 +100,7 @@ class Data(WebsocketConsumer):
     
 class BoardListWS(AsyncWebsocketConsumer):
     async def connect(self):
-        #await login(self.scope, user)
-        #self.user = self.scope["user"]
-        
-        #print(self.user)
-        lol = await get_user(self.scope)
-        print("1",lol)
+        print("\n"*10, "From BoardList",self.scope)
         await self.accept()
     async def disconnect(self, close_code):
         await self.close()
@@ -97,7 +110,6 @@ class BoardListWS(AsyncWebsocketConsumer):
         print("2",lol)
         text_data_json = json.loads(text_data)
         user_token = text_data_json["user"]
-        print(user_token)
         try:
             boards = await self.list_boards(user_token)
             boards_listdict = {"boards_data":boards}
@@ -119,8 +131,6 @@ class BoardListWS(AsyncWebsocketConsumer):
                 "board_owner": all_boards[i].board_owner.username}
             
             all_boards_list.append(current_board_dict)
-        print(all_boards_list)
-        print(len(all_boards_list))
         return all_boards_list
         
 
