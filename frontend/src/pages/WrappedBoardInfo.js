@@ -113,10 +113,11 @@ const BoardInfo = () => {
   
   
   var closeTaskEdit = (event) => {
+    document.body.style.overflow = "auto"
     var editaddTask = document.getElementById("editaddTask");
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
-
+    
     editaddTask.style.display = "none";
     tempTaskName.textContent = '';
     tempTaskName.value = '';
@@ -154,7 +155,7 @@ const BoardInfo = () => {
             <title></title>
         </Helmet>
 
-        <div className="container-fluid">
+        <div className="container-fluid" id='containerFluid'>
             
             {/* {% include 'navbar-all.html' %} */}
             <div className="projectContainer">
@@ -164,27 +165,43 @@ const BoardInfo = () => {
                 <h2 className='d-inline'>{boardName}</h2>
               </div>
               <div className='editaddTask' id='editaddTask'>
-                <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
-                <div className=''>
-                  
-                  <h3>Task</h3>
-                  <p>Name</p>
-                  <input id="tempTaskName" className='w-100' type='text' />
-                  <p>Description</p>
-                  <textarea id="tempTaskDescription" className='w-100'></textarea>
-                  <p>Assigned to</p>
-                  <select role='switch' aria-checked="false" className='w-100'>
-                    <option>Red</option>
-                    <option>Orange</option>
-                    <option>Yellow</option>
-                    <option>Green</option>
-                    <option>Blue</option>
-                    <option>Indigo</option>
-                    <option>Violet</option>
-                  </select>
-                  <div className='text-center'>
-                    <button className='m-2 px-3 bg-light'>Save</button>
-                    <button className='m-2 px-3'>Delete</button>
+                <div className='task-container'>
+
+                  <div className='task-set'>
+
+                    <h3>Task</h3>
+                    <p>Name</p>
+                    <input id="tempTaskName" className='w-100' type='text' />
+                    <p>Description</p>
+                    <textarea id="tempTaskDescription" className='w-100'></textarea>
+                    <p>Assigned to</p>
+                    <select role='switch' aria-checked="false" className='w-100'>
+                      <option>Red</option>
+                      <option>Orange</option>
+                      <option>Yellow</option>
+                      <option>Green</option>
+                      <option>Blue</option>
+                      <option>Indigo</option>
+                      <option>Violet</option>
+                    </select>
+                    <div className='text-center'>
+                      <button className='m-2 px-3 bg-light'>Save</button>
+                      <button className='m-2 px-3'>Delete</button>
+                    </div>
+                  </div>
+                  <div className='board-color-picker'>
+                    <div className='picker-board'>
+                      
+                    </div>
+                    <div className='picker-slide'>
+                      <input type=''
+                    </div>
+                  </div> 
+                  <div className='cancelTaskEdit'>
+                    <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
+                  </div> 
+                  <div className='clear'>
+
                   </div>
                 </div>
 

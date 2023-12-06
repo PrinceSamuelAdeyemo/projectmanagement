@@ -6,14 +6,19 @@ const Task = (props) => {
     var task_id = props.taskID;
     var task_name = props.taskName;
     const editBoardTask = (event) => {
+        document.body.style.overflow = "hidden"
         var editaddTask = document.getElementById("editaddTask");
         var tempTaskName = document.getElementById("tempTaskName");
         var tempTaskDescription = document.getElementById("tempTaskDescription");
+        const scrollPosition = window.scrollY || window.pageYOffset
+        const screenHeight = window.screen.height
   
         tempTaskName.textContent = event.target.value;
         tempTaskName.value = event.target.value;
+        
+        editaddTask.style.top = `${scrollPosition+100}px`
         editaddTask.style.display = "block";
-        console.log(event);
+        
         //tempTaskDescription.textContent = this.value;
         //tempTaskDescription.value = this.value;
       }
@@ -21,6 +26,15 @@ const Task = (props) => {
       var deleteBoardTask = (event) => {
         alert("Hello, World")
         }
+
+    /*
+    window.addEventListener('scroll', () => {
+      const neweditTask = document.getElementById("editaddTask")
+      const scrollPosition = window.scrollY || window.pageYOffset
+      
+      neweditTask.style.top = `${scrollPosition}px`
+        })    
+    */
 
   return (
     <div className='eachCardTask'>

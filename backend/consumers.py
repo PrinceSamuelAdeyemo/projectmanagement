@@ -27,37 +27,7 @@ class LoginWS(AsyncWebsocketConsumer):
         user = await self.get_token_user(token)
         await login(self.scope, user)
         await database_sync_to_async(self.scope["session"].save)()
-        #print(gg)
-        print('\n'*5,self.scope)
-        try:
-            user = await self.get_token_user(token)
-            await login(self.scope, user)
-            await database_sync_to_async(self.scope["session"].save)()
-            #print(gg)
-            print(self.scope)
-            """
-            try:
-                await login(self.scope, user)
-                await database_sync_to_async(self.scope["session"].save)()
-                #print(gg)
-                print(self.scope)
-                ""
-                if gg is not None:
-                    await database_sync_to_async(self.scope["session"].save)()
-                    await self.send(json.dumps({"user": "Authenticated"}))
-                else:
-                    print('kkkkkk')
-                
-            except:
-                await self.send(json.dumps({"user": "Unauthenticated"}))
-            ""
-            finally:
-                print("From finally", self.scope["user"])
-            """
-        except:
-            pass
-        lol = await get_user(self.scope)
-        print("lola",lol)
+        
         await self.send(text_data=json.dumps({"user": "Authenticated"}))
         
         
@@ -100,14 +70,12 @@ class Data(WebsocketConsumer):
     
 class BoardListWS(AsyncWebsocketConsumer):
     async def connect(self):
-        print("\n"*10, "From BoardList",self.scope)
+        print(self.scope["url_route"]["kwargs"])
         await self.accept()
     async def disconnect(self, close_code):
         await self.close()
         
     async def receive(self, text_data):
-        lol = await get_user(self.scope)
-        print("2",lol)
         text_data_json = json.loads(text_data)
         user_token = text_data_json["user"]
         try:
@@ -132,8 +100,8 @@ class BoardListWS(AsyncWebsocketConsumer):
             
             all_boards_list.append(current_board_dict)
         return all_boards_list
-        
-
+    
+ 
 class BoardInfoWS(AsyncWebsocketConsumer):
     # connect, disconnect and recieve functions are below
     async def connect(self):

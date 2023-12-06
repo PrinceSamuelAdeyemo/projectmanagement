@@ -1,3 +1,5 @@
+
+
 .projectContainer{
     padding: 0 3rem;
     margin-bottom: 4rem;
@@ -13,24 +15,48 @@
 }
 
 .editaddTask{
-    background-color: aliceblue;
-    height: 25rem;
-    width: 20rem;
-    border: 2px solid gray;
+    justify-content: center;
+    background-color: transparent;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -140%);
-    padding: 2rem;
+    height: 100%;
+    width: 90%;
 }
 #editaddTask{
     display: none;
 }
 
+.task-container{
+    margin: 0 auto;
+    background-color: aliceblue;
+    height:fit-content;
+    width: 70%;
+    
+}
+
+.task-set{
+    width: 70%;
+    float: left;
+    height: 100%;
+}
+
+.board-color-picker{
+    float: left;
+    width: 26%;
+    height: 100%;
+}
+
+.cancelTaskEdit{
+    float: right;
+    width: 4%;
+}
 .closeTaskEdit{
     border: none;
     background: transparent;
-    float: right;
+    margin-right: 5px;
+}
+
+.clear{
+    clear: both;
 }
 
 .boardParent{
@@ -151,4 +177,14 @@
     width: 100%;
     background: transparent;
     border: none;
+}
+
+@media screen and (max-width:760px) {
+    .task-container{
+        margin: 2em auto;
+        background-color: aliceblue;
+        height:fit-content;
+        width: 50%;        
+    }
+    
 }
