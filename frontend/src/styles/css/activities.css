@@ -1,8 +1,8 @@
-body{
+/*body{
     overflow-x: hidden;
     position: relative;
 }
-
+*/
 .dashboard-body{
     overflow-y: hidden;
     height: 100vh;

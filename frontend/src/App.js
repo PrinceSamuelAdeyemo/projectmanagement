@@ -14,7 +14,6 @@ import {
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
 
-import LaterCreateBoard from './pages/LaterCreateBoard.js';
 // Pages components
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -75,28 +74,26 @@ function App() {
       <script src="../src/customjs/js/login.js" type='text/jsx'></script>
     </Helmet>
     <div>
-    <Router>
-      <div>
-        <Routes>
-          <Route exact path='/' element={<Homepage />} />
-          <Route exact path='/homepage' element={<Homepage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
+      <Router>
+        <div>
+          <Routes>
+            <Route exact path='/' element={<Homepage />} />
+            <Route exact path='/homepage' element={<Homepage />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
 
-          <Route path='/logout' element={<Logout />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/boards' element={<WrappedBoards />} />
-          
-          <Route path='/board/:company/:boardID' element={<WrappedBoardInfo />} />
-          <Route path='/createboard' element={<CreateBoard />} />
-          <Route path='/latercreateboard' element={<LaterCreateBoard />} />
-          <Route path='*' element={<Error />} />
+            <Route path='/logout' element={<Logout />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/boards' element={<WrappedBoards />} />
+            
+            <Route path='/board/:company/:boardID' element={<WrappedBoardInfo />} />
+            <Route path='/createboard' element={<CreateBoard />} />
+            <Route path='*' element={<Error />} />
 
-          <Route path='/test' element={<Card />} />
-        </Routes>
-      </div>
-    </Router>
-    <Footer/>
+          </Routes>
+        </div>
+      </Router>
+      <Footer/>
     </div>
     
     </HelmetProvider>

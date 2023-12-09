@@ -53,6 +53,7 @@
     overflow-y: auto;
     width: inherit;
     margin: 0;
+    height: 200vh;
 }
 
 .cancelprojectpage{
@@ -79,7 +80,7 @@
     display: flex;
     width: 100%;
     background-color: inherit;
-    
+    height: 20rem;
     
 }
 

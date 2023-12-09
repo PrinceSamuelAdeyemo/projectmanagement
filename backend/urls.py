@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Index, Signup, Login, ReturnProfile, BoardsRequest, CreateUser, LoginView, UserStatus
+from .views import Index, Signup, Login, ReturnProfile, BoardsRequest, CreateUser, LoginView, UserStatus, CreateBoard
 from knox.views import LogoutView, LogoutAllView
 
 urlpatterns = [
@@ -18,7 +18,7 @@ urlpatterns = [
     
     #path('home', UserStatus.as_view(), name = 'home'),
     
-    path('sign-up', CreateUser.as_view(), name= 'sign-up'),
+    #path('sign-up', CreateUser.as_view(), name= 'sign-up'),
     path('login', LoginView.as_view(), name= 'knox_login'),
     path('log-out', LogoutView.as_view(), name = 'knox_logout'),
     path('log-outall', LogoutAllView.as_view(), name = 'knox_logoutall'),
@@ -28,6 +28,7 @@ urlpatterns = [
     #path('projectsrequest', ProjectRequest.as_view(), name='projectsrequest'),
     #path('boardsrequest', ProjectRequest.as_view(), name='boardsrequest'),
     #path('tasksrequest', ProjectRequest.as_view(), name='tasksrequest'),
+    path('createboard', CreateBoard.as_view(), name = 'createboard'),
 ]
 
 

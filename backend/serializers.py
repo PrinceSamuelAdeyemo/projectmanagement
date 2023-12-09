@@ -16,13 +16,17 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
         #fields = ['id', 'username', 'password', 'first_name', 'last_name', 'email']
-        extra_kwargs = {'password': 
-            {'write_only': True}
-            }
+        #extra_kwargs = {'password': 
+        #    {'write_only': True}
+        #    }
         
-    #def validate(self, attrs):
-    #    email = attrs.get('email')
-    
+    def validate(self, attrs):
+        username = attrs.get("username")
+        if username:
+            return username
+            
+        #email = attrs.get('email')
+    """
     def create(self, validated_data):
         password = validated_data.pop('password')
         user = User(**validated_data)
@@ -30,6 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         #Token.objects.create(user = user)
         return user
+    """
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -76,7 +81,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return user
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = CreateUserSerializer()
     
     class Meta:
         model = Profile
@@ -85,7 +90,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
-        user_serializer = UserSerializer(data=user_data)
+        user_serializer = CreateUserSerializer(data=user_data)
         user_serializer.is_valid(raise_exception=True)
         
         user = user_serializer.save()
@@ -96,7 +101,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return profile
 
 class BusinessProfileSerializer(serializers.ModelSerializer):
-    business_basicdetails = UserSerializer()
+    business_basicdetails = CreateUserSerializer()
     
     class Meta:
         model = BusinessProfile
@@ -105,7 +110,7 @@ class BusinessProfileSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         user_data = validated_data.pop('business_basicdetails')
-        user_serializer = UserSerializer(data = user_data)
+        user_serializer = CreateUserSerializer(data = user_data)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.save()
         profile = BusinessProfile.objects.create(business_basicdetails=user, **validated_data)
@@ -241,8 +246,54 @@ class LoginViewSerializer(serializers.Serializer):
         
         '''
         
-    
 class UserStatusSerializer(serializers.Serializer):
     
     def validate(self, attrs):
         pass
+
+class CreateBoardSerializer(serializers.ModelSerializer):
+    """
+    board_owner = serializers.SlugRelatedField(
+        #many = True, 
+        read_only= True,
+        slug_field = "username"
+    )
+    """
+    #board_owner = serializers.StringRelatedField()
+    #board_owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    #board_owner = UserSerializer(many=True, read_only=True)
+    class Meta:
+        model = Board
+        fields = ["board_name", "board_description", "board_owner"]
+        
+        
+    def validate(self, attrs):
+        print("aaaa",attrs)
+        board_name = attrs.get("board_name")
+        board_owner = attrs.get("board_owner")
+        print("Hello", board_owner)
+        
+        if board_name != '':
+            return attrs
+        
+    def create(self, validated_data):
+        print("vvv",validated_data)
+        
+        board_name = validated_data["board_name"]
+        board_description = validated_data["board_description"]
+        board_owner = validated_data["board_owner"]
+        #tasks = validated_data["tasks"]        
+        #task_names = request.POST.getlist("TaskArray[]")
+        
+        #boardO = UserSerializer(data = board_owner)
+        #boardO.is_valid(raise_exception=True)
+        #boardOw = boardO.save()
+        
+        board = Board.objects.create(board_name=board_name, board_description=board_description, board_owner=board_owner)
+        return board
+    
+class CreateTaskSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Task
+        fields = [""]

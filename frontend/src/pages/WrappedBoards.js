@@ -41,7 +41,7 @@ const Boards = () => {
         boardlist_socket.onmessage = async (event) => {
             let lol = await JSON.parse(event.data).boards_data
             console.log(lol)
-            await setBoards(lol)            
+            setBoards(lol)            
         }
 
         return boardlist_socket

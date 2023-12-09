@@ -25,11 +25,24 @@ const BoardInfo = () => {
 
   
   const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
-
   const [tempcardTask, settempCardTask] = useState('');
 
   const [tempcardName, settempCardName] = useState('');
   const { boardID } = useParams();
+
+
+  const requestBoardCards = () => {
+    board_socket.onopen = (event) => {
+      console.log("Connection established")
+      board_socket.send(JSON.stringify(
+        {
+          "title": "boardID",
+          "boardID": `${boardID}`,
+          }));
+      console.log("Sent")
+    }
+    
+  }
 
   const board_data = useMemo(() =>{
 
@@ -37,7 +50,7 @@ const BoardInfo = () => {
     console.log("Received")
     let message = await JSON.parse(event.data);
     var all_card_tasks = message.all_card_tasks
-    console.log(message)
+    console.log("eeeeeeeeeeeeee",message)
     setBoardName(message.board_name);
     setBoardDescription(message.board_description);
     setBoardCards(message.card_details)
@@ -65,7 +78,7 @@ const BoardInfo = () => {
   }, [board_socket]);
 
 
-  console.log(boardID)
+  console.log("HELLLO",boardID)
   const navigate = useNavigate();
   
   /*
@@ -92,16 +105,7 @@ const BoardInfo = () => {
     console.log("Done here")
 
   
-  const requestBoardCards = () => {
-    board_socket.onopen = (event) => {
-      console.log("Connection established")
-      board_socket.send(JSON.stringify(
-        {
-          "title": "boardID",
-          "boardID": "6b83ed71-8644-48fe-bac0-abcb944e83d8",
-          }));
-    }
-  }
+  
 
   const retrieveCardTasks = (card_id) => {
     if (card_id in cardTasks){

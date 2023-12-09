@@ -116,11 +116,12 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         
         if (messagetitle == "boardID"):
             board_id = text_data_json[messagetitle]
+            
             board_details = await self.get_board(board_id)
             card_details = await self.get_cards(board_id)
             all_card_tasks = {}
             try:
-                if board_details["board_name"] and board_details["board_description"]:
+                if board_details["board_name"]:
                     for card_id in card_details.keys():
                         task_details = await self.get_tasks(card_id)
                         current_card_task = task_details
@@ -130,6 +131,10 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     card_detailslist = {"card_details": card_details}
                     
                     message = {**board_details, **card_detailslist, **all_card_taskslist}
+                    await self.send(text_data=json.dumps(message))
+                    
+                else:
+                    message = {"me": "you"}
                     await self.send(text_data=json.dumps(message))
                                          
             except Exception as e:

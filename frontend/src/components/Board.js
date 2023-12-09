@@ -40,16 +40,8 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
     
 
     useEffect(() => {
-        //let getBgColor = document.getElementsByClassName('board-insight');
-        //let getBgColorArray = Array.from(getBgColor);
-        if (true){
-
-        }
-        else{
-            navigate(`/board/tesla/4`);
-        }
         
-    }, []);
+    });
 
   return (
             <div className="board">
@@ -65,7 +57,7 @@ const Board = ({ boardID,  boardName, boardDescription, boardBgColor }) => {
                         </div>
                     </div>
                     <div className="p-1 text-center px-2 board-buttons">
-                        <Link className="btn board-openbutton me-2" to={`/board/tesla/a79544b2-5ae9-4f40-8bdb-e0fbdfecf4f}`}>Open Board</Link>
+                        <Link className="btn board-openbutton me-2" to={`/board/tesla/${boardID}`}>Open Board</Link>
                         <button className="btn board-editbutton">Edit</button>
                     </div>
                 </div>

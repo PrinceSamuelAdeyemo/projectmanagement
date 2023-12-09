@@ -11,7 +11,7 @@ from django.contrib import messages
 
 ################# SERIALIZERS ####################
 from .serializers import LoginSerializer, UserSerializer, ProfileSerializer, BusinessProfileSerializer, ProjectSerializer, BoardSerializer, \
-    CreateUserSerializer, LoginViewSerializer, UserStatusSerializer
+    CreateUserSerializer, LoginViewSerializer, UserStatusSerializer, CreateBoardSerializer
 
 ################ REST FRAMEWORK LIBRARIES #################
 from rest_framework import status
@@ -59,7 +59,6 @@ class UserStatus(APIView):
             return Response({"TOKEN": "No"})
         
         
-
 class ReturnProfile(APIView):
     #authentication_classes = (TokenAuthentication,)
     #permission_classes = (IsAuthenticated,)
@@ -762,15 +761,82 @@ class CreateProject(LoginRequiredMixin, View):
             
             
 ###### CreateBoard view  from the create board button in the html ######
-class CreateBoard(LoginRequiredMixin, View):
-    login_url = 'login'
-    redirect_field_name: 'login'
+class CreateBoard(APIView):
+    serializer_class = CreateBoardSerializer
+    queryset = Board.objects.all()
     
     def get(self, request):
-        return render(request, 'createboard.html')
+        return Response(serializer_class.data)
     
     def post(self, request):
+        user_token = str(request.data.pop("user_token"))[:8]
+        user = AuthToken.objects.get(token_key=user_token).user
+        #user = User.objects.get(username = user.username)
+        board_owner = {"board_owner": user.id}
+        board_data = {**request.data, **board_owner }
+        print(board_data, "\n\n")
+        serializer = CreateBoardSerializer(data = board_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
         
+        else:
+            print("Error somewhere")
+            print(board_owner)
+            print(serializer.errors)
+            return Response("Not Valid")
+        #return Response(f'{serializer.errors} \n {sender} {request.data}')
+        
+    """
+    def get(self, request):
+        pass
+        #return render(request, 'createboard.html')
+    
+    def post(self, request):
+    """    
+        ################################################
+        #Receive the project details
+        #projectName = request.POST['project_name']
+        #projectDescription = 'Default'
+    """
+        # Receive the board details
+        boardOwner = request.user.username
+        boardName = request.POST['board_name']
+        boardDescription = request.POST['board_description']
+        
+        
+        ################################################
+        # Receive the task details
+        task_names = request.POST.getlist("TaskArray[]")
+        
+        ##### Get if the board exist, and then create if it doesn't exist ########
+        # Check if the board name received already exists.
+        # If it does not exists, create the board and save it.
+        # After the save, get the board which was saved and check if if the sub board was added, if it wasn't. Don't save any task, but if the sub board was added.
+        #  Check if the sub board exists for the partcular board, if not, Save the tasks also.
+        personal_model = User.objects.filter(username = boardOwner).first()
+        personal_profile = Profile.objects.get(personal_basicdetails = personal_model)
+        
+        checkpersonal_board = Board.objects.filter(personalBoardowner = personal_profile, board_name = boardName, board_description = boardDescription).exists()
+        if not checkpersonal_board:
+            
+            personal_board = Board.objects.create(personalBoardowner = personal_profile, board_name = boardName, board_description = boardDescription)
+            personal_board.save()
+            if (task_names == ''):
+                return HttpResponse('The board task is empty!')
+            else:                
+                for eachtask in range(len(task_names)):
+                    personal_task = Board.objects.get(personalBoardowner = personal_profile, board_name = boardName, board_description = boardDescription)
+                    checktask_namemodel = Task.objects.filter(task_parent = personal_task, task_name = task_names[eachtask]).exists()
+                    if checktask_namemodel:
+                        return HttpResponse("Can't save, exist")
+                    else:
+                        task_name_model = Task.objects.create(task_parent = personal_task, task_name=task_names[eachtask])
+                        task_name_model.save()
+                return HttpResponse('Board Exists, but saved task')
+            """     
+    
+    """
         if (request.headers.get('X-Requested-With') == 'XMLHttpRequest') and (request.POST['action'] == "create-a-board"):
             
             ################################################
@@ -815,9 +881,11 @@ class CreateBoard(LoginRequiredMixin, View):
                     
             else:
                 return HttpResponse('The board name already exists')
+           
             
         else:
             return HttpResponse('It is not there')
+        ""
         if "None":
             return HttpResponse('It is None')
         else:
@@ -829,7 +897,7 @@ class CreateBoard(LoginRequiredMixin, View):
             task_model.save()
             
             return HttpResponse('Success')
-        
+    """
             
 def calculator(request):
     return render(request, 'calculator.html')
