@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { useNavigation } from 'react-router-dom';
+import { useNavigate, useNavigation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -9,6 +9,7 @@ import '../styles/css/createboard.css';
 const CreateBoard = () => {
 
   const user_token = useSelector((state) => state.USER_STATUS.token)
+  const navigate = useNavigate();
 
     //Registering Project, board and tasks
     const [boardName, setBoardName] = useState('');
@@ -20,6 +21,8 @@ const CreateBoard = () => {
     // Board details in the project
     const [status, setStatus] = useState('notyetstarted');
     const [priority, setPriority] = useState('low');
+
+    // After the board is created
     
     //const navigate = useNavigation();
 
@@ -49,33 +52,6 @@ const CreateBoard = () => {
         setBoardDescription(value);
     }
 
-    // Removing tasks from the board before adding it
-    var discardTask = () => {
-        //var taskNamesList = document.getElementsByClassName('taskNamesList');
-        //var taskNames = document.getElementsByClassName('taskNames');
-        var taskNames = document.querySelectorAll('.taskNames:checked')
-        if (taskNames.length > 0) {
-            taskNames.forEach((taskName) => {
-                taskName.checked? taskName.parentNode.remove() : console.log('none to remove')
-            });
-        }else{
-            console.log('Nothing to remove');
-        }
-    }
-
-    // Receiving the list of tasks for each board
-    var taskListcreate = (event) => {
-        // Note: THe temp task is set in the onchange attr at the input section
-        if (tempTask !== ''){
-            const newListArray = [...tasks, tempTask]
-            setTasks(newListArray)
-            // Clear the value of the text input and clear the memory of the temp task
-            let taskinput = document.getElementById('taskinput');
-            taskinput.value = '';
-            setTempTask('');
-        }
-    }
-
     /*Function for creating boards and submitting the project in which the board will be added unto, 
     but if no project name is added. The board becomes a free board which doesn't have a project 
     but rather a side temporary project within the account or organization. */
@@ -101,13 +77,16 @@ const CreateBoard = () => {
             }
             else{
                 console.log('Data sent')
+                return response.json()
             }
         })
-        .then(data=>console.log('This is the data sent', {'Data': data,"l":boardName}, {tasks: tasks}))
+        .then((data)=>{
+            var board_id = data["board_id"]
+            
+            navigate(`/board/tesla/${board_id}`)
+        })
         .catch(error => console.log('Encountered error when trying to submit the details', {'Error': error}))
       }
-        
-        
     }
 
     //console.log(tasks)

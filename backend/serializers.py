@@ -264,20 +264,17 @@ class CreateBoardSerializer(serializers.ModelSerializer):
     #board_owner = UserSerializer(many=True, read_only=True)
     class Meta:
         model = Board
-        fields = ["board_name", "board_description", "board_owner"]
+        fields = ["board_name", "board_description", "board_owner", "board_id"]
         
         
     def validate(self, attrs):
-        print("aaaa",attrs)
         board_name = attrs.get("board_name")
         board_owner = attrs.get("board_owner")
-        print("Hello", board_owner)
         
         if board_name != '':
             return attrs
         
     def create(self, validated_data):
-        print("vvv",validated_data)
         
         board_name = validated_data["board_name"]
         board_description = validated_data["board_description"]
@@ -290,6 +287,8 @@ class CreateBoardSerializer(serializers.ModelSerializer):
         #boardOw = boardO.save()
         
         board = Board.objects.create(board_name=board_name, board_description=board_description, board_owner=board_owner)
+        
+        
         return board
     
 class CreateTaskSerializer(serializers.ModelSerializer):

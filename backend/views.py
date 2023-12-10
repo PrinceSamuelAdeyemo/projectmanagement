@@ -778,6 +778,9 @@ class CreateBoard(APIView):
         serializer = CreateBoardSerializer(data = board_data)
         if serializer.is_valid():
             serializer.save()
+            print("See", serializer.data)
+            #get_board_details = Board.objects.get(**serializer.data)
+            #print(get_board_details)
             return Response(serializer.data)
         
         else:

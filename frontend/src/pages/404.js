@@ -21,7 +21,7 @@ const Error = () => {
   useEffect(() => {
     
   })
-  
+  /*
   const requestBoardCards = () =>{
     //if (socket.OPEN){
     socket.send(JSON.stringify(
@@ -48,7 +48,7 @@ const Error = () => {
     setSome('b');
     console.log("Done")
   }
-
+*/
 
   return (
     <div className='parent404div'>
