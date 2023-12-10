@@ -1,20 +1,17 @@
 from django.urls import path
-from .views import Index, Signup, Login, ReturnProfile, BoardsRequest, CreateUser, LoginView, UserStatus, CreateBoard
+from .views import Signup, Login, ReturnProfile, BoardsRequest, CreateUser, LoginView, UserStatus, CreateBoard, Card, Task
 from knox.views import LogoutView, LogoutAllView
 
 urlpatterns = [
     
     # Check login status
     path('userstatus', UserStatus.as_view(), name='userstatus'),
-    #path('', Index.as_view(), name='homepage')
     path('', ReturnProfile.as_view(), name='returnprofile'),
     path('signup', Signup.as_view(), name='signup'),
-    #path('login', Login.as_view(), name='login'),
     
     
     path('boardsrequest', BoardsRequest.as_view(), name='boardsrequest'),
     #path(r'board/<str:company>/<str:boardID>', BoardInfo.as_view(), name='boardinfo'),
-    #path('board/<str:pk>', ),
     
     #path('home', UserStatus.as_view(), name = 'home'),
     
@@ -27,7 +24,8 @@ urlpatterns = [
     # Url endpoint for setting and retrieving projects, boards and tasks
     #path('projectsrequest', ProjectRequest.as_view(), name='projectsrequest'),
     #path('boardsrequest', ProjectRequest.as_view(), name='boardsrequest'),
-    #path('tasksrequest', ProjectRequest.as_view(), name='tasksrequest'),
+    path('tasks', Task.as_view(), name='tasks'),
+    path('card', Card.as_view(), name='card'),
     path('createboard', CreateBoard.as_view(), name = 'createboard'),
 ]
 

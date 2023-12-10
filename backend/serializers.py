@@ -6,7 +6,7 @@ from knox.models import AuthToken
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate
-from .models import Profile, BusinessProfile, Project, Board, Task, Test
+from .models import Profile, BusinessProfile, Project, Board, Card, Task, Test
 
 
 
@@ -290,6 +290,20 @@ class CreateBoardSerializer(serializers.ModelSerializer):
         
         
         return board
+    
+class CreateCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = "__all__"
+        
+    def validate(self, attrs):
+        if attrs.get(card_name) != '':
+            return attrs
+    
+    def create(self, validated_data):
+        card = Card.objects.create(card_name = self.validated_data["card_name"], card_parent=self.validated_data["card_parent"])
+        print(card)
+        return card
     
 class CreateTaskSerializer(serializers.ModelSerializer):
     

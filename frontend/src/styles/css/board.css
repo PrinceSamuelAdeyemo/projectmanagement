@@ -4,6 +4,7 @@
     padding: 0 3rem;
     margin-bottom: 4rem;
     position: relative;
+    min-height: 100vh;
 }
 
 .projectName{
@@ -29,7 +30,7 @@
     margin: 0 auto;
     background-color: aliceblue;
     height:fit-content;
-    width: 70%;
+    width: 50%;
     
 }
 
@@ -53,7 +54,7 @@
 
 .cancelTaskEdit{
     float: right;
-    width: 4%;
+    
 }
 .closeTaskEdit{
     border: none;
@@ -63,6 +64,10 @@
 
 .clear{
     clear: both;
+}
+
+#save-task{
+    
 }
 
 .boardParent{

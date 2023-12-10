@@ -11,7 +11,7 @@ from django.contrib import messages
 
 ################# SERIALIZERS ####################
 from .serializers import LoginSerializer, UserSerializer, ProfileSerializer, BusinessProfileSerializer, ProjectSerializer, BoardSerializer, \
-    CreateUserSerializer, LoginViewSerializer, UserStatusSerializer, CreateBoardSerializer
+    CreateUserSerializer, LoginViewSerializer, UserStatusSerializer, CreateBoardSerializer, CreateCardSerializer, CreateTaskSerializer
 
 ################ REST FRAMEWORK LIBRARIES #################
 from rest_framework import status
@@ -21,7 +21,6 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework import status
 
 ############### KNOX LIBRARIES
 from knox.auth import TokenAuthentication
@@ -30,7 +29,7 @@ from knox.settings import CONSTANTS
 from knox import views as knox_views
 
 ########### MODEL VIEW IMPORTS ##################
-from .models import Profile, BusinessProfile, Project, Board, Task, Test
+from .models import Profile, BusinessProfile, Project, Board, Card, Task, Test
 
 ############# PYTHON LIBRARIES ##############
 import json
@@ -178,6 +177,39 @@ class BoardsRequest(APIView):
         else:
             return Response((userserializer.errors, profileserializer.errors))
 '''
+
+class Card(APIView):
+    query_set = Card.objects.all()
+    def get(self, request):
+        pass
+    
+    def post(self, request):
+        serializer = CreateCardSerializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        serializer.save()  
+        
+        print(request.data["card_name"])
+        return Response("Saved")
+    
+    def update(self, request):
+        pass
+
+    def delete(self, request):
+        pass
+    
+class Task(APIView):
+    def get(self, request):
+        pass
+    
+    def post(self, request):
+        print(self.request.data)
+        return Response({"S":"S"})
+    
+    def update(self, request):
+        pass
+    
+    def delete(self, request):
+        pass
 
 '''
 class Signup(View):
@@ -458,17 +490,7 @@ def logout(request):
     return render(request, 'login.html')
 
 #@login_required(login_url = "login")
-
-
-###### Homepage view ######
-class Index(View):
-    def get(self, request):
-        return render(request, 'homepage.html')
-    
-    def post(self, request):
-        pass
-    
-    
+ 
     
 def getActivities(request):
     if request.method == 'GET' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -542,16 +564,10 @@ class Activities(LoginRequiredMixin, View):
             return render(request, 'boards.html')
         
     
-
-#def activities(request):
-#    return render(request, 'boards.html')
-
 @login_required(login_url = "login")
 def settings(request):
     return render(request, 'settings.html')
 
-
-    
 ###### Createtask view  from the create board button in the html ######
 class DashBoard(LoginRequiredMixin, View):
     login_url = 'login'
@@ -905,8 +921,4 @@ class CreateBoard(APIView):
 def calculator(request):
     return render(request, 'calculator.html')
 
-def createtask(request):
-    return render(request, 'createboard.html')
-
-def error_404_view(request, exception):
     return render(request, '404.html')

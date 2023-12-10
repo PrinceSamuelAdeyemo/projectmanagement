@@ -68,7 +68,8 @@ const Card = (props) => {
         tempTaskName.value = '';
         tempTaskDescription.value = '';
         addTask.style.display = "block";
-  
+
+        
       }
       
 

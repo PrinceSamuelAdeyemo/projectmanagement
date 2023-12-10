@@ -99,10 +99,10 @@ const BoardInfo = () => {
   })
 
   const is_authenticated = useSelector((state) => state.USER_STATUS.status)
-    const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
-    console.log("Should give cookie", getUserToken)
-    console.log(is_authenticated)
-    console.log("Done here")
+  const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
+  console.log("Should give cookie", getUserToken)
+  console.log(is_authenticated)
+  console.log("Done here")
 
   
   
@@ -130,9 +130,41 @@ const BoardInfo = () => {
   }
 
   var saveCard = (event) => {
-    console.log("To save a new card: ", event.target.value)
+    if ((event.type == "keydown" && event.key == "Enter") || (event.type == "dblclick")){
+      const new_card_name = event.target.value;
+      console.log({
+        "new_card_name": new_card_name,
+      })
+      fetch("http://127.0.0.1:8000/api/card", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+          "Authorization": `Token ${getUserToken}`
+        },
+        body: JSON.stringify({
+          "card_name": new_card_name,
+          "card_parent": `${boardID}`
+        })
+      })
+      
+    }
     //var cardNameInput = document.getElementById("cardNameInput");
     //console.log(cardNameInput.value)
+    
+  }
+  var createTask = (event) => {
+    event.preventDefault()
+    fetch("http://127.0.0.1:8000/api/tasks", {
+      method: "POST",
+      headers:{
+        "content-Type": "application/json",
+        "Authorization": `Token ${getUserToken}`
+      },
+      body: JSON.stringify({
+        task_name: "Task1",
+        task_description: "Task Description"
+      })
+    })
   }
 
   var deleteBoardTask = (event) => {
@@ -169,10 +201,11 @@ const BoardInfo = () => {
                 <h2 className='d-inline'>{boardName}</h2>
               </div>
               <div className='editaddTask' id='editaddTask'>
+                
                 <div className='task-container'>
+                  <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
 
-                  <div className='task-set'>
-
+                  <form className='task-set' action='' onSubmit={createTask} method='POST' encType='UTC-8' autoComplete>
                     <h3>Task</h3>
                     <p>Name</p>
                     <input id="tempTaskName" className='w-100' type='text' />
@@ -189,17 +222,17 @@ const BoardInfo = () => {
                       <option>Violet</option>
                     </select>
                     <div className='text-center'>
-                      <button className='m-2 px-3 bg-light'>Save</button>
+                      <button type='submit' className='m-2 px-3 bg-light' id='save-task'>Save</button>
                       <button className='m-2 px-3'>Delete</button>
                     </div>
-                  </div>
-                  <div className='board-color-picker'>
+                  </form>
+                  {/*<div className='board-color-picker'>
                     <p>Board Background Color</p>
                     <input type="color" name="boardcolor" defaultValue={"000000"} />
-                  </div> 
+  </div> 
                   <div className='cancelTaskEdit'>
                     <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
-                  </div> 
+                  </div> */}
                   <div className='clear'>
 
                   </div>
@@ -221,7 +254,7 @@ const BoardInfo = () => {
                 <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
-                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onSelect={saveCard} />
+                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onKeyDown={saveCard} onDoubleClick={saveCard}/>
                       <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
                     
