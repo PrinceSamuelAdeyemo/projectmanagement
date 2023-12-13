@@ -292,18 +292,24 @@ class CreateBoardSerializer(serializers.ModelSerializer):
         return board
     
 class CreateCardSerializer(serializers.ModelSerializer):
+    #card_parent = serializers.SlugRelatedField(slug_field="card_parent", read_only=True)
     class Meta:
         model = Card
-        fields = "__all__"
+        fields = ["card_name", "card_parent", "card_id"] #"__all__"
         
     def validate(self, attrs):
-        if attrs.get(card_name) != '':
+        if attrs.get("card_name") != '':
             return attrs
+        print("eeeeeeee",attrs)
     
     def create(self, validated_data):
         card = Card.objects.create(card_name = self.validated_data["card_name"], card_parent=self.validated_data["card_parent"])
-        print(card)
-        return card
+        new_card_details = {
+            "card_name": card.card_name,
+            "card_id": card.card_id,
+            "card_parent": card.card_parent,
+        }
+        return new_card_details
     
 class CreateTaskSerializer(serializers.ModelSerializer):
     

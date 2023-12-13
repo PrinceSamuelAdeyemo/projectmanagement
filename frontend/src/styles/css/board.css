@@ -87,7 +87,7 @@
    flex-direction: row;
 }
 
-.cardNameInput{
+.cardNameInput, .newcardNameInput{
     margin: 1rem auto;
     border: none;
     height: 2rem;
@@ -98,10 +98,11 @@
     text-align: center;
 }
 
-.cardNameinput:focus{
+.cardNameinput:focus, .newcardNameInput:focus{
     border: 0.01rem solid black;
     border-radius: 0.5rem;
 }
+
 
 .boardNameText{
     font-size: medium;

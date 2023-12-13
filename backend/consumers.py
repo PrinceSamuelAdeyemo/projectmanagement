@@ -1,6 +1,6 @@
 import json
 from channels.generic.websocket import WebsocketConsumer, AsyncWebsocketConsumer
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from channels.db import database_sync_to_async
 from channels.auth import login, logout, get_user
 
@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import AnonymousUser, User
 
 from .models import Board, Card, Task
-from .serializers import BoardSerializer
+from .serializers import BoardSerializer, CreateCardSerializer
 
 
 class LoginWS(AsyncWebsocketConsumer):
@@ -25,9 +25,9 @@ class LoginWS(AsyncWebsocketConsumer):
         print("THe token ", token)
         
         user = await self.get_token_user(token)
-        await login(self.scope, user)
-        await database_sync_to_async(self.scope["session"].save)()
-        
+        #await login(self.scope, user)
+        #await database_sync_to_async(self.scope["session"].save)()
+        print(self.scope)
         await self.send(text_data=json.dumps({"user": "Authenticated"}))
         
         
@@ -146,12 +146,76 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     "board_description": message
                 }))
                 """
+                
+        elif (messagetitle == "add_new_card"):
+            card_name = text_data_json["card_name"]
+            card_parent_id = text_data_json["card_parent"]
+            
+            card_add_status = await self.add_card(card_name, card_parent_id)
+            if card_add_status == "saved":
+                board_details = await self.get_board(card_parent_id)
+                card_details = await self.get_cards(card_parent_id)
+                all_card_tasks = {}
+                try:
+                    if board_details["board_name"]:
+                        for card_id in card_details.keys():
+                            task_details = await self.get_tasks(card_id)
+                            current_card_task = task_details
+                            
+                            all_card_tasks = {**all_card_tasks, **current_card_task}
+                        all_card_taskslist = {"all_card_tasks": all_card_tasks}
+                        card_detailslist = {"card_details": card_details}
+                        
+                        message = {**board_details, **card_detailslist, **all_card_taskslist}
+                        await self.send(text_data=json.dumps(message))
+                        
+                    else:
+                        message = {"me": "you"}
+                        await self.send(text_data=json.dumps(message))
+                                            
+                except Exception as e:
+                    print(e)
+                    
+                    
+                    """
+                    message = board_details["error"]
+                    self.send(text_data=json.dumps({
+                        "board_name": message,
+                        "board_description": message
+                    }))
+                    """
+                    
+            #await self.send(text_data=json.dumps(message))
+        """
+        elif (messagetitle == "add_new_card"):
+        
+            card_data = {
+                "card_name": text_data_json["card_name"],
+                "card_parent": text_data_json["card_parent"]
+            }
+            card = await sync_to_async(self.processCard)(card_data)
+            # Had to convert the card_parent id to a string since it is receiving the board instance from the serializer, and then automatically converting it to UUID which cannot be parsed by json
+            new_card_details ={ "new_card": 
+                {"card_name": card["card_name"], "card_id": card["card_id"], "card_parent": f"{card['card_parent']}"}}
+            await self.send(text_data=json.dumps(new_card_details))
+        
         else:
-            print(messagetitle)
+            print("Message title not recognised ", messagetitle)
             await self.send(text_data=json.dumps({
                 "error": "Not requesting for boardID as supposed to."})
             )
-        
+            
+    @staticmethod
+    def processCard(card_data):
+        serializer = CreateCardSerializer(data = card_data)
+        if serializer.is_valid():
+            serializer.save()
+            
+            return serializer.data
+        else:   print("not valid")
+        # 
+    """
+    
     # Custom functions
     @database_sync_to_async
     def get_board(self, boardID):
@@ -223,6 +287,41 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         except:
             pass
     
+    @database_sync_to_async
+    def add_card(self, cardName, boardID):
+        self.card_parent = Board.objects.get(board_id = boardID)
+        self.card = Card.objects.create(card_name = cardName, card_parent=self.card_parent)
+        if (self.card):
+            return "saved"
+        else:
+            return "not saved"
+        """
+        if self.card:
+            
+            self.board = Board.objects.get(board_id = boardID)
+            self.card_details = {}
+            try:
+                Card.objects.filter(card_parent=self.board).exists()
+                self.cards = Card.objects.filter(card_parent=self.board).all()
+                cards = self.cards
+                
+                for self.card in self.cards:
+                    self.card_details_current = {
+                        f"{self.card.card_id}": f"{self.card.card_name}",
+                    }
+                    self.card_details = {**self.card_details, **self.card_details_current}
+                        
+                self.card_details = {**self.card_details}
+                return self.card_details
+                
+            except:
+                pass
+        else:
+            return "Not created"
+        """
+        
+    def send_board():
+        pass 
     
 class CardInfoWS(AsyncWebsocketConsumer):
     async def connect(self):

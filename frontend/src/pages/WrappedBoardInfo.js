@@ -21,7 +21,7 @@ const BoardInfo = () => {
   const [boardDescription, setBoardDescription] = useState('');
   const [boardCard, setBoardCard] = useState({});
   const [boardCards, setBoardCards] = useState({});
-  const [cardTasks, setCardTasks] = useState({});
+  const [cardTasks, setCardTasks] = useState([]);
 
   
   const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
@@ -33,13 +33,12 @@ const BoardInfo = () => {
 
   const requestBoardCards = () => {
     board_socket.onopen = (event) => {
-      console.log("Connection established")
-      board_socket.send(JSON.stringify(
-        {
-          "title": "boardID",
-          "boardID": `${boardID}`,
-          }));
-      console.log("Sent")
+    console.log("Connection established")
+    board_socket.send(JSON.stringify(
+      {
+        "title": "boardID",
+        "boardID": `${boardID}`,
+        }));
     }
     
   }
@@ -55,10 +54,13 @@ const BoardInfo = () => {
     setBoardDescription(message.board_description);
     setBoardCards(message.card_details)
     setCardTasks(all_card_tasks)
+    console.log(message.card_details)
     
-    return board_socket
-  }}, [board_socket.onmessage])
+    //return board_socket.onmessage
+    }
+  }, [boardCards, cardTasks])
 
+const [me, setMe] = useState([])
   
   /*
   board_socket.onerror = (event) => {
@@ -70,15 +72,16 @@ const BoardInfo = () => {
   }
   */
   useEffect(() => {
-    requestBoardCards();
     window.history.scrollRestoration = 'auto';
     window.scrollTo(0,0)
+    //board_socket.onopen = async (event) => {
+    requestBoardCards(boardID);
+    //}
     return () => {
+      //board_socket.close();
     }
-  }, [board_socket]);
+  }, [board_data]);
 
-
-  console.log("HELLLO",boardID)
   const navigate = useNavigate();
   
   /*
@@ -108,11 +111,14 @@ const BoardInfo = () => {
   
 
   const retrieveCardTasks = (card_id) => {
-    if (card_id in cardTasks){
-      var card_tasks = {[card_id]: cardTasks[card_id]}
-
-      return card_tasks
-    }
+    //if (cardTasks != "" || cardTasks != undefined){
+      if (card_id in cardTasks){
+        var card_tasks = {[card_id]: cardTasks[card_id]}
+  
+        return card_tasks
+      }
+    //}
+    
   }
   
   
@@ -127,34 +133,59 @@ const BoardInfo = () => {
     tempTaskName.value = '';
     tempTaskDescription.textContent = '';
     tempTaskDescription.value = '';
-  }
 
-  var saveCard = (event) => {
+  }
+  
+  var saveCard = async (event) => {
+    var newcardNameInput = document.getElementById("newcardNameInput");
     if ((event.type == "keydown" && event.key == "Enter") || (event.type == "dblclick")){
       const new_card_name = event.target.value;
-      console.log({
-        "new_card_name": new_card_name,
-      })
-      fetch("http://127.0.0.1:8000/api/card", {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json",
-          "Authorization": `Token ${getUserToken}`
-        },
-        body: JSON.stringify({
+      
+      /*
+      if ((board_socket.CLOSED || board_socket.CLOSING) && (new_card_name != '')){
+        console.log("closed")
+        //board_socket.OPEN
+        //const board_socket = new WebSocket(`${host}/board/boardID`);
+
+        board_socket.onopen = async (event) =>{
+          console.log("Opened")
+
+          board_socket.send(JSON.stringify(
+            {
+              "title": "add_new_card",
+              "card_name": new_card_name,
+              "card_parent": `${boardID}`
+            }));
+
+            newcardNameInput.blur()
+        }
+        console.log("Should have opened")
+      }
+      else{
+        board_socket.send(JSON.stringify(
+          {
+            "title": "add_new_card",
+            "card_name": new_card_name,
+            "card_parent": `${boardID}`
+          }));
+
+          newcardNameInput.blur()
+      }
+      */
+
+      await board_socket.send(JSON.stringify(
+        {
+          "title": "add_new_card",
           "card_name": new_card_name,
           "card_parent": `${boardID}`
-        })
-      })
-      
+        }));
+      newcardNameInput.value = ''
     }
-    //var cardNameInput = document.getElementById("cardNameInput");
-    //console.log(cardNameInput.value)
     
   }
-  var createTask = (event) => {
+  var createTask = async (event) => {
     event.preventDefault()
-    fetch("http://127.0.0.1:8000/api/tasks", {
+    await fetch("http://127.0.0.1:8000/api/tasks", {
       method: "POST",
       headers:{
         "content-Type": "application/json",
@@ -164,7 +195,8 @@ const BoardInfo = () => {
         task_name: "Task1",
         task_description: "Task Description"
       })
-    })
+    });
+
   }
 
   var deleteBoardTask = (event) => {
@@ -245,16 +277,16 @@ const BoardInfo = () => {
               
               <div className='row gx-4 boardParent'>
 
-                {
+                {//cardTasks?
                   Object.keys(boardCards).map((card) => (
                     <Card key = {card} cardID = {card} cardName = {boardCards[card]} tasks = {retrieveCardTasks(card)} />
-                  ))
+                  ))//: null
                 }
 
                 <div className='col-md-3 p-2'>
                   <div className='p-1 eachboard'>
                     <div className='eachboardsubdiv' id='eachboardsubdiv'>
-                      <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' onKeyDown={saveCard} onDoubleClick={saveCard}/>
+                      <input className='newcardNameInput' id='newcardNameInput' type='text' placeholder='+ Add a card' onKeyDown={saveCard} onDoubleClick={saveCard}/>
                       <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
                     </div>
                     
