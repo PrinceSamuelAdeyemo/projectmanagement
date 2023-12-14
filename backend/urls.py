@@ -17,7 +17,7 @@ urlpatterns = [
     
     #path('sign-up', CreateUser.as_view(), name= 'sign-up'),
     path('login', LoginView.as_view(), name= 'knox_login'),
-    path('log-out', LogoutView.as_view(), name = 'knox_logout'),
+    path('logout', LogoutView.as_view(), name = 'knox_logout'),
     path('log-outall', LogoutAllView.as_view(), name = 'knox_logoutall'),
     
     

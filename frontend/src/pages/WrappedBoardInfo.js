@@ -28,6 +28,10 @@ const BoardInfo = () => {
   const [tempcardTask, settempCardTask] = useState('');
 
   const [tempcardName, settempCardName] = useState('');
+
+  const [taskName, SetTaskName] = useState('');
+  const [taskDescription, SetTaskDescription] = useState('')
+  const [card_id, SetCard_id] = useState('')
   const { boardID } = useParams();
 
 
@@ -41,6 +45,92 @@ const BoardInfo = () => {
         }));
     }
     
+  }
+
+  const addBoardTask = async (event, card_id) => {
+    //event.preventDefault()
+    event.preventDefault()
+    var addTask = document.getElementById("editaddTask");
+    var task_container = document.getElementById("task-container");
+    var tempTaskName = document.getElementById("tempTaskName");
+    var tempTaskDescription = document.getElementById("tempTaskDescription");
+    addTask.style.backgroundColor = "transparent"
+    document.body.style.overflow = "hidden"
+    addTask.style.display = "block";
+    
+    SetCard_id(card_id)
+  }
+
+  var createTask = async (event) => {
+    event.preventDefault()
+    var tempTaskName = document.getElementById("tempTaskName");
+    var tempTaskDescription = document.getElementById("tempTaskDescription");
+    await board_socket.send(JSON.stringify(
+        {
+            "title": "add_new_task",
+            "task_name": tempTaskName.value,
+            "task_description": tempTaskDescription.value,
+            "task_parent": card_id,
+            "board_id": boardID
+        }));
+
+    closeTaskEdit();
+
+    /*
+    if (Number(event.target.value) !== 0){
+      
+  
+      /*
+      if ((board_socket.CLOSED || board_socket.CLOSING) && (new_card_name != '')){
+      console.log("closed")
+      //board_socket.OPEN
+      //const board_socket = new WebSocket(`${host}/board/boardID`);
+
+      board_socket.onopen = async (event) =>{
+          console.log("Opened")
+
+          board_socket.send(JSON.stringify(
+          {
+              "title": "add_new_card",
+              "card_name": new_card_name,
+              "card_parent": `${boardID}`
+          }));
+
+          newcardNameInput.blur()
+      }
+      console.log("Should have opened")
+      }
+      else{
+      board_socket.send(JSON.stringify(
+          {
+          "title": "add_new_card",
+          "card_name": new_card_name,
+          "card_parent": `${boardID}`
+          }));
+
+          newcardNameInput.blur()
+      }
+      *
+
+      
+  }
+    else{
+        alert("Cannot accept the input.")
+    }
+      
+    /*
+    await fetch("http://127.0.0.1:8000/api/tasks", {
+      method: "POST",
+      headers:{
+        "content-Type": "application/json",
+        "Authorization": `Token ${getUserToken}`
+      },
+      body: JSON.stringify({
+        task_name: "Task1",
+        task_description: "Task Description"
+      })
+    });*
+*/
   }
 
   const board_data = useMemo(() =>{
@@ -72,6 +162,8 @@ const [me, setMe] = useState([])
   }
   */
   useEffect(() => {
+    console.log("parents", card_id)
+    console.log("parents", taskName)
     window.history.scrollRestoration = 'auto';
     window.scrollTo(0,0)
     //board_socket.onopen = async (event) => {
@@ -80,8 +172,12 @@ const [me, setMe] = useState([])
     return () => {
       //board_socket.close();
     }
+    
   }, [board_data]);
 
+  const updateCardTasks = (newTask) => {
+    setCardTasks((newTask) => ({...cardTasks, newTask}))
+  }
   const navigate = useNavigate();
   
   /*
@@ -106,9 +202,6 @@ const [me, setMe] = useState([])
   console.log("Should give cookie", getUserToken)
   console.log(is_authenticated)
   console.log("Done here")
-
-  
-  
 
   const retrieveCardTasks = (card_id) => {
     //if (cardTasks != "" || cardTasks != undefined){
@@ -138,18 +231,32 @@ const [me, setMe] = useState([])
   
   var saveCard = async (event) => {
     var newcardNameInput = document.getElementById("newcardNameInput");
-    if ((event.type == "keydown" && event.key == "Enter") || (event.type == "dblclick")){
-      const new_card_name = event.target.value;
+    if ((event.type == "keydown" && event.key === "Enter") || (event.type === "dblclick")){
+      if (Number(event.target.value) !== 0){
+        console.log("card name",event.target.value, "card type", typeof(event.target.value, "card type convert", Number(typeof(event.target.value)) ))
+        const new_card_name = event.target.value;
       
-      /*
-      if ((board_socket.CLOSED || board_socket.CLOSING) && (new_card_name != '')){
-        console.log("closed")
-        //board_socket.OPEN
-        //const board_socket = new WebSocket(`${host}/board/boardID`);
+        /*
+        if ((board_socket.CLOSED || board_socket.CLOSING) && (new_card_name != '')){
+          console.log("closed")
+          //board_socket.OPEN
+          //const board_socket = new WebSocket(`${host}/board/boardID`);
 
-        board_socket.onopen = async (event) =>{
-          console.log("Opened")
+          board_socket.onopen = async (event) =>{
+            console.log("Opened")
 
+            board_socket.send(JSON.stringify(
+              {
+                "title": "add_new_card",
+                "card_name": new_card_name,
+                "card_parent": `${boardID}`
+              }));
+
+              newcardNameInput.blur()
+          }
+          console.log("Should have opened")
+        }
+        else{
           board_socket.send(JSON.stringify(
             {
               "title": "add_new_card",
@@ -159,45 +266,24 @@ const [me, setMe] = useState([])
 
             newcardNameInput.blur()
         }
-        console.log("Should have opened")
-      }
-      else{
-        board_socket.send(JSON.stringify(
+        */
+
+        await board_socket.send(JSON.stringify(
           {
             "title": "add_new_card",
             "card_name": new_card_name,
             "card_parent": `${boardID}`
           }));
-
-          newcardNameInput.blur()
+        newcardNameInput.value = ''
       }
-      */
-
-      await board_socket.send(JSON.stringify(
-        {
-          "title": "add_new_card",
-          "card_name": new_card_name,
-          "card_parent": `${boardID}`
-        }));
-      newcardNameInput.value = ''
+      else{
+        alert("Cannot accept the input.")
+      }
+      
     }
     
   }
-  var createTask = async (event) => {
-    event.preventDefault()
-    await fetch("http://127.0.0.1:8000/api/tasks", {
-      method: "POST",
-      headers:{
-        "content-Type": "application/json",
-        "Authorization": `Token ${getUserToken}`
-      },
-      body: JSON.stringify({
-        task_name: "Task1",
-        task_description: "Task Description"
-      })
-    });
-
-  }
+  
 
   var deleteBoardTask = (event) => {
     alert("Hello, World")
@@ -234,10 +320,10 @@ const [me, setMe] = useState([])
               </div>
               <div className='editaddTask' id='editaddTask'>
                 
-                <div className='task-container'>
+                <div className='task-container' id='task-container'>
                   <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
 
-                  <form className='task-set' action='' onSubmit={createTask} method='POST' encType='UTC-8' autoComplete>
+                  <form className='task-set' id='task-set' action='' onSubmit={createTask} method='POST' encType='UTC-8' autoComplete>
                     <h3>Task</h3>
                     <p>Name</p>
                     <input id="tempTaskName" className='w-100' type='text' />
@@ -277,10 +363,10 @@ const [me, setMe] = useState([])
               
               <div className='row gx-4 boardParent'>
 
-                {//cardTasks?
+                { cardTasks &&
                   Object.keys(boardCards).map((card) => (
-                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} tasks = {retrieveCardTasks(card)} />
-                  ))//: null
+                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} boardId = {boardID} board_data={board_data} tasks = {retrieveCardTasks(card)} save_tasks = {createTask} addBoardTask = {addBoardTask} requestBoardCards = {requestBoardCards} updateCardTasks={updateCardTasks} />
+                  ))
                 }
 
                 <div className='col-md-3 p-2'>

@@ -172,9 +172,8 @@ var launchcreateproject = () => {
 
 const Homepage = () => {
 
-    const is_authenticated = useSelector((state) => state.USER_STATUS)
-    console.log(is_authenticated)
-    console.log("Done")
+    const is_authenticated = useSelector((state) => state.USER_STATUS.status)
+    
     useEffect(() => {
         console.log(is_authenticated)
     })

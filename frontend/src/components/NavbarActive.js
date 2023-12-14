@@ -1,11 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
+import { useSelector } from 'react-redux'
 
 const NavbarActive = () => {
 
-    const logout = () =>{
-        
+    const token = useSelector((state) => state.AUTH_TOKEN.token)
+    const logout = async () =>{
+        await fetch('http://127.0.0.1:8000/api/logout', {
+            method: 'POST',
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+        })
     }
   return (
     <nav className="navbar navbar-expand-md">
@@ -24,7 +30,7 @@ const NavbarActive = () => {
                 
             </ul>
             <ul className="navbar-nav d-md-flex ms-auto">
-                <li className="nav-item"><button href="" className="navbar-link btn">Logout</button></li>
+                <li className="nav-item"><button href="" className="navbar-link btn" onClick={logout}>Logout</button></li>
             </ul>
             
         </div>

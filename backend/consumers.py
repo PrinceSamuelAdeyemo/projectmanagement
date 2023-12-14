@@ -186,6 +186,50 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     """
                     
             #await self.send(text_data=json.dumps(message))
+        
+        elif (messagetitle == "add_new_task"):
+            task_name = text_data_json["task_name"]
+            task_description = text_data_json["task_description"]
+            task_parent = text_data_json["task_parent"]
+            board_id = text_data_json["board_id"]
+            
+            task_add_status = await self.add_task(task_name, task_description, task_parent)
+            if task_add_status == "saved":
+                
+                
+                board_details = await self.get_board(board_id)
+                card_details = await self.get_cards(board_id)
+                all_card_tasks = {}
+                try:
+                    if board_details["board_name"]:
+                        for card_id in card_details.keys():
+                            task_details = await self.get_tasks(task_parent)
+                            current_card_task = task_details
+                            
+                            all_card_tasks = {**all_card_tasks, **current_card_task}
+                        all_card_taskslist = {"all_card_tasks": all_card_tasks}
+                        card_detailslist = {"card_details": card_details}
+                        
+                        message = {**board_details, **card_detailslist, **all_card_taskslist}
+                        await self.send(text_data=json.dumps(message))
+                        
+                    else:
+                        message = {"me": "you"}
+                        await self.send(text_data=json.dumps(message))
+                                            
+                except Exception as e:
+                    print(e)
+                    
+                    
+                    """
+                    message = board_details["error"]
+                    self.send(text_data=json.dumps({
+                        "board_name": message,
+                        "board_description": message
+                    }))
+                    """
+                    
+        
         """
         elif (messagetitle == "add_new_card"):
         
@@ -295,30 +339,16 @@ class BoardInfoWS(AsyncWebsocketConsumer):
             return "saved"
         else:
             return "not saved"
-        """
-        if self.card:
-            
-            self.board = Board.objects.get(board_id = boardID)
-            self.card_details = {}
-            try:
-                Card.objects.filter(card_parent=self.board).exists()
-                self.cards = Card.objects.filter(card_parent=self.board).all()
-                cards = self.cards
-                
-                for self.card in self.cards:
-                    self.card_details_current = {
-                        f"{self.card.card_id}": f"{self.card.card_name}",
-                    }
-                    self.card_details = {**self.card_details, **self.card_details_current}
-                        
-                self.card_details = {**self.card_details}
-                return self.card_details
-                
-            except:
-                pass
+        
+        
+    @database_sync_to_async
+    def add_task(self, task_name, task_desc, cardID):
+        self.task_parent = Card.objects.get(card_id=cardID)
+        self.task = Task.objects.create(task_name = task_name, task_description=task_desc, task_parent=self.task_parent)
+        if (self.task):
+            return "saved"
         else:
-            return "Not created"
-        """
+            return "not saved"        
         
     def send_board():
         pass 
