@@ -22,7 +22,8 @@ import Logout from './pages/Logout'
 import Dashboard from './pages/Dashboard';
 import WrappedBoards from './pages/WrappedBoards';
 import WrappedBoardInfo from './pages/WrappedBoardInfo';
-import CreateBoard from './pages/CreateBoard.js';
+import CreateBoard from './pages/CreateBoard';
+import Profile from './pages/Profile';
 import Error from './pages/404';
 //import Test from './pages/Test.js';
 import Card from './components/Card';
@@ -88,6 +89,8 @@ function App() {
             
             <Route path='/board/:company/:boardID' element={<WrappedBoardInfo />} />
             <Route path='/createboard' element={<CreateBoard />} />
+
+            <Route path='profile' element={<Profile />} />
             <Route path='*' element={<Error />} />
 
           </Routes>

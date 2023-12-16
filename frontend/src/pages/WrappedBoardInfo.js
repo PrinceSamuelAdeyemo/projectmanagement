@@ -19,7 +19,6 @@ const BoardInfo = () => {
 
   const [boardName, setBoardName] = useState('');
   const [boardDescription, setBoardDescription] = useState('');
-  const [boardCard, setBoardCard] = useState({});
   const [boardCards, setBoardCards] = useState({});
   const [cardTasks, setCardTasks] = useState([]);
 
@@ -73,7 +72,7 @@ const BoardInfo = () => {
             "task_parent": card_id,
             "board_id": boardID
         }));
-
+    requestBoardCards(boardID);
     closeTaskEdit();
 
     /*
@@ -148,7 +147,7 @@ const BoardInfo = () => {
     
     //return board_socket.onmessage
     }
-  }, [boardCards, cardTasks])
+  }, [cardTasks])
 
 const [me, setMe] = useState([])
   

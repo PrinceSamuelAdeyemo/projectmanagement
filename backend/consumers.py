@@ -378,7 +378,6 @@ class CardInfoWS(AsyncWebsocketConsumer):
     
     @database_sync_to_async
     def get_tasks(self, cardID):
-         
         self.card = Card.objects.get(card_id = cardID)
         try:
             Task.objects.filter(task_parent=self.card).exists()
