@@ -211,6 +211,7 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                         card_detailslist = {"card_details": card_details}
                         
                         message = {**board_details, **card_detailslist, **all_card_taskslist}
+                        print(message)
                         await self.send(text_data=json.dumps(message))
                         
                     else:

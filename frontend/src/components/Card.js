@@ -7,7 +7,7 @@ import '../styles/css/board.css'
 let host = 'ws://127.0.0.1:8000/ws'
 const Card = (props) => {
     //const board_socket = new WebSocket(`${host}/board/boardID`);
-    const card_socket = new WebSocket(`${host}/card/cardID`);
+    //const card_socket = new WebSocket(`${host}/card/cardID`);
     const [cardTasks, setCardTasks] = useState({});
     
     const [allCardTasks, SetAllCardTasks] = useState({})
@@ -30,7 +30,7 @@ const Card = (props) => {
     //var all_card_tasks = useState({[card_id]: card_tasks[card_id]})
     //console.log(all_card_tasks)
     
-    
+    /*
     const card_data = useMemo(() => {
         var all_card_tasks = {}
         card_socket.onmessage = async (event) => {
@@ -40,20 +40,21 @@ const Card = (props) => {
             var all_card_task = {card_tasks}
             console.log("The stuffs", all_card_task)
             //setCardTasks(all_card_tasks)
-            setCardTasks((card_tasks) => ({...all_card_tasks, ...card_tasks}) )
+            //setCardTasks((card_tasks) => ({...all_card_tasks, ...card_tasks}) )
             //setCardTasks(card_tasks)
             return card_socket
         }
     }, [cardTasks])
-    
+    */
    
     
      useEffect(() => {
         //requestBoardCards(board_id);
-        requestCardInfo();
-    }, [card_data])
+        
+        //requestCardInfo();
+    })//, [card_data])
 
-    card_socket.addEventListener("message", console.log("at last"))
+    //card_socket.addEventListener("message", console.log("at last"))
     
     const navigate = useNavigate();
     var saveCard = (event) => {
@@ -62,7 +63,7 @@ const Card = (props) => {
         //console.log(cardNameInput.value)
     }
     
-    
+    /*
     const requestCardInfo = () =>{
         card_socket.onopen = (event) => {
             console.log("Card Connection established")
@@ -73,7 +74,7 @@ const Card = (props) => {
                 }));
           }
     }
-    
+    */
     console.log("The usestate stuff ",cardTasks)
 
     var previousPage = () => {

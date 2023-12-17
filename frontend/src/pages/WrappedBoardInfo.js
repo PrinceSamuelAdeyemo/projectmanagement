@@ -54,14 +54,16 @@ const BoardInfo = () => {
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
     addTask.style.backgroundColor = "transparent"
+    var scrollPosition = window.scrollY || window.pageYOffset;
     document.body.style.overflow = "hidden"
+    addTask.style.top = `${scrollPosition}px`
     addTask.style.display = "block";
     
     SetCard_id(card_id)
   }
 
   var createTask = async (event) => {
-    event.preventDefault()
+    //event.preventDefault()
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
     await board_socket.send(JSON.stringify(
@@ -74,7 +76,7 @@ const BoardInfo = () => {
         }));
     requestBoardCards(boardID);
     closeTaskEdit();
-
+    //requestBoardCards(boardID);
     /*
     if (Number(event.target.value) !== 0){
       
@@ -133,7 +135,7 @@ const BoardInfo = () => {
   }
 
   const board_data = useMemo(() =>{
-
+    console.log("kidding?")
     board_socket.onmessage = async (event) => {
     console.log("Received")
     let message = await JSON.parse(event.data);
@@ -145,7 +147,7 @@ const BoardInfo = () => {
     setCardTasks(all_card_tasks)
     console.log(message.card_details)
     
-    //return board_socket.onmessage
+    return board_socket.onmessage
     }
   }, [cardTasks])
 
@@ -168,9 +170,7 @@ const [me, setMe] = useState([])
     //board_socket.onopen = async (event) => {
     requestBoardCards(boardID);
     //}
-    return () => {
-      //board_socket.close();
-    }
+    
     
   }, [board_data]);
 
@@ -322,7 +322,7 @@ const [me, setMe] = useState([])
                 <div className='task-container' id='task-container'>
                   <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
 
-                  <form className='task-set' id='task-set' action='' onSubmit={createTask} method='POST' encType='UTC-8' autoComplete>
+                  <form className='task-set' id='task-set' onSubmit={createTask} encType='UTC-8' autoComplete='true' >
                     <h3>Task</h3>
                     <p>Name</p>
                     <input id="tempTaskName" className='w-100' type='text' />
@@ -340,7 +340,7 @@ const [me, setMe] = useState([])
                     </select>
                     <div className='text-center'>
                       <button type='submit' className='m-2 px-3 bg-light' id='save-task'>Save</button>
-                      <button className='m-2 px-3'>Delete</button>
+                      <button type='reset' className='m-2 px-3'>Delete</button>
                     </div>
                   </form>
                   {/*<div className='board-color-picker'>
