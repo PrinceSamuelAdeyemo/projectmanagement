@@ -26,7 +26,13 @@ const Boards = () => {
     const navigate = useNavigate();
     const [boards, setBoards] = useState([]);
 
-    
+    const boardData = useMemo(() => {
+        boardlist_socket.onmessage = async (event) => {
+            let board_data = await JSON.parse(event.data).boards_data
+            setBoards(board_data)            
+        }
+        //return boardlist_socket
+    }, [boards])
 
     useEffect(() => {
         
@@ -35,17 +41,8 @@ const Boards = () => {
             boardlist_socket.send(board_request)
         }
         
-    })
+    }, [boardData])
 
-    const boardData = useMemo(() => {
-        boardlist_socket.onmessage = async (event) => {
-            let lol = await JSON.parse(event.data).boards_data
-            console.log(lol)
-            setBoards(lol)            
-        }
-
-        return boardlist_socket
-    }, [boardlist_socket.onmessage])
 
     let openBoard = () =>{
         console.log(this);

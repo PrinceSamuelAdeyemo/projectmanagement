@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import Card from '../components/Card';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -21,7 +19,6 @@ const BoardInfo = () => {
   const [boardDescription, setBoardDescription] = useState('');
   const [boardCards, setBoardCards] = useState({});
   const [cardTasks, setCardTasks] = useState([]);
-
   
   const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
   const [tempcardTask, settempCardTask] = useState('');
@@ -33,7 +30,6 @@ const BoardInfo = () => {
   const [card_id, SetCard_id] = useState('')
   const { boardID } = useParams();
 
-
   const requestBoardCards = () => {
     board_socket.onopen = (event) => {
     console.log("Connection established")
@@ -43,11 +39,9 @@ const BoardInfo = () => {
         "boardID": `${boardID}`,
         }));
     }
-    
   }
 
   const addBoardTask = async (event, card_id) => {
-    //event.preventDefault()
     event.preventDefault()
     var addTask = document.getElementById("editaddTask");
     var task_container = document.getElementById("task-container");
@@ -63,7 +57,7 @@ const BoardInfo = () => {
   }
 
   var createTask = async (event) => {
-    //event.preventDefault()
+    event.preventDefault()
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
     await board_socket.send(JSON.stringify(
@@ -74,6 +68,7 @@ const BoardInfo = () => {
             "task_parent": card_id,
             "board_id": boardID
         }));
+    
     requestBoardCards(boardID);
     closeTaskEdit();
     //requestBoardCards(boardID);
@@ -169,9 +164,6 @@ const [me, setMe] = useState([])
     window.scrollTo(0,0)
     //board_socket.onopen = async (event) => {
     requestBoardCards(boardID);
-    //}
-    
-    
   }, [board_data]);
 
   const updateCardTasks = (newTask) => {
@@ -322,7 +314,7 @@ const [me, setMe] = useState([])
                 <div className='task-container' id='task-container'>
                   <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
 
-                  <form className='task-set' id='task-set' onSubmit={createTask} encType='UTC-8' autoComplete='true' >
+                  <form className='task-set' id='task-set' method='POST' onSubmit={createTask} encType='UTC-8' autoComplete='true' >
                     <h3>Task</h3>
                     <p>Name</p>
                     <input id="tempTaskName" className='w-100' type='text' />

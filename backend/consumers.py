@@ -22,7 +22,6 @@ class LoginWS(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         token = text_data_json["token"]
-        print("THe token ", token)
         
         user = await self.get_token_user(token)
         #await login(self.scope, user)
@@ -39,9 +38,6 @@ class LoginWS(AsyncWebsocketConsumer):
         except:
             user = AnonymousUser()
             return user
-            
-        #return user
-        
         
         
 class Data(WebsocketConsumer):
