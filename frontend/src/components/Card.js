@@ -29,7 +29,7 @@ const Card = (props) => {
     //SetAllCardTasks({[card_id]: card_tasks[card_id]})
     //var all_card_tasks = useState({[card_id]: card_tasks[card_id]})
     //console.log(all_card_tasks)
-    
+    document.getElementById("kk").value = "Lmao"
     
     const card_data = useMemo(() => {
         var all_card_tasks = {}
@@ -42,18 +42,18 @@ const Card = (props) => {
             //setCardTasks(all_card_tasks)
             //setCardTasks((card_tasks) => ({...all_card_tasks, ...card_tasks}) )
             //setCardTasks(card_tasks)
-            return card_socket
+            document.getElementById("tt").textContent ="fuf" //document.getElementById("tempTaskName").value //"allCardTasks.card_tasks"
+            return card_socket.onmessage
         }
     }, [cardTasks])
-    
-   
     
      useEffect(() => {
         //requestBoardCards(board_id);
         console.log("Done requesting for the card details")
-        requestCardInfo();
-    })//, [card_data])
 
+        requestCardInfo();
+        return card_socket.onmessage;
+    }, [card_data])
     //card_socket.addEventListener("message", console.log("at last"))
     
     const navigate = useNavigate();
@@ -62,7 +62,6 @@ const Card = (props) => {
         //var cardNameInput = document.getElementById("cardNameInput");
         //console.log(cardNameInput.value)
     }
-    
     
     const requestCardInfo = () =>{
         card_socket.onopen = (event) => {
@@ -102,6 +101,7 @@ const Card = (props) => {
 
   return (
     <div className='col-md-3 p-2'>
+        
         <div className='p-1 eachboard'>
         <div className='eachboardsubdiv' id='eachboardsubdiv'>
             <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' defaultValue={card_name} onBlur={saveCard} />
@@ -112,8 +112,8 @@ const Card = (props) => {
             {Object.keys(card_tasks[card_id]).map((taskID) => (
                 <Task key={taskID} cardID={card_id} taskID={taskID} taskName={card_tasks[card_id][taskID]} updateCardTasks={updateCardTasks} /> 
             ))}
-            
-
+            <p id='tt'></p>
+            <h1>hihj</h1>
             <div className='eachCard_addTask p-1'>
             <button className='addTask' onClick={(event) => {addBoardTask(event, card_id)}}>+ Add Task</button>
             </div>

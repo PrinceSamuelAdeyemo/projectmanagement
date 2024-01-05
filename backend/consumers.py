@@ -29,7 +29,6 @@ class LoginWS(AsyncWebsocketConsumer):
         print(self.scope)
         await self.send(text_data=json.dumps({"user": "Authenticated"}))
         
-        
     @database_sync_to_async
     def get_token_user(self, token):
         try:
@@ -38,7 +37,6 @@ class LoginWS(AsyncWebsocketConsumer):
         except:
             user = AnonymousUser()
             return user
-        
         
 class Data(WebsocketConsumer):
     def connect(self):
@@ -107,7 +105,9 @@ class BoardInfoWS(AsyncWebsocketConsumer):
         await self.close()
     
     async def receive(self, text_data):
+        
         text_data_json = json.loads(text_data)
+        print("Received the data just now\n")
         messagetitle = text_data_json['title']
         
         if (messagetitle == "boardID"):
@@ -127,6 +127,7 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     card_detailslist = {"card_details": card_details}
                     
                     message = {**board_details, **card_detailslist, **all_card_taskslist}
+                    print("Preparing to send")
                     await self.send(text_data=json.dumps(message))
                     
                 else:
@@ -360,6 +361,7 @@ class CardInfoWS(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         card_id = text_data_json['cardID']
+        print("cardInfo received")
         
         """
         Get the tasks under the boards since the card details (card_id) will be sent one after the order
@@ -368,11 +370,11 @@ class CardInfoWS(AsyncWebsocketConsumer):
         try:
             task_details = await self.get_tasks(card_id)
             print(task_details)
+            print("card sent")
             await self.send(text_data=json.dumps(task_details))
         except:
             pass
-            
-    
+
     @database_sync_to_async
     def get_tasks(self, cardID):
         self.card = Card.objects.get(card_id = cardID)

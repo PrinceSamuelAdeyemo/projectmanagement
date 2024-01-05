@@ -60,7 +60,7 @@ const BoardInfo = () => {
     event.preventDefault()
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
-    await board_socket.send(JSON.stringify(
+    board_socket.send(JSON.stringify(
         {
             "title": "add_new_task",
             "task_name": tempTaskName.value,
@@ -130,19 +130,17 @@ const BoardInfo = () => {
   }
 
   const board_data = useMemo(() =>{
-    console.log("kidding?")
     board_socket.onmessage = async (event) => {
-    console.log("Received")
-    let message = await JSON.parse(event.data);
-    var all_card_tasks = message.all_card_tasks
-    console.log("eeeeeeeeeeeeee",message)
-    setBoardName(message.board_name);
-    setBoardDescription(message.board_description);
-    setBoardCards(message.card_details)
-    setCardTasks(all_card_tasks)
-    console.log(message.card_details)
-    
-    return board_socket.onmessage
+      console.log("Received")
+      let message = await JSON.parse(event.data);
+      var all_card_tasks = message.all_card_tasks
+      setBoardName(message.board_name);
+      setBoardDescription(message.board_description);
+      setBoardCards(message.card_details)
+      setCardTasks(all_card_tasks)
+      console.log(message.card_details)
+      
+      return board_socket.onmessage
     }
   }, [cardTasks])
 
@@ -351,10 +349,12 @@ const [me, setMe] = useState([])
               <div className='projectDescription'>
                 <p>{boardDescription}</p>
               </div>
-              
+              <div>
+                <p id='kk'>Hello, World!</p>
+              </div>
               <div className='row gx-4 boardParent'>
 
-                { cardTasks &&
+                { //cardTasks &&
                   Object.keys(boardCards).map((card) => (
                     <Card key = {card} cardID = {card} cardName = {boardCards[card]} boardId = {boardID} board_data={board_data} tasks = {retrieveCardTasks(card)} save_tasks = {createTask} addBoardTask = {addBoardTask} requestBoardCards = {requestBoardCards} updateCardTasks={updateCardTasks} />
                   ))

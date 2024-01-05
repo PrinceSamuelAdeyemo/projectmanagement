@@ -4,7 +4,11 @@ import { HelmetProvider } from 'react-helmet-async'
 
 import RequireAuthentication from '../components/RequireAuthentication'
 
+import "../styles/css/profile.css"
+
 const Profile = () => {
+
+  
   return (
     <HelmetProvider>
         <Helmet>
@@ -22,7 +26,28 @@ const Profile = () => {
         </Helmet>
 
         <div className='container-fluid'>
-            <h1>Profile</h1>
+          <div className='profile-page-container'>
+            <img id='profile-img' src={require('../images/sam_pic.png')}></img>
+            <div className="profile-name-img">
+              <div className='top-profile-design'>
+                
+              </div>
+              <div className="profile-name-id">
+                <p id='profile-name'>Samuel Adeyemo</p>
+                <p id='profile-id'>Id goes here</p>
+              </div>
+              <div className='profile-edit'>
+                <button className='btn btn-dark' id='edit-profile'>Edit Profile</button>
+                <button className='btn btn-dark' id='change-profile-img'>Change Avatar</button>
+              </div>
+            </div>
+            
+            <div className='task-show'>
+              <p>Your tasks</p>
+              <p>You currently have no assigned tasks</p>
+            </div>
+          </div>
+            
         </div>
 
     </HelmetProvider>

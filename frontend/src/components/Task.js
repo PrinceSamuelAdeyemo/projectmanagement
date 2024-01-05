@@ -27,6 +27,10 @@ const Task = (props) => {
         alert("Hello, World")
         }
 
+      useEffect(() => {
+
+      }, [props])
+
     /*
     window.addEventListener('scroll', () => {
       const neweditTask = document.getElementById("editaddTask")
