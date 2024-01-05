@@ -6,9 +6,9 @@ urlpatterns = [
     
     # Check login status
     path('userstatus', UserStatus.as_view(), name='userstatus'),
-    path('', ReturnProfile.as_view(), name='returnprofile'),
+    path('return_user', ReturnProfile.as_view(), name='returnprofile'),
     path('signup', Signup.as_view(), name='signup'),
-    
+    #path("user", ),
     
     path('boardsrequest', BoardsRequest.as_view(), name='boardsrequest'),
     #path(r'board/<str:company>/<str:boardID>', BoardInfo.as_view(), name='boardinfo'),

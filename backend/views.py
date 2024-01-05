@@ -63,19 +63,33 @@ class ReturnProfile(APIView):
     #permission_classes = (IsAuthenticated,)
     
     def get(self, request):
+        print("it is get")
+        if request.auth in AuthToken.objects.all():
+            print("cookie received", request.auth.user)
+            #queryset = User.objects.all()
+            #serializer_class = UserSerializer(queryset, many=True)
+            #token_short = str(request.auth)[:8]
+            #print(token)
+            #queryset = User.objects.get(user)
+            #print(user)
+            user = request.auth.user
+            serializer_class = UserSerializer(user)
+            
+            
+            #profile_queryset = Profile.objects.all()
+            #profile_serializer_class = ProfileSerializer(profile_queryset, many=True)
+            
+            return Response(data = serializer_class.data)
         
-        queryset = User.objects.all()
-        serializer_class = UserSerializer(queryset, many=True)
-        
-        profile_queryset = Profile.objects.all()
-        profile_serializer_class = ProfileSerializer(profile_queryset, many=True)
-        
-        return Response(data = serializer_class.data)
+        else:
+            return Response(data = "None")
         
     
     def post(self, request):
+        print("it is post")
         return Response('Received')
-
+    
+    
 ##### Authenticating users ########
 class CreateUser(CreateAPIView):
    queryset = User.objects.all()
