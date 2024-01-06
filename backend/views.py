@@ -73,13 +73,16 @@ class ReturnProfile(APIView):
             #queryset = User.objects.get(user)
             #print(user)
             user = request.auth.user
-            serializer_class = UserSerializer(user)
+            profile_serializer_class = UserSerializer(user)
+            board_serializer_class = BoardSerializer()
+            #card_serializer_class  = CardSerializer()
+            #task_serializer_class = TaskSerializer()
             
             
             #profile_queryset = Profile.objects.all()
             #profile_serializer_class = ProfileSerializer(profile_queryset, many=True)
             
-            return Response(data = serializer_class.data)
+            return Response(data = profile_serializer_class.data)
         
         else:
             return Response(data = "None")

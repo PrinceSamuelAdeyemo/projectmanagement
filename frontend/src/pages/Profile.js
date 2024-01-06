@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux'
 
 import "../styles/css/profile.css"
 
+import EditProfile from '../components/EditProfile';
+
 const Profile = () => {
   const profileUrl = "http://127.0.0.1:8000/api/return_user"
 
@@ -39,8 +41,25 @@ const Profile = () => {
     .catch((error) => console.log(error))
     
   }
-  
-  
+
+  var editProfile = (open) =>{
+    
+    if (open == "open"){
+      console.log("edit profile should show")
+      profile_edit_placeholder = (
+        <div>
+          <EditProfile/>
+        </div>
+        )
+      return profile_edit_placeholder;
+    }
+    else{
+      profile_edit_placeholder = "lol"
+    }
+  }
+
+  var profile_edit_placeholder = editProfile("open");
+
   getUserProfile();
   return (
     <HelmetProvider>
@@ -59,6 +78,7 @@ const Profile = () => {
         </Helmet>
 
         <div className='container-fluid'>
+          {profile_edit_placeholder}
           <div className='profile-page-container'>
             <img id='profile-img' src={require('../images/sam_pic.png')}></img>
             <div className="profile-name-img">
@@ -70,7 +90,7 @@ const Profile = () => {
                 <p id='profile-id'>{user_id}</p>
               </div>
               <div className='profile-edit'>
-                <button className='btn btn-dark' id='edit-profile'>Edit Profile</button>
+                <button className='btn btn-dark' id='edit-profile' onClick={() => editProfile("open")}>Edit Profile</button>
                 <button className='btn btn-dark' id='change-profile-img'>Change Avatar</button>
               </div>
             </div>
