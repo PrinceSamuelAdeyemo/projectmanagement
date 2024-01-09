@@ -45,3 +45,38 @@
     left: 10%;
     z-index: 1;
 }
+
+.accordion{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.accordion-section .accordion-header{
+    height: 2rem;
+}
+
+.accordion-section .accordion-header p:first-of-type{
+    display: inline;
+}
+.accordion-section .accordion-header span i{
+    float: right;
+    padding-right: 1rem;
+}
+
+.accordion-section .accordion-content{
+    display: flex;
+    height: 0;
+    overflow: hidden;
+}
+
+.accordion-open{
+    display: flex;
+}
+
+@media screen and (min-width:414px) {
+    
+    .accordion-section{
+        margin-inline: 5rem;
+    }
+}

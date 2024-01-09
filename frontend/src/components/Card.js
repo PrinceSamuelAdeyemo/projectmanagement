@@ -23,6 +23,8 @@ const Card = (props) => {
     var saveBoardTask = props.save_tasks
     var createTask = props.createTask
     var requestBoardCards = props.requestBoardCards
+    var saveCard = props.saveCard
+    var updateCard = props.updateCard;
 
     const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
 
@@ -48,6 +50,7 @@ const Card = (props) => {
     }, [cardTasks])
     
      useEffect(() => {
+        console.log(card_name, "CARD IS RENDERED")
         //requestBoardCards(board_id);
         console.log("Done requesting for the card details")
 
@@ -57,12 +60,13 @@ const Card = (props) => {
     //card_socket.addEventListener("message", console.log("at last"))
     
     const navigate = useNavigate();
+    /*
     var saveCard = (event) => {
         console.log(event.target.value)
         //var cardNameInput = document.getElementById("cardNameInput");
         //console.log(cardNameInput.value)
     }
-    
+    */
     const requestCardInfo = () =>{
         card_socket.onopen = (event) => {
             console.log("Card Connection established")
@@ -104,7 +108,7 @@ const Card = (props) => {
         
         <div className='p-1 eachboard'>
         <div className='eachboardsubdiv' id='eachboardsubdiv'>
-            <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' defaultValue={card_name} onBlur={saveCard} />
+            <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' defaultValue={card_name} onBlur={updateCard} />
             <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
         </div>
         <div className='boardTasks' id='boardTasks'>

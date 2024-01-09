@@ -58,6 +58,7 @@ const BoardInfo = () => {
 
   var createTask = async (event) => {
     event.preventDefault()
+    console.log("updated")
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
     board_socket.send(JSON.stringify(
@@ -68,8 +69,9 @@ const BoardInfo = () => {
             "task_parent": card_id,
             "board_id": boardID
         }));
-    
+    SetCard_id(card_id)
     requestBoardCards(boardID);
+    
     closeTaskEdit();
     //requestBoardCards(boardID);
     /*
@@ -156,6 +158,7 @@ const [me, setMe] = useState([])
   }
   */
   useEffect(() => {
+    console.log("SAAAAAAAAAAAAAAAAAAAAAAAAAAM")
     console.log("parents", card_id)
     console.log("parents", taskName)
     window.history.scrollRestoration = 'auto';
@@ -164,9 +167,11 @@ const [me, setMe] = useState([])
     requestBoardCards(boardID);
   }, [board_data]);
 
+  /*
   const updateCardTasks = (newTask) => {
     setCardTasks((newTask) => ({...cardTasks, newTask}))
   }
+  */
   const navigate = useNavigate();
   
   /*
@@ -219,6 +224,7 @@ const [me, setMe] = useState([])
   }
   
   var saveCard = async (event) => {
+    //console.log(event.target.value)
     var newcardNameInput = document.getElementById("newcardNameInput");
     if ((event.type == "keydown" && event.key === "Enter") || (event.type === "dblclick")){
       if (Number(event.target.value) !== 0){
@@ -272,6 +278,12 @@ const [me, setMe] = useState([])
     }
     
   }
+
+  var updateCard = async (event) => {
+    event.preventDefault()
+    //var existingNameInput =
+    console.log("updated") 
+  }
   
 
   var deleteBoardTask = (event) => {
@@ -312,7 +324,7 @@ const [me, setMe] = useState([])
                 <div className='task-container' id='task-container'>
                   <button className='closeTaskEdit' onClick={closeTaskEdit}><span><i className='fa fa-xmark'></i></span></button>
 
-                  <form className='task-set' id='task-set' method='POST' onSubmit={createTask} encType='UTC-8' autoComplete='true' >
+                  <form className='task-set' id='task-set' onSubmit={createTask} encType='UTC-8' autoComplete='true' >
                     <h3>Task</h3>
                     <p>Name</p>
                     <input id="tempTaskName" className='w-100' type='text' />
@@ -356,7 +368,7 @@ const [me, setMe] = useState([])
 
                 { //cardTasks &&
                   Object.keys(boardCards).map((card) => (
-                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} boardId = {boardID} board_data={board_data} tasks = {retrieveCardTasks(card)} save_tasks = {createTask} addBoardTask = {addBoardTask} requestBoardCards = {requestBoardCards} updateCardTasks={updateCardTasks} />
+                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} boardId = {boardID} board_data={board_data} tasks = {retrieveCardTasks(card)} save_tasks = {createTask} addBoardTask = {addBoardTask} requestBoardCards = {requestBoardCards} saveCard={saveCard} updateCard={updateCard} />
                   ))
                 }
 

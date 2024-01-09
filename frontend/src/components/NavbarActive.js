@@ -6,12 +6,15 @@ import { useSelector } from 'react-redux'
 const NavbarActive = () => {
 
     const token = useSelector((state) => state.AUTH_TOKEN.token)
+    console.log("auth token", token)
     const logout = async () =>{
         await fetch('http://127.0.0.1:8000/api/logout', {
             method: 'POST',
             "Content-Type": "application/json",
             Authorization: `Token ${token}`,
-        })
+        }).then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error))
     }
   return (
     <nav className="navbar navbar-expand-md">
