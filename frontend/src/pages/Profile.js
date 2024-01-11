@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import { Helmet } from 'react-helmet';
 import { HelmetProvider } from 'react-helmet-async'
 
@@ -25,31 +25,8 @@ const Profile = () => {
   
   const [accordionOpen, setAccordioOpen] = useState(false);
   
-  const [accordionStuffs, setAccordionStuffs] = useState({
-    "Header1": "Content1",
-    "Header2": "Content2",
-    "Header3": "Content3",
-    "Header4": "Content4",
-    "Header5": "Content5"
-                                                          })
+  const [accordionStuffs, setAccordionStuffs] = useState({})
 
-
-/*
-const [accordionStuffs, setAccordionStuffs] = useState([
-  {"Header1": "Content1"},
-  {"Header2": "Content2"},
-  {"Header3": "Content3"},
-  {"Header4": "Content4"},
-  {"Header5": "Content5"} ])
-*/
-/*
-const [accordionStuffs, setAccordionStuffs] = useState([
-  {"Header": "Content1",
-  "Header": "Content2",
-  "Header": "Content3",
-  "Header": "Content4",
-  "Header": "Content5"} ])
-*/
   const cookie = useSelector((state) => state.AUTH_TOKEN.token)
   const getUserProfile = async() =>{
     await fetch(profileUrl, {
@@ -148,29 +125,34 @@ const [accordionStuffs, setAccordionStuffs] = useState([
   }
 
   
-useEffect(() => {
-  getUserProfile();
-  if (allBoard_contents.readyState === WebSocket.OPEN){
-    console.log("yyyyyyyyyyyyyyyyy\nyyyyyyyyyyyy\nyyyyyyyyyyyyy")
-    requestAllBoardDetails();
-  }else{
-    allBoard_contents.onopen = (event) => {
-      console.log("Had to open")
-      requestAllBoardDetails();
+  const boardsListMemo = useMemo(() => {
+    allBoard_contents.onmessage = async (event) => {
+      var message = JSON.parse(event.data);
+      console.log(message);
+      setAccordionStuffs(message)
     }
-  }
 
-  return () => {
-    console.log("Cleanup the first useEffect")
-  }
-})
-
-useEffect(() => {
-  console.log("Second useEffect")
+    return allBoard_contents.onmessage;
+  }, [accordionStuffs])
   
-})
+  useEffect(() => {
+    getUserProfile();
+    if (allBoard_contents.readyState === WebSocket.OPEN){
+      requestAllBoardDetails();
+    }else{
+      allBoard_contents.onopen = (event) => {
+        requestAllBoardDetails();
+      }
+    }
+    return () => {
+      console.log("Cleanup the first useEffect")
+    }
+  }, boardsListMemo)
 
-//
+  useEffect(() => {
+    console.log("Second useEffect")
+    
+  })
 
   
   return (
@@ -210,7 +192,7 @@ useEffect(() => {
               <p>Your tasks</p>
               <div className='accordion'>
                 {Object.keys(accordionStuffs).map((accordion_stuff, index) => (
-                  <Accordion key={index} order = {`passed_id${index}`} accordion_header={accordion_stuff} accordion_content={accordionStuffs[accordion_stuff]} />
+                  <Accordion key={index} order = {`passed_id${index}`} accordion_header={accordion_stuff} accordion_content={Object.entries(accordionStuffs[accordion_stuff])} accordion_tasks = {Object.values(accordionStuffs[accordion_stuff])} />
                 ))}
 
               </div>

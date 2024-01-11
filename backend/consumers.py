@@ -72,29 +72,46 @@ class AllBoardListDetails(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         user_token = text_data_json["user"]
-        print("DDDDDDDDDDDDDDDD", text_data_json)
         
         all_boards_contents = await self.get_all_boards_details(user_token)
-        #print(all_boards_contents)
-        
+        print(all_boards_contents)
+        await self.send(text_data = json.dumps(all_boards_contents))
         
     @database_sync_to_async
     def get_all_boards_details(self, token):
         self.user = AuthToken.objects.get(token_key=token[:8]).user
         all_boards= Board.objects.filter(board_owner=self.user).all()
+        all_BoardListDetails = {}
         for board in range(len(all_boards)):
+            boardListDetails = {}
+            allCardDetailsList = {}
             all_cards = Card.objects.filter(card_parent=all_boards[board]).all()
             #if (len(all_cards) != 0):
             for card in range(len(all_cards)):
                 all_tasks = Task.objects.filter(task_parent=all_cards[card]).all()
-                
+                taskLists = []
                 for task in range(len(all_tasks)):
-                    print ({
+                    if ( (all_tasks[task] != []) or (all_tasks[task] != "") or (all_tasks[task] != None) ):
+                        taskLists.append(all_tasks[task].task_name)
+                    
+                cardDetailsList = {all_cards[card].card_name: taskLists}
+                allCardDetailsList = {**allCardDetailsList, **cardDetailsList}
+                
+                #print("Task",all_cards[card],taskLists)
+                """
+                print ({
                     all_boards[board]: {
-                        all_cards[card]: all_tasks[task]
+                        all_cards[card]: taskLists
                     }
                 })
-                
+                """
+            allCardDetailsList = {**allCardDetailsList}
+            boardListDetails = {all_boards[board].board_name : allCardDetailsList}
+            all_BoardListDetails = {**all_BoardListDetails, **boardListDetails}
+            
+        all_BoardListDetails = {**all_BoardListDetails}
+        return all_BoardListDetails
+            
         
 
 class BoardListWS(AsyncWebsocketConsumer):
@@ -107,17 +124,14 @@ class BoardListWS(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         user_token = text_data_json["user"]
-        if text_data_json["all_boards_details"]:
-            pass
         
-        else:
-            try:
-                boards = await self.list_boards(user_token)
-                boards_listdict = {"boards_data":boards}
-                await self.send(text_data=json.dumps(boards_listdict))
-                
-            except:
-                pass
+        try:
+            boards = await self.list_boards(user_token)
+            boards_listdict = {"boards_data":boards}
+            await self.send(text_data=json.dumps(boards_listdict))
+            
+        except:
+            pass
             
     @database_sync_to_async
     def list_boards(self, token):

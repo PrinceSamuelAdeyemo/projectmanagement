@@ -121,6 +121,10 @@
     display: block;
     
   }
+
+  .list-type-none{
+    list-style-type: none;
+  }
   
   @media screen and (min-width: 414px) {
     .accordion-section {
