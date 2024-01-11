@@ -62,6 +62,41 @@ class Data(WebsocketConsumer):
         })) 
         """
     
+class AllBoardListDetails(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
+        
+    async def disconnect(self, close_data):
+        await self.close()
+        
+    async def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        user_token = text_data_json["user"]
+        print("DDDDDDDDDDDDDDDD", text_data_json)
+        
+        all_boards_contents = await self.get_all_boards_details(user_token)
+        #print(all_boards_contents)
+        
+        
+    @database_sync_to_async
+    def get_all_boards_details(self, token):
+        self.user = AuthToken.objects.get(token_key=token[:8]).user
+        all_boards= Board.objects.filter(board_owner=self.user).all()
+        for board in range(len(all_boards)):
+            all_cards = Card.objects.filter(card_parent=all_boards[board]).all()
+            #if (len(all_cards) != 0):
+            for card in range(len(all_cards)):
+                all_tasks = Task.objects.filter(task_parent=all_cards[card]).all()
+                
+                for task in range(len(all_tasks)):
+                    print ({
+                    all_boards[board]: {
+                        all_cards[card]: all_tasks[task]
+                    }
+                })
+                
+        
+
 class BoardListWS(AsyncWebsocketConsumer):
     async def connect(self):
         print(self.scope["url_route"]["kwargs"])
@@ -72,13 +107,17 @@ class BoardListWS(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         user_token = text_data_json["user"]
-        try:
-            boards = await self.list_boards(user_token)
-            boards_listdict = {"boards_data":boards}
-            await self.send(text_data=json.dumps(boards_listdict))
-            
-        except:
+        if text_data_json["all_boards_details"]:
             pass
+        
+        else:
+            try:
+                boards = await self.list_boards(user_token)
+                boards_listdict = {"boards_data":boards}
+                await self.send(text_data=json.dumps(boards_listdict))
+                
+            except:
+                pass
             
     @database_sync_to_async
     def list_boards(self, token):

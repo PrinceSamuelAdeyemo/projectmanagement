@@ -46,32 +46,36 @@
     z-index: 1;
 }
 
+/*
 .accordion{
     display: flex;
     flex-direction: column;
     width: 100%;
+    cursor: pointer;
 }
 
+
 .accordion-section .accordion-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 2rem;
+    padding: 0.5rem;
+    background-color: #ddd; 
 }
 
 .accordion-section .accordion-header p:first-of-type{
-    display: inline;
+    margin: 0;
 }
 .accordion-section .accordion-header span i{
+    transition: transform 0.3s;
     float: right;
     padding-right: 1rem;
 }
 
-.accordion-section .accordion-content{
-    display: flex;
-    height: 0;
-    overflow: hidden;
-}
-
-.accordion-open{
-    display: flex;
+.accordion-content{
+    display: none;
+    padding: 0.5rem;
 }
 
 @media screen and (min-width:414px) {
@@ -80,3 +84,47 @@
         margin-inline: 5rem;
     }
 }
+*/
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .accordion-section .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2rem;
+    padding: 0.5rem;
+    background-color: #ddd; /* Add a background color for better visibility */
+  }
+  
+  .accordion-section .accordion-header p {
+    margin: 0; /* Remove default margin */
+  }
+  
+  .accordion-section .accordion-header span i {
+    transition: transform 0.3s; /* Add a smooth transition for the icon */
+  }
+  
+  .accordion-section.active .accordion-header span i {
+    transform: rotate(45deg); /* Rotate the icon when section is active */
+  }
+  
+  .accordion-content {
+    padding: 0.5rem;
+  }
+  .accordion-content-open{
+    display: block;
+    
+  }
+  
+  @media screen and (min-width: 414px) {
+    .accordion-section {
+      margin-inline: 5rem;
+    }
+  }
+  

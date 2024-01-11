@@ -29,6 +29,7 @@ const Boards = () => {
     const boardData = useMemo(() => {
         boardlist_socket.onmessage = async (event) => {
             let board_data = await JSON.parse(event.data).boards_data
+            console.log(board_data)
             setBoards(board_data)            
         }
         //return boardlist_socket
@@ -40,6 +41,7 @@ const Boards = () => {
             let board_request = JSON.stringify({"user": `${getUserToken}`})
             boardlist_socket.send(board_request)
         }
+
         
     }, [boardData])
 
