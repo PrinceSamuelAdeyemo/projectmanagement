@@ -13,9 +13,9 @@ const TaskAccordion_Profile = (props) => {
   return (
     <div className='accordion-section'>
       <section className='accordion-content' style={task_display_profile}>
-        <ul>
+        <ul className='text-start'>
               {Object.keys(cardaccordion_contents).map((task, index) => 
-              <li key={index} className='list-type-none bg-info' >{cardaccordion_contents[task]}
+              <li key={index} className='list-type-none text-start bg-info' >{cardaccordion_contents[task]}
               </li>
               )}
               

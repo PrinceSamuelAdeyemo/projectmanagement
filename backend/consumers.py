@@ -74,7 +74,6 @@ class AllBoardListDetails(AsyncWebsocketConsumer):
         user_token = text_data_json["user"]
         
         all_boards_contents = await self.get_all_boards_details(user_token)
-        print(all_boards_contents)
         await self.send(text_data = json.dumps(all_boards_contents))
         
     @database_sync_to_async
@@ -97,14 +96,6 @@ class AllBoardListDetails(AsyncWebsocketConsumer):
                 cardDetailsList = {all_cards[card].card_name: taskLists}
                 allCardDetailsList = {**allCardDetailsList, **cardDetailsList}
                 
-                #print("Task",all_cards[card],taskLists)
-                """
-                print ({
-                    all_boards[board]: {
-                        all_cards[card]: taskLists
-                    }
-                })
-                """
             allCardDetailsList = {**allCardDetailsList}
             boardListDetails = {all_boards[board].board_name : allCardDetailsList}
             all_BoardListDetails = {**all_BoardListDetails, **boardListDetails}

@@ -1,3 +1,6 @@
+body{
+  position: relative;
+}
 .container-fluid > .profile-page-container{
     min-height: 90vh;
     background-color: white;
@@ -36,12 +39,12 @@
     
 }
 
-.profile-page-container #profile-img{
+#profile-img{
     height: 10rem;
     width: 10rem;
     position: absolute;
     border-radius: 50%;
-    top: 40%;
+    top: 60%;
     left: 10%;
     z-index: 1;
 }
@@ -93,42 +96,63 @@
     cursor: pointer;
   }
   
-  .accordion-section .accordion-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 2rem;
-    padding: 0.5rem;
-    background-color: #ddd; /* Add a background color for better visibility */
-  }
+.accordion-section .accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2rem;
+  padding: 0.5rem;
+  background-color: #ddd; /* Add a background color for better visibility */
+}
+
+.accordion-section .accordion-header p {
+  margin: 0; /* Remove default margin */
+}
+
+.accordion-section .accordion-header span i {
+  transition: transform 0.3s; /* Add a smooth transition for the icon */
+}
+
+.accordion-section.active .accordion-header span i {
+  transform: rotate(45deg); /* Rotate the icon when section is active */
+}
+
+.accordion-content {
+  padding: 0.5rem;
+}
+.accordion-content-open{
+  display: block;
   
-  .accordion-section .accordion-header p {
-    margin: 0; /* Remove default margin */
+}
+
+.list-type-none{
+  list-style-type: none;
+}
+
+@media screen and (min-width: 414px) {
+  .accordion-section {
+    margin-inline: 5rem;
   }
-  
-  .accordion-section .accordion-header span i {
-    transition: transform 0.3s; /* Add a smooth transition for the icon */
-  }
-  
-  .accordion-section.active .accordion-header span i {
-    transform: rotate(45deg); /* Rotate the icon when section is active */
-  }
-  
-  .accordion-content {
-    padding: 0.5rem;
-  }
-  .accordion-content-open{
-    display: block;
+}
+
+@media screen and (max-width: 730px){
+  #profile-img{
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1;
     
   }
 
-  .list-type-none{
-    list-style-type: none;
+  .profile-name-id{
+    margin-top: 5rem;
+    height: 35%;   
+    text-align: center;
+    justify-content: center; 
   }
-  
-  @media screen and (min-width: 414px) {
-    .accordion-section {
-      margin-inline: 5rem;
-    }
-  }
-  
+}

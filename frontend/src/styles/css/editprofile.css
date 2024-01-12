@@ -1,9 +1,11 @@
-.editprofile-container{
+body .editprofile-container{
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    z-index: 2;
 }
 
 .editprofile-container .editprofile-form{

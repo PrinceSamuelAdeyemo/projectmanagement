@@ -5,6 +5,7 @@ const CardAccordion_Profile = (props) => {
     var index = props.index
     var card_name = props.card_name
     var card_sorter = props.card_sorter
+    var emptyFunction = emptyFunction;
 
     var [cardaccordionStatus, setCardaccordionStatus] = useState(false);
     
@@ -22,9 +23,9 @@ const CardAccordion_Profile = (props) => {
   }
   return (
     <>
-        <li key={index} className='list-type-none bg-white' onClick={() => toggleTaskAccordion()}>
+        <li key={index} className='list-type-none bg-white text-start' onClick={(card_sorter[card_name].length !== 0) ? () => toggleTaskAccordion(): emptyFunction}>
                 {card_name}
-                <span><i className={change_cardaccordion_icon.class}  style={{"float": "right", "margin-right": "4rem"}}></i></span>
+                {(card_sorter[card_name].length !== 0) ? <span><i className={change_cardaccordion_icon.class}  style={{"float": "right", "marginRight": "4rem"}}></i></span> : <></> }
                 <TaskAccordion_Profile cardaccordion_contents = {card_sorter[card_name]} cardaccordionStatus={cardaccordionStatus} />
          </li>
     </>

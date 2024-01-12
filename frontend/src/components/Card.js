@@ -116,8 +116,11 @@ const Card = (props) => {
             {Object.keys(card_tasks[card_id]).map((taskID) => (
                 <Task key={taskID} cardID={card_id} taskID={taskID} taskName={card_tasks[card_id][taskID]} updateCardTasks={updateCardTasks} /> 
             ))}
-            <p id='tt'></p>
-            <h1>hihj</h1>
+            {
+                /* <p id='tt'></p>
+            <h1>hihj</h1>*/
+            }
+            
             <div className='eachCard_addTask p-1'>
             <button className='addTask' onClick={(event) => {addBoardTask(event, card_id)}}>+ Add Task</button>
             </div>

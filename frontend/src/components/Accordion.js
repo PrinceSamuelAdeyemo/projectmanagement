@@ -19,6 +19,7 @@ const Accordion = (props) => {
   }
 
 
+
   const change_accordion_icon = {
     class: accordionStatus ? "fa fa-minus" : "fa fa-plus"
   }
@@ -37,17 +38,21 @@ const Accordion = (props) => {
     }
   }
 
+  var emptyFunction = () => {
+
+  }
 
   return (
-    <div className='accordion-section'>
-      <header className='accordion-header' id={`passed_id${order}`} onClick={() => toggleAccordion()}>
+    <div className='accordion-section mb-1'>
+      <header className='accordion-header' id={`passed_id${order}`} onClick={ (Object.keys(card_and_tasks).length !== 0) ? () => toggleAccordion(): emptyFunction}>
         <p>{accordion_header}</p>
-        <span><i className={change_accordion_icon.class} style={change_accordion_icon}></i></span>
+        {(Object.keys(card_and_tasks).length !== 0) ? <span><i className={change_accordion_icon.class}></i></span>: <></> }
+        
       </header>
       <section className='accordion-content' style={card_display_profile}>
         <ul>
         {Object.keys(card_and_tasks).map((card_name, index) => 
-          <CardAccordion_Profile key={index} index={index} card_sorter={card_and_tasks} card_name={card_name} />
+          <CardAccordion_Profile key={index} index={index} card_sorter={card_and_tasks} card_name={card_name} emptyFunction={emptyFunction} />
         ) }
         </ul>
         
