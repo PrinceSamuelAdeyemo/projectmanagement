@@ -191,36 +191,39 @@ const Homepage = () => {
   return (
     <HelmetProvider>
         <Helmet>
-            <meta charset="UTF-8" />
-            <meta name="author" content="Samuel Adeyemo" />
-            <meta name="application-name" content="My todo app" />
-            <meta name="description" content="A simple to do app" />
-            <meta name="keywords" content="todo, app, Simple, task management program" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <head>
+                <meta charset="UTF-8" />
+                <meta name="author" content="Samuel Adeyemo" />
+                <meta name="application-name" content="My todo app" />
+                <meta name="description" content="A simple to do app" />
+                <meta name="keywords" content="todo, app, Simple, task management program" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-            
-            
-            <script src="../customjs/js/todoapp.js" type='text/jsx'></script>
-            <script src="../customjs/js/signup.js" type='text/jsx'></script>
-            <script src="../customjs/js/login.js" type='text/jsx'></script>
-            
-            <link rel="stylesheet" href="css/todoapp.css" />
-            <link rel="stylesheet" href="css/login.css" />
-            <link rel="stylesheet" href="css/homepage.css" />
+                
+                
+                <script src="../customjs/js/todoapp.js" type='text/jsx'></script>
+                <script src="../customjs/js/signup.js" type='text/jsx'></script>
+                <script src="../customjs/js/login.js" type='text/jsx'></script>
+                
+                <link rel="stylesheet" href="css/todoapp.css" />
+                <link rel="stylesheet" href="css/login.css" />
+                <link rel="stylesheet" href="css/homepage.css" />
 
-            
-            {/*
-            <script defer src="../styles/css/Jquery/jquery.js"></script>
-            <script src="{% static 'assets/css/bootstrap/js/bootstrap.bundle.js' %}"></script>
-            
-            <script src="{% static 'assets/js/jquery.js'%} "></script>
-            <script src="{% static 'assets/js/navbar-login.js'%} "></script>
-            <script src="{% static 'assets/js/login.js'%} "></script>
-            */}
+                
+                {/*
+                <script defer src="../styles/css/Jquery/jquery.js"></script>
+                <script src="{% static 'assets/css/bootstrap/js/bootstrap.bundle.js' %}"></script>
+                
+                <script src="{% static 'assets/js/jquery.js'%} "></script>
+                <script src="{% static 'assets/js/navbar-login.js'%} "></script>
+                <script src="{% static 'assets/js/login.js'%} "></script>
+                */}
 
+                
+                
+                <title></title>
+            </head>
             
-            
-            <title></title>
         </Helmet>
 
         <div>
