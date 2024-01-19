@@ -67,6 +67,8 @@ body{
 
 .form-panel-outputdiv{
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     background-color: inherit;
 }
@@ -76,7 +78,6 @@ body{
     width: 70%;
     background-color: inherit;
 }
-
 
 .btn-for-white{
     background-color: white;
@@ -267,4 +268,21 @@ body{
 #create-a-board{
     display: flex;
     float: right;
+}
+
+
+@media screen and (max-width: 720px) {
+    .board-panel-output{
+        flex-direction: column;
+        width: 100%;
+        background-color: inherit;
+    }
+
+    .project-status{
+        flex-direction: column;
+        width: 100%;
+        background-color: white;
+        position: relative;
+    }
+    
 }

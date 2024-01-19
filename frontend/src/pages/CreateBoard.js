@@ -95,12 +95,28 @@ const CreateBoard = () => {
         var previousStatus = status;
 
         setStatus(statustype.toLowerCase())
-        var statusValue = document.getElementById('progress-status');
-        statusValue.textContent = statustype;
-        statusValue.classList.remove(`btn-${previousStatus.toLowerCase()}`);
-        statusValue.classList.add(`btn-${statustype.toLowerCase()}`);
+        //var statusValue = document.getElementById('progress-status');
+        //statusValue.textContent = statustype;
+        //statusValue.classList.remove(`btn-${previousStatus.toLowerCase()}`);
+        //statusValue.classList.add(`btn-${statustype.toLowerCase()}`);
         
     };
+
+    var statusStyling = {
+        color: "red",
+        "backgroundColor": ((status) => {
+                if (status === "notyetstarted"){
+                    return "grey"
+                }else if (status === "inprogress"){
+                    return "rgb(255, 217, 0)"
+                }else if (status === "completed"){
+                    return "green"
+                }
+        }),
+        opacity: "0.8",
+        width: "100%"
+    }
+    console.log(statusStyling['backgroundColor'])
 
     var changeBoardPriority = (event, priority_type) => {
         var previousPriority = priority;
@@ -216,8 +232,6 @@ const CreateBoard = () => {
 
                     <div className="project-status p-3">
                         <div className="project-status_subdiv">
-                            
-
                             <div className="mt-3">
                                 <p>ATTRIBUTES</p>
                             </div>
@@ -228,7 +242,9 @@ const CreateBoard = () => {
                                         <td>Status</td>
                                         <td>
                                             <div className="dropdown">
-                                                <button type="button" className="btn btn-notyetstarted dropdown-toggle progress-status" data-bs-toggle="dropdown" id="progress-status" onClick={(event) => changeBoardStatus(event, status)}><span><i className="bi bi-stop-circle-fill me-2"></i></span>Not yet started</button>
+                                                {/*<!-- When this button is clicked, it renders a dropdown which should change both the text and color of the dropdown button -->*/}
+                                                {/* <button type="button" className="btn btn-notyetstarted dropdown-toggle progress-status" data-bs-toggle="dropdown" id="progress-status" onClick={(event) => changeBoardStatus(event, status)} ><span><i className="bi bi-stop-circle-fill me-2"></i></span>{status}</button> */}
+                                                <button type="button" style={statusStyling} className="btn dropdown-toggle progress-status" data-bs-toggle="dropdown" id="progress-status" onClick={(event) => changeBoardStatus(event, status)} ><span><i className="bi bi-stop-circle-fill me-2"></i></span>{status}</button>
                                                 <ul className="dropdown-menu" aria-labelledby="progress-status">
                                                     <li role="presentation" className="w-100">
                                                         <button type="button" className="btn btn-notyetstarted" onClick={ (event) => changeBoardStatus(event, 'notyetstarted')}><span><i className="bi bi-stop-circle-fill me-2"></i></span>Not yet started</button>     {/*<!--<a href="" role="menu-item" className="dropdown-item w-100">Hello</a>--> */}
@@ -288,7 +304,6 @@ const CreateBoard = () => {
                                 </table>
                                 <button type="button" className="btn">+ Add Attribute</button>
                             </div>
-                            
 
                             <div className="cancelOrCreated">
                                 <button type="reset" className="bg-danger">Cancel</button>
@@ -298,10 +313,7 @@ const CreateBoard = () => {
                         
                     </div>
 
-                    
-
                     <div className="clear py-5">
-
                     </div>
 
                 </div>

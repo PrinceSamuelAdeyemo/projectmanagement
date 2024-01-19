@@ -161,7 +161,7 @@ var launchcreateproject = () => {
         fetch('http:127.0.0.1:8000/api/get_loginstatus')
         .then(response => response.json())
         .then(data => {
-            if ( data.someProperty == "is_authenticated"){
+            if ( data.someProperty === "is_authenticated"){
                 return <Dashboard />
             }
         })
@@ -181,7 +181,7 @@ const Homepage = () => {
     
 
     var navbar;
-    if (is_authenticated == true){
+    if (is_authenticated === true){
         navbar = <NavbarActive />
     }
     else{
@@ -191,6 +191,7 @@ const Homepage = () => {
   return (
     <HelmetProvider>
         <Helmet>
+            {`
             <head>
                 <meta charset="UTF-8" />
                 <meta name="author" content="Samuel Adeyemo" />
@@ -223,7 +224,7 @@ const Homepage = () => {
                 
                 <title></title>
             </head>
-            
+            `}
         </Helmet>
 
         <div>
