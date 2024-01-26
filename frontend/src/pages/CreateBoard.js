@@ -105,7 +105,7 @@ const CreateBoard = () => {
     var statusStyling = {
         color: "red",
         "backgroundColor": ((status) => {
-                if (status === "notyetstarted"){
+                if (status == "notyetstarted"){
                     return "grey"
                 }else if (status === "inprogress"){
                     return "rgb(255, 217, 0)"
