@@ -58,7 +58,7 @@ const CreateBoard = () => {
     
     const createboard = async (event) => {
       //event.preventDefault();
-      if (boardName != ''){
+      if (boardName !== ''){
         await fetch('http://127.0.0.1:8000/api/createboard', {
             method: 'POST',
             headers: {
@@ -92,7 +92,7 @@ const CreateBoard = () => {
     //console.log(tasks)
 
     var changeBoardStatus = (event, statustype) => {
-        var previousStatus = status;
+        //var previousStatus = status;
 
         setStatus(statustype.toLowerCase())
         //var statusValue = document.getElementById('progress-status');
@@ -105,7 +105,7 @@ const CreateBoard = () => {
     var statusStyling = {
         color: "red",
         "backgroundColor": ((status) => {
-                if (status == "notyetstarted"){
+                if (status === "notyetstarted"){
                     return "grey"
                 }else if (status === "inprogress"){
                     return "rgb(255, 217, 0)"
@@ -147,7 +147,7 @@ const CreateBoard = () => {
 
                         <div className="row m-3">
                             <div className="col col-md-7">
-                                { boardName != '' ?
+                                { boardName !== '' ?
                                     <p className="d-inline"><span className="fw-bold" id="project-name-topleft">/{boardName}</span></p>
                                     :
                                     <p className="d-inline"><span className="fw-bold" id="project-name-topleft">/Create a board</span></p>
@@ -296,6 +296,13 @@ const CreateBoard = () => {
                                                     <p>Hello, this div is supposed to give calendar object</p>
                                                 </div>
                                             </button>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Board Color</td>
+                                        <td>
+                                            <button type="button" className="btn whitebtn-border calendar-date"  onClick={changeBoardDueDate}>Red</button>
                                             
                                         </td>
                                     </tr>

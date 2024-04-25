@@ -14,6 +14,7 @@ let host = 'ws://127.0.0.1:8000/ws'
 
 const BoardInfo = () => {
   const board_socket = new WebSocket(`${host}/board/boardID`);
+  const card_socket = new WebSocket(`${host}/card/cardID`);
 
   const [boardName, setBoardName] = useState('');
   const [boardDescription, setBoardDescription] = useState('');
@@ -22,23 +23,30 @@ const BoardInfo = () => {
   
   const [boardCardAssignedto, setBoardCardAssignedto] = useState([]);
   const [tempcardTask, settempCardTask] = useState('');
-
+  const[tempVar, SetTempVar] = useState("")
   const [tempcardName, settempCardName] = useState('');
 
   const [taskName, SetTaskName] = useState('');
   const [taskDescription, SetTaskDescription] = useState('')
+  const [taskUpdate, SetTaskUpdate] = useState(false);
   const [card_id, SetCard_id] = useState('')
   const { boardID } = useParams();
 
   const requestBoardCards = () => {
     board_socket.onopen = (event) => {
-    console.log("Connection established")
-    board_socket.send(JSON.stringify(
-      {
-        "title": "boardID",
-        "boardID": `${boardID}`,
-        }));
-    }
+      //if (board_socket.readyState){
+        console.log("board info Connection established")
+        board_socket.send(JSON.stringify(
+          {
+            "title": "boardID",
+            "boardID": `${boardID}`,
+            }));
+      }
+      //else{
+        //alert("NO")
+      //}
+    
+    //}
   }
 
   const addBoardTask = async (event, card_id) => {
@@ -57,10 +65,13 @@ const BoardInfo = () => {
   }
 
   var createTask = async (event) => {
+    const card_socket = new WebSocket(`${host}/card/cardID`);
     event.preventDefault()
     console.log("updated")
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
+    SetTempVar(tempTaskName.value)
+    
     board_socket.send(JSON.stringify(
         {
             "title": "add_new_task",
@@ -71,8 +82,26 @@ const BoardInfo = () => {
         }));
     SetCard_id(card_id)
     requestBoardCards(boardID);
-    
+    SetTaskUpdate(true)
     closeTaskEdit();
+    console.log("fupdated sent")
+    if (card_socket.readyState === WebSocket.OPEN){
+        card_socket.send(JSON.stringify(
+        {
+          "title": "cardID",
+          "cardID": `${card_id}`,
+          }));
+    }
+    else{
+      card_socket.onopen = (event) => {
+        card_socket.send(JSON.stringify(
+          {
+            "title": "cardID",
+            "cardID": `${card_id}`,
+            }));
+      }
+    }
+    
     //requestBoardCards(boardID);
     /*
     if (Number(event.target.value) !== 0){
@@ -133,17 +162,26 @@ const BoardInfo = () => {
 
   const board_data = useMemo(() =>{
     board_socket.onmessage = async (event) => {
-      console.log("Received")
+      //SetTaskUpdate(false)
+      console.log("CardTasksBegins")
       let message = await JSON.parse(event.data);
       var all_card_tasks = message.all_card_tasks
       setBoardName(message.board_name);
       setBoardDescription(message.board_description);
       setBoardCards(message.card_details)
+      console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",all_card_tasks)
       setCardTasks(all_card_tasks)
+      console.log("AAAAAB",all_card_tasks)
       console.log(message.card_details)
       
       return board_socket.onmessage
     }
+
+    card_socket.onmessage = async (event) => {
+      console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+    }
+
+    
   }, [cardTasks])
 
 const [me, setMe] = useState([])
@@ -158,6 +196,7 @@ const [me, setMe] = useState([])
   }
   */
   useEffect(() => {
+    
     console.log("SAAAAAAAAAAAAAAAAAAAAAAAAAAM")
     console.log("parents", card_id)
     console.log("parents", taskName)
@@ -165,8 +204,17 @@ const [me, setMe] = useState([])
     window.scrollTo(0,0)
     //board_socket.onopen = async (event) => {
     requestBoardCards(boardID);
-  }, [board_data]);
+    //SetTaskUpdate(false)
+  }, [board_data, card_socket.onmessage]);
 
+
+  useEffect(() => {
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+    card_socket.onmessage = () => {
+      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+    }
+  }, [card_socket.onmessage])
+  
   /*
   const updateCardTasks = (newTask) => {
     setCardTasks((newTask) => ({...cardTasks, newTask}))
@@ -294,6 +342,43 @@ const [me, setMe] = useState([])
     navigate(-1);
   }
 
+  var myopen = () => {
+    if (card_socket.readyState === WebSocket.CLOSED || card_socket.readyState === WebSocket.CLOSED){
+      card_socket.onopen = () => {
+        card_socket.send(JSON.stringify(
+          {
+            "title": "cardID",
+            "cardID": "ba5a86ec-e718-4d8f-b107-7bdb9e64d73b",
+            }));
+      }
+      console.log("Sent after reopening.")
+    }
+    else{
+      card_socket.onopen = () => {
+        card_socket.send(JSON.stringify(
+          {
+            "title": "cardID",
+            "cardID": "ba5a86ec-e718-4d8f-b107-7bdb9e64d73b",
+            }));
+      }
+      console.log("Sent without closing")
+    }
+    
+   
+  }
+  var senddd = () => {
+    try {
+      myopen()
+      var sendcard = fetch((""), {
+
+      })
+    } catch{
+      console.log("Card socket not sending at all.")
+    }
+  }
+  
+
+
   return (
     <HelmetProvider>
         <Helmet>
@@ -319,6 +404,7 @@ const [me, setMe] = useState([])
                 <button className='btn d-inline' onClick={previousPage}><span className='pe-2'><i className="fa fa-angle-left"></i></span></button>
                 <h2 className='d-inline'>{boardName}</h2>
               </div>
+              <button onClick={senddd}>Click me, Please</button>
               <div className='editaddTask' id='editaddTask'>
                 
                 <div className='task-container' id='task-container'>
@@ -368,7 +454,7 @@ const [me, setMe] = useState([])
 
                 { //cardTasks &&
                   Object.keys(boardCards).map((card) => (
-                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} boardId = {boardID} board_data={board_data} tasks = {retrieveCardTasks(card)} save_tasks = {createTask} addBoardTask = {addBoardTask} requestBoardCards = {requestBoardCards} saveCard={saveCard} updateCard={updateCard} />
+                    <Card key = {card} cardID = {card} cardName = {boardCards[card]} boardId = {boardID} board_data={board_data} tasks = {retrieveCardTasks(card)} save_tasks = {createTask} addBoardTask = {addBoardTask} requestBoardCards = {requestBoardCards} saveCard={saveCard} updateCard={updateCard} tempo = {tempVar} taskUpdate={taskUpdate} />
                   ))
                 }
 

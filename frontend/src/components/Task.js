@@ -4,6 +4,7 @@ import '../styles/css/board.css'
 const Task = (props) => {
     var card_id = props.cardID;
     var task_id = props.taskID;
+    var task_update = props.taskUpdate;
     var task_name = props.taskName;
     const editBoardTask = (event) => {
         document.body.style.overflow = "hidden"
@@ -28,8 +29,8 @@ const Task = (props) => {
         }
 
       useEffect(() => {
-
-      }, [props])
+        
+      }, [])
 
     /*
     window.addEventListener('scroll', () => {

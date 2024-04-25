@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Task from './Task';
 import '../styles/css/board.css'
@@ -25,6 +25,7 @@ const Card = (props) => {
     var requestBoardCards = props.requestBoardCards
     var saveCard = props.saveCard
     var updateCard = props.updateCard;
+    var taskUpdate = props.taskUpdate
 
     const getUserToken = useSelector((state) => state.AUTH_TOKEN.token)
 
@@ -36,15 +37,17 @@ const Card = (props) => {
     const card_data = useMemo(() => {
         var all_card_tasks = {}
         card_socket.onmessage = async (event) => {
+            console.log("ABCDEF")
             console.log("Received for the cards")
             var card_tasks = await JSON.parse(event.data)
-            console.log(card_tasks)
+            setCardTasks
+            console.log("hhhhhhhh",card_tasks)
             var all_card_task = {card_tasks}
             console.log("The stuffs", all_card_task)
             //setCardTasks(all_card_tasks)
             //setCardTasks((card_tasks) => ({...all_card_tasks, ...card_tasks}) )
             //setCardTasks(card_tasks)
-            document.getElementById("tt").textContent ="fuf" //document.getElementById("tempTaskName").value //"allCardTasks.card_tasks"
+            //document.getElementById("tt").textContent ="fuf" //document.getElementById("tempTaskName").value //"allCardTasks.card_tasks"
             return card_socket.onmessage
         }
     }, [cardTasks])
@@ -55,7 +58,16 @@ const Card = (props) => {
         console.log("Done requesting for the card details")
 
         requestCardInfo();
-        return card_socket.onmessage;
+
+        /*
+        card_socket.onmessage = (event) => {
+            console.log("ABCDEF2")
+            var dd = JSON.parse(event.data)
+            setCardTasks(dd)
+            console.log(cardTasks)
+            
+        }*/
+        //return card_socket.onmessage;
     }, [card_data])
     //card_socket.addEventListener("message", console.log("at last"))
     
@@ -67,9 +79,11 @@ const Card = (props) => {
         //console.log(cardNameInput.value)
     }
     */
+   
     const requestCardInfo = () =>{
         card_socket.onopen = (event) => {
             console.log("Card Connection established")
+            console.log("ABCDEF3")
             card_socket.send(JSON.stringify(
               {
                 "title": "cardID",
@@ -102,29 +116,39 @@ const Card = (props) => {
 
       }
       */
-
+/*
+    var addBoardTask = (event, card_id) => {
+        requestCardInfo()
+        alert("GGG")
+        console.log("HHH", card_id)
+        //card_data()
+        
+    }
+    */
   return (
     <div className='col-md-3 p-2'>
+
         
         <div className='p-1 eachboard'>
-        <div className='eachboardsubdiv' id='eachboardsubdiv'>
-            <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' defaultValue={card_name} onBlur={updateCard} />
-            <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
-        </div>
-        <div className='boardTasks' id='boardTasks'>
-            
-            {Object.keys(card_tasks[card_id]).map((taskID) => (
-                <Task key={taskID} cardID={card_id} taskID={taskID} taskName={card_tasks[card_id][taskID]} updateCardTasks={updateCardTasks} /> 
-            ))}
-            {
-                /* <p id='tt'></p>
-            <h1>hihj</h1>*/
-            }
-            
-            <div className='eachCard_addTask p-1'>
-            <button className='addTask' onClick={(event) => {addBoardTask(event, card_id)}}>+ Add Task</button>
+            <div className='eachboardsubdiv' id='eachboardsubdiv'>
+                <input className='cardNameInput' id='cardNameInput' type='text' placeholder='+ Add a card' defaultValue={card_name} onBlur={updateCard} />
+                <button className='deleteCard'><span><i className='fa fa-xmark'></i></span></button>
             </div>
-        </div>
+        
+            <div className='boardTasks' id='boardTasks'>
+                
+                {Object.keys(cardTasks).map((taskID) => (
+                    <Task tempo = {props.tempo} key={taskID} cardID={card_id} taskID={taskID} taskName={card_tasks[card_id][taskID]} updateCardTasks={updateCardTasks} taskUpdate={taskUpdate} /> 
+                ))}
+                {
+                    /* <p id='tt'></p>
+                <h1>hihj</h1>*/
+                }
+                
+                <div className='eachCard_addTask p-1'>
+                <button className='addTask' onClick={(event) => {addBoardTask(event, card_id)}}>+ Add Task</button>
+                </div>
+            </div>
         
         </div>
     </div>

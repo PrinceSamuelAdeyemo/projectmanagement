@@ -171,8 +171,10 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                     card_detailslist = {"card_details": card_details}
                     
                     message = {**board_details, **card_detailslist, **all_card_taskslist}
+                    print("ZZZZZZZZZZZZZZZZZZZ",message)
                     print("Preparing to send")
                     await self.send(text_data=json.dumps(message))
+                    
                     
                 else:
                     message = {"me": "you"}
@@ -403,6 +405,7 @@ class CardInfoWS(AsyncWebsocketConsumer):
         await self.close()
         
     async def receive(self, text_data):
+        print("CARD supposed to be here")
         text_data_json = json.loads(text_data)
         card_id = text_data_json['cardID']
         print("cardInfo received")
