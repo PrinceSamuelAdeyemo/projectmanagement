@@ -4,10 +4,13 @@ import { useSelector } from 'react-redux';
 import Task from './Task';
 import '../styles/css/board.css'
 
+import WebsocketSettings from './WebsocketSettings';
+
 let host = 'ws://127.0.0.1:8000/ws'
 const Card = (props) => {
     //const board_socket = new WebSocket(`${host}/board/boardID`);
     const card_socket = new WebSocket(`${host}/card/cardID`);
+    //const card_socket = WebsocketSettings(`${host}/card/cardID`);
     const [cardTasks, setCardTasks] = useState({});
     
     const [allCardTasks, SetAllCardTasks] = useState({})
@@ -40,7 +43,7 @@ const Card = (props) => {
             console.log("ABCDEF")
             console.log("Received for the cards")
             var card_tasks = await JSON.parse(event.data)
-            setCardTasks
+            //setCardTasks
             console.log("hhhhhhhh",card_tasks)
             var all_card_task = {card_tasks}
             console.log("The stuffs", all_card_task)
@@ -57,7 +60,7 @@ const Card = (props) => {
         //requestBoardCards(board_id);
         console.log("Done requesting for the card details")
 
-        requestCardInfo();
+        //requestCardInfo();
 
         /*
         card_socket.onmessage = (event) => {
@@ -79,19 +82,32 @@ const Card = (props) => {
         //console.log(cardNameInput.value)
     }
     */
-   
+   /*
     const requestCardInfo = () =>{
-        card_socket.onopen = (event) => {
-            console.log("Card Connection established")
-            console.log("ABCDEF3")
-            card_socket.send(JSON.stringify(
-              {
-                "title": "cardID",
-                "cardID": `${card_id}`,
-                }));
-          }
+        if (card_socket.readyState === WebSocket.CLOSED || card_socket.readyState === WebSocket.CLOSING){
+            card_socket.onopen = (event) => {
+                console.log("Card Connection established")
+                console.log("ABCDEF3")
+                card_socket.send(JSON.stringify(
+                  {
+                    "title": "cardID",
+                    "cardID": `${card_id}`,
+                    }));
+              }
+        }
+        else{
+            card_socket.onopen = (event) => {
+                console.log("Card Connection established")
+                console.log("ABCDEF3")
+                card_socket.send(JSON.stringify(
+                  {
+                    "title": "cardID",
+                    "cardID": `${card_id}`,
+                    }));
+              }
+        }
     }
-    
+    */
     console.log("The usestate stuff ",cardTasks)
 
     var previousPage = () => {

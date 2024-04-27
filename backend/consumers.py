@@ -254,6 +254,7 @@ class BoardInfoWS(AsyncWebsocketConsumer):
                         card_detailslist = {"card_details": card_details}
                         
                         message = {**board_details, **card_detailslist, **all_card_taskslist}
+                        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", message)
                         print(message)
                         await self.send(text_data=json.dumps(message))
                         
@@ -409,6 +410,7 @@ class CardInfoWS(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         card_id = text_data_json['cardID']
         print("cardInfo received")
+        print(card_id, "has been received")
         
         """
         Get the tasks under the boards since the card details (card_id) will be sent one after the order

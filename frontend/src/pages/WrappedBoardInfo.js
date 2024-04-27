@@ -6,6 +6,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import RequireAuthentication from '../components/RequireAuthentication';
 
+import WebsocketSettings from '../components/WebsocketSettings';
+
 // Styling
 import '../styles/css/board.css'
 import NavbarAnonymous from '../components/NavbarAnonymous';
@@ -15,6 +17,8 @@ let host = 'ws://127.0.0.1:8000/ws'
 const BoardInfo = () => {
   const board_socket = new WebSocket(`${host}/board/boardID`);
   const card_socket = new WebSocket(`${host}/card/cardID`);
+  //const board_socket = WebsocketSettings(`${host}/board/boardID`)
+  //const card_socket = WebsocketSettings(`${host}/card/cardID`)
 
   const [boardName, setBoardName] = useState('');
   const [boardDescription, setBoardDescription] = useState('');
@@ -161,6 +165,7 @@ const BoardInfo = () => {
   }
 
   const board_data = useMemo(() =>{
+    if (!board_socket) return;
     board_socket.onmessage = async (event) => {
       //SetTaskUpdate(false)
       console.log("CardTasksBegins")
@@ -177,10 +182,11 @@ const BoardInfo = () => {
       return board_socket.onmessage
     }
 
-    card_socket.onmessage = async (event) => {
-      console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+    card_socket.onmessage = (event) => {
+      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
     }
-
+    
+    
     
   }, [cardTasks])
 
@@ -205,15 +211,14 @@ const [me, setMe] = useState([])
     //board_socket.onopen = async (event) => {
     requestBoardCards(boardID);
     //SetTaskUpdate(false)
-  }, [board_data, card_socket.onmessage]);
+  }, [board_data]);
 
 
   useEffect(() => {
+    if (!card_socket) return ;
     console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-    card_socket.onmessage = () => {
-      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-    }
-  }, [card_socket.onmessage])
+    
+  }, [card_socket])
   
   /*
   const updateCardTasks = (newTask) => {
@@ -354,6 +359,7 @@ const [me, setMe] = useState([])
       console.log("Sent after reopening.")
     }
     else{
+      console.log("About to send without closing the connection")
       card_socket.onopen = () => {
         card_socket.send(JSON.stringify(
           {
