@@ -42,7 +42,7 @@ const Card = (props) => {
         card_socket.onmessage = async (event) => {
             console.log("ABCDEF")
             console.log("Received for the cards")
-            var card_tasks = await JSON.parse(event.data)
+            //var card_tasks = await JSON.parse(event.data)
             //setCardTasks
             console.log("hhhhhhhh",card_tasks)
             var all_card_task = {card_tasks}
@@ -56,9 +56,9 @@ const Card = (props) => {
     }, [cardTasks])
     
      useEffect(() => {
-        console.log(card_name, "CARD IS RENDERED")
+        //console.log(card_name, "CARD IS RENDERED")
         //requestBoardCards(board_id);
-        console.log("Done requesting for the card details")
+        //console.log("Done requesting for the card details")
 
         //requestCardInfo();
 
@@ -141,6 +141,8 @@ const Card = (props) => {
         
     }
     */
+
+    //console.log("From card", card_tasks[card_id])
   return (
     <div className='col-md-3 p-2'>
 
@@ -153,9 +155,9 @@ const Card = (props) => {
         
             <div className='boardTasks' id='boardTasks'>
                 
-                {Object.keys(cardTasks).map((taskID) => (
+                {card_tasks[card_id].map()? Object.keys(card_tasks[card_id]).map((taskID) => (
                     <Task tempo = {props.tempo} key={taskID} cardID={card_id} taskID={taskID} taskName={card_tasks[card_id][taskID]} updateCardTasks={updateCardTasks} taskUpdate={taskUpdate} /> 
-                ))}
+                )): null}
                 {
                     /* <p id='tt'></p>
                 <h1>hihj</h1>*/

@@ -6,6 +6,8 @@ const Task = (props) => {
     var task_id = props.taskID;
     var task_update = props.taskUpdate;
     var task_name = props.taskName;
+    console.log("The task name", task_name)
+    console.log("The Task name 2", props.taskName)
     const editBoardTask = (event) => {
         document.body.style.overflow = "hidden"
         var editaddTask = document.getElementById("editaddTask");
@@ -28,10 +30,11 @@ const Task = (props) => {
         alert("Hello, World")
         }
 
+      /*
       useEffect(() => {
         
       }, [])
-
+      */
     /*
     window.addEventListener('scroll', () => {
       const neweditTask = document.getElementById("editaddTask")

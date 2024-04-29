@@ -150,8 +150,9 @@ class BoardInfoWS(AsyncWebsocketConsumer):
     
     async def receive(self, text_data):
         
-        text_data_json = json.loads(text_data)
         print("Received the data just now\n")
+        text_data_json = json.loads(text_data)
+        print(text_data_json)
         messagetitle = text_data_json['title']
         
         if (messagetitle == "boardID"):
@@ -401,9 +402,11 @@ class BoardInfoWS(AsyncWebsocketConsumer):
 class CardInfoWS(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
+        print("Card connected")
         
     async def disconnect(self, close_code):
         await self.close()
+        print("Card connection has been closed.")
         
     async def receive(self, text_data):
         print("CARD supposed to be here")

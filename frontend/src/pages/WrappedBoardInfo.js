@@ -64,18 +64,32 @@ const BoardInfo = () => {
     document.body.style.overflow = "hidden"
     addTask.style.top = `${scrollPosition}px`
     addTask.style.display = "block";
-    
+    console.log("This is the card id clicked",card_id)
     SetCard_id(card_id)
   }
 
   var createTask = async (event) => {
-    const card_socket = new WebSocket(`${host}/card/cardID`);
+    //const card_socket = new WebSocket(`${host}/card/cardID`);
     event.preventDefault()
     console.log("updated")
     var tempTaskName = document.getElementById("tempTaskName");
     var tempTaskDescription = document.getElementById("tempTaskDescription");
     SetTempVar(tempTaskName.value)
+    board_socket.send(JSON.stringify(
+      {
+          "title": "add_new_task",
+          "task_name": tempTaskName.value,
+          "task_description": tempTaskDescription.value,
+          "task_parent": card_id,
+          "board_id": boardID
+      }));
+    senddd();
+    requestBoardCards(boardID);
+    SetTaskUpdate(true)
+    closeTaskEdit();
+    console.log("fupdated sent")
     
+    /*
     board_socket.send(JSON.stringify(
         {
             "title": "add_new_task",
@@ -89,6 +103,7 @@ const BoardInfo = () => {
     SetTaskUpdate(true)
     closeTaskEdit();
     console.log("fupdated sent")
+
     if (card_socket.readyState === WebSocket.OPEN){
         card_socket.send(JSON.stringify(
         {
@@ -105,7 +120,7 @@ const BoardInfo = () => {
             }));
       }
     }
-    
+    */
     //requestBoardCards(boardID);
     /*
     if (Number(event.target.value) !== 0){
@@ -165,7 +180,7 @@ const BoardInfo = () => {
   }
 
   const board_data = useMemo(() =>{
-    if (!board_socket) return;
+    //if (!board_socket) return;
     board_socket.onmessage = async (event) => {
       //SetTaskUpdate(false)
       console.log("CardTasksBegins")
@@ -181,14 +196,30 @@ const BoardInfo = () => {
       
       return board_socket.onmessage
     }
-
+    
+    
     card_socket.onmessage = (event) => {
-      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+      console.log("First BBBBBBBBBBBBBBBBBBBBBBBBBB")
+      var newTask = JSON.parse(event.data)
+      console.log("new task", newTask)
+      setCardTasks((newTask) => ({...cardTasks, newTask}))
+      //var aa = {...cardTasks, ...ee}
+      //setCardTasks(aa)
+      //console.log("card tasks",cardTasks)
     }
     
     
-    
-  }, [cardTasks])
+  }, [cardTasks, card_socket.onmessage])
+
+  card_socket.onmessage = (event) => {
+    console.log("Second BBBBBBBBBBBBBBBBBBBBBBBBBB")
+    var newTask = JSON.parse(event.data)
+    console.log("new task", newTask)
+    setCardTasks((newTask) => ({...cardTasks, newTask}))
+    //var aa = {...cardTasks, ...ee}
+    //setCardTasks(aa)
+    //console.log("card tasks",cardTasks)
+  }
 
 const [me, setMe] = useState([])
   
@@ -348,36 +379,44 @@ const [me, setMe] = useState([])
   }
 
   var myopen = () => {
-    if (card_socket.readyState === WebSocket.CLOSED || card_socket.readyState === WebSocket.CLOSED){
-      card_socket.onopen = () => {
-        card_socket.send(JSON.stringify(
+    if (card_socket.readyState === WebSocket.CLOSING || card_socket.readyState === WebSocket.CLOSED){
+      card_socket.onopen = (event) => {
+        if (card_socket.send(JSON.stringify(
           {
             "title": "cardID",
             "cardID": "ba5a86ec-e718-4d8f-b107-7bdb9e64d73b",
-            }));
+            }))){console.log("SENT")}
+        console.log("Sent after reopening.")
       }
-      console.log("Sent after reopening.")
+      
     }
     else{
       console.log("About to send without closing the connection")
-      card_socket.onopen = () => {
-        card_socket.send(JSON.stringify(
+      board_socket.onopen = (event) => {
+        if (board_socket.send(JSON.stringify(
           {
             "title": "cardID",
             "cardID": "ba5a86ec-e718-4d8f-b107-7bdb9e64d73b",
-            }));
+            }))){console.log("FF")}
+        console.log("Sent without closing")
       }
-      console.log("Sent without closing")
+      
     }
     
    
   }
   var senddd = () => {
+    console.log("LOL", cardTasks)
     try {
-      myopen()
-      var sendcard = fetch((""), {
-
-      })
+      console.log("This is the card id clicked 2", card_id);
+      card_socket.send(JSON.stringify(
+        {
+          "title": "cardID",
+          //"cardID": `${card_}`
+          "cardID": card_id,
+          }))
+      //myopen()
+      
     } catch{
       console.log("Card socket not sending at all.")
     }
