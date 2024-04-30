@@ -83,9 +83,9 @@ const BoardInfo = () => {
           "task_parent": card_id,
           "board_id": boardID
       }));
-    senddd();
+    //senddd();
     requestBoardCards(boardID);
-    SetTaskUpdate(true)
+    //SetTaskUpdate(true)
     closeTaskEdit();
     console.log("fupdated sent")
     
@@ -202,15 +202,16 @@ const BoardInfo = () => {
       console.log("First BBBBBBBBBBBBBBBBBBBBBBBBBB")
       var newTask = JSON.parse(event.data)
       console.log("new task", newTask)
-      setCardTasks((newTask) => ({...cardTasks, newTask}))
+      setCardTasks((cardTasks) => ({...cardTasks, newTask}))
       //var aa = {...cardTasks, ...ee}
       //setCardTasks(aa)
       //console.log("card tasks",cardTasks)
+      return card_socket.onmessage
     }
     
     
-  }, [cardTasks, card_socket.onmessage])
-
+  }, [card_socket.onmessage,cardTasks])
+/*
   card_socket.onmessage = (event) => {
     console.log("Second BBBBBBBBBBBBBBBBBBBBBBBBBB")
     var newTask = JSON.parse(event.data)
@@ -220,7 +221,7 @@ const BoardInfo = () => {
     //setCardTasks(aa)
     //console.log("card tasks",cardTasks)
   }
-
+*/
 const [me, setMe] = useState([])
   
   /*
@@ -233,7 +234,33 @@ const [me, setMe] = useState([])
   }
   */
   useEffect(() => {
+    board_socket.onmessage = async (event) => {
+      //SetTaskUpdate(false)
+      console.log("CardTasksBegins")
+      let message = await JSON.parse(event.data);
+      var all_card_tasks = message.all_card_tasks
+      setBoardName(message.board_name);
+      setBoardDescription(message.board_description);
+      setBoardCards(message.card_details)
+      console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",all_card_tasks)
+      setCardTasks(all_card_tasks)
+      console.log("AAAAAB",all_card_tasks)
+      console.log(message.card_details)
+      
+      return board_socket.onmessage
+    }
     
+    
+    card_socket.onmessage = (event) => {
+      console.log("First BBBBBBBBBBBBBBBBBBBBBBBBBB")
+      var newTask = JSON.parse(event.data)
+      console.log("new task", newTask)
+      setCardTasks((cardTasks) => ({...cardTasks, newTask}))
+      //var aa = {...cardTasks, ...ee}
+      //setCardTasks(aa)
+      //console.log("card tasks",cardTasks)
+      return card_socket.onmessage
+    }
     console.log("SAAAAAAAAAAAAAAAAAAAAAAAAAAM")
     console.log("parents", card_id)
     console.log("parents", taskName)
@@ -242,14 +269,22 @@ const [me, setMe] = useState([])
     //board_socket.onopen = async (event) => {
     requestBoardCards(boardID);
     //SetTaskUpdate(false)
-  }, [board_data]);
+  }, [card_socket.onmessage, board_socket.onmessage]);
 
 
   useEffect(() => {
     if (!card_socket) return ;
     console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-    
-  }, [card_socket])
+    card_socket.onmessage = (event) => {
+      console.log("Third BBBBBBBBBBBBBBBBBBBBBBBBBB")
+      var newTask = JSON.parse(event.data)
+      console.log("new task", newTask)
+      //setCardTasks((cardTasks) => ({...cardTasks, newTask}))
+      //var aa = {...cardTasks, ...ee}
+      //setCardTasks(aa)
+      //console.log("card tasks",cardTasks)
+    }
+  }, [card_socket.onmessage])
   
   /*
   const updateCardTasks = (newTask) => {
@@ -287,6 +322,9 @@ const [me, setMe] = useState([])
         var card_tasks = {[card_id]: cardTasks[card_id]}
   
         return card_tasks
+      }
+      else{
+        return null
       }
     //}
     
